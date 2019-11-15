@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stores.mapper.StoreInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.stores.entity.StoreInfo">
+    <id column="storeid" jdbcType="VARCHAR" property="storeid" />
+    <result column="shorename" jdbcType="VARCHAR" property="shorename" />
+    <result column="regulatorid" jdbcType="VARCHAR" property="regulatorid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    storeid, shorename, regulatorid
+  </sql>
+  <select id="selectByExample" parameterType="cn.stores.entity.StoreInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from store
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from store
+    where storeid = #{storeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from store
+    where storeid = #{storeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.stores.entity.StoreInfo">
+    insert into store (storeid, shorename, regulatorid
+      )
+    values (#{storeid,jdbcType=VARCHAR}, #{shorename,jdbcType=VARCHAR}, #{regulatorid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.stores.entity.StoreInfo">
+    insert into store
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="storeid != null">
+        storeid,
+      </if>
+      <if test="shorename != null">
+        shorename,
+      </if>
+      <if test="regulatorid != null">
+        regulatorid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="storeid != null">
+        #{storeid,jdbcType=VARCHAR},
+      </if>
+      <if test="shorename != null">
+        #{shorename,jdbcType=VARCHAR},
+      </if>
+      <if test="regulatorid != null">
+        #{regulatorid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.stores.entity.StoreInfo">
+    update store
+    <set>
+      <if test="shorename != null">
+        shorename = #{shorename,jdbcType=VARCHAR},
+      </if>
+      <if test="regulatorid != null">
+        regulatorid = #{regulatorid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where storeid = #{storeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.stores.entity.StoreInfo">
+    update store
+    set shorename = #{shorename,jdbcType=VARCHAR},
+      regulatorid = #{regulatorid,jdbcType=VARCHAR}
+    where storeid = #{storeid,jdbcType=VARCHAR}
+  </update>
+</mapper>

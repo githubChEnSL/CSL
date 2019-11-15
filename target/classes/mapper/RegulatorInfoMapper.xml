@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stores.mapper.RegulatorInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.stores.entity.RegulatorInfo">
+    <id column="regulatorid" jdbcType="VARCHAR" property="regulatorid" />
+    <result column="regulatorname" jdbcType="VARCHAR" property="regulatorname" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="regulator_role_id" jdbcType="VARCHAR" property="regulator_role_id" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    regulatorid, regulatorname, password, regulator_role_id
+  </sql>
+  <select id="selectByExample" parameterType="cn.stores.entity.RegulatorInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from regulator
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from regulator
+    where regulatorid = #{regulatorid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from regulator
+    where regulatorid = #{regulatorid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.stores.entity.RegulatorInfo">
+    insert into regulator (regulatorid, regulatorname, password, 
+      regulator_role_id)
+    values (#{regulatorid,jdbcType=VARCHAR}, #{regulatorname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{regulator_role_id,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.stores.entity.RegulatorInfo">
+    insert into regulator
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="regulatorid != null">
+        regulatorid,
+      </if>
+      <if test="regulatorname != null">
+        regulatorname,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="regulator_role_id != null">
+        regulator_role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="regulatorid != null">
+        #{regulatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="regulatorname != null">
+        #{regulatorname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="regulator_role_id != null">
+        #{regulator_role_id,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.stores.entity.RegulatorInfo">
+    update regulator
+    <set>
+      <if test="regulatorname != null">
+        regulatorname = #{regulatorname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="regulator_role_id != null">
+        regulator_role_id = #{regulator_role_id,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where regulatorid = #{regulatorid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.stores.entity.RegulatorInfo">
+    update regulator
+    set regulatorname = #{regulatorname,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      regulator_role_id = #{regulator_role_id,jdbcType=VARCHAR}
+    where regulatorid = #{regulatorid,jdbcType=VARCHAR}
+  </update>
+</mapper>
