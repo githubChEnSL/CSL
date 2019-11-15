@@ -9,4 +9,35 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+   <!-- 登陆验证-->
+   <servlet>
+      <servlet-name>LoginServlet</servlet-name>
+      <servlet-class>Servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>LoginServlet</servlet-name>
+      <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  <!-- 简单身份验证 -->
+  <filter>
+      <filter-name>AuthenticationFilter</filter-name>
+      <filter-class>Filter.AuthenticationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+      <filter-name>AuthenticationFilter</filter-name>
+      <url-pattern>/index.jsp</url-pattern>
+  </filter-mapping>
+  <!-- 设置字符编码 -->
+   <filter>
+      <filter-name>CharacterEncodingFilter</filter-name>
+      <filter-class>Filter.CharacterEncodingFilter</filter-class>
+      <init-param>
+		<param-name>encoding</param-name>
+		<param-value>utf-8</param-value>
+	</init-param>
+  </filter>
+   <filter-mapping>
+      <filter-name>CharacterEncodingFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>
