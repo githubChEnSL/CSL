@@ -11,7 +11,7 @@ import entity.user;
 
 public class DatabaseUser extends Database{
 
-	DatabaseUser(){
+	public DatabaseUser(){
 		super();
 	}
 	/**根据用户员角色编号获取用户角色名称*/
