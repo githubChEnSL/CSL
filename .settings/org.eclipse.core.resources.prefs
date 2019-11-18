@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/lib=UTF-8
+encoding//WebContent/css/mainPage.css=UTF-8
 encoding//src/Servlet/LoginServlet.java=UTF-8
+encoding//src/Tag/LoginUser.java=UTF-8
+encoding//src/Tag/Tips.java=UTF-8

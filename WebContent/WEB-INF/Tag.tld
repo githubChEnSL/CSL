@@ -15,4 +15,9 @@
     <tag-class>Tag.LoginUser</tag-class>
     <body-content>scriptless</body-content>
   </tag>
+  <tag>
+  	<name>Tips</name>
+  	<tag-class>Tag.Tips</tag-class>
+  	<body-content>scriptless</body-content>
+  </tag>
 </taglib>

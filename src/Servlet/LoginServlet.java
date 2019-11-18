@@ -28,15 +28,19 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("userName");
 		String password = request.getParameter("password");
+		String LoginMsg="";
 		if(RegulatorController.RegulatorLogin(name, password)) {
-			System.out.println("登陆请求----登陆成功");
-			   request.getSession().setAttribute("name", name);
+				System.out.println("登陆请求----登陆成功");
+				request.getSession().setAttribute("name", name);
+				request.getSession().setAttribute("LoginMsg", LoginMsg);
 				response.sendRedirect("index.jsp");
-				//request.getRequestDispatcher("index.jsp").forward(request, response);
+//				request.getRequestDispatcher("index.jsp").forward(request, response);
 		}else {
-			System.out.println("登陆请求----登陆失败");
-			   response.sendRedirect("error.jsp");
-			   request.getSession().setAttribute("error", "账号或密码错误，点击返回登陆");
+				System.out.println("登陆请求----登陆失败");
+				LoginMsg="账号或密码错误";
+				request.getSession().setAttribute("LoginMsg",LoginMsg);
+				 //response.sendRedirect("login.jsp");
+				request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}

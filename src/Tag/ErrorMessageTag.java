@@ -18,22 +18,22 @@ public class ErrorMessageTag extends SimpleTagSupport{
 			if(name==null) {
 				if(error!=null) {
 					try {
-						out.println("ÕËºÅ»òÃÜÂë´íÎó£¬Çëµã»÷·µ»ØµÇÂ½");
+						out.println("<p style='color:red;'>"+error+"</p>");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}else {
+					;
+				}
+			}else {
+				if(error!=null) {
 					try {
-						out.println("µÇÂ½×´Ì¬Òì³££¬Çëµã»÷·µ»ØµÇÂ½");
+						out.println("<p style='color:red;'>"+error+"</p>");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-				}
-			}else {
-				try {
-					out.println("Î´Öª´íÎó£¬Çëµã»÷·µ»ØµÇÂ½");
-				} catch (IOException e) {
-					e.printStackTrace();
+				}else {
+					;
 				}
 			}
 			
