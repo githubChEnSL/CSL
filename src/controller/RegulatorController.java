@@ -3,7 +3,7 @@ package controller;
 import entity.regulator;
 import jdbc.DatabaseRegulator;
 
-public class RegulatorController extends DatabaseRegulator{
+public class RegulatorController{
 	//π‹¿Ì‘±µ«¬Ω
 	public static boolean RegulatorLogin(String RegulatorName,String Password) {
 		boolean flag=false;
