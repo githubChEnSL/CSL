@@ -82,10 +82,13 @@ public class TestDataBase {
 			System.out.println("根据用户员角色编号获取用户角色名称");
 			System.out.println(Database.GetUserRoleName("1"));
 			System.out.println();
+			/**根据用户员角色名称获取用户角色编号*/
+			System.out.println("根据用户员角色名称获取用户角色编号");
+			System.out.println(Database.GetUserRoleId("高级会员"));
+			System.out.println();
 			/**添加用户信息*/
 			System.out.println("添加用户信息");
 			user addobject=new user();
-			addobject.setUserId("1720562005");
 			addobject.setUserName("千晚");
 			addobject.setRoleId("1");
 			Database.insertUser(addobject);
@@ -102,7 +105,7 @@ public class TestDataBase {
 			/**修改用户信息*/
 			System.out.println("修改用户信息");
 			user updateUser=new user();
-			updateUser.setUserId("1720562005");
+			updateUser.setUserId("172056237");
 			updateUser.setUserName("千晚");
 			updateUser.setPassword("520-96");
 			updateUser.setRoleId("1");
@@ -110,12 +113,20 @@ public class TestDataBase {
 			System.out.println();
 			/**通过用户编号获取用户信息*/
 			System.out.println("通过用户编号获取用户信息");
-			user getuser=Database.getUserForId("1720562005");
+			user getuser=Database.getUserForId("172056236");
 			System.out.println(" ID:"+getuser.getUserId()+" Name:"+getuser.getUserName()+" Password:"+getuser.getPassword()+" RegulatorRoleId:"+getuser.getRoleId());
+			System.out.println();
+			/**通过用户名称获取用户id*/
+			System.out.println("通过用户编号获取用户信息");
+			System.out.println(Database.getUserIdForName("小杨"));
 			System.out.println();
 			/**删除用户信息*/
 			System.out.println("删除用户信息");
 			Database.deleteUser("1720562005");
+			System.out.println();
+			/**获取最大客户编号*/
+			System.out.println("获取最大客户编号");
+			System.out.println(Database.GetMaxId());
 			System.out.println();
 			Database.CloseDatabase();
 		} catch (Exception e) {

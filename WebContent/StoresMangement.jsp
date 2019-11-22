@@ -18,7 +18,7 @@
 	})
 	//刷新操作
 	function refresh() {
-		$("#userList").html("");
+		$("#StoresList").html("");
 		var data = {
 			action : "all"
 		}
@@ -32,7 +32,7 @@
 					success : function(data) {
 						//获取后台商店信息 
 						var stores = data.rows;
-						$("#userList")
+						$("#StoresList")
 								.append(
 										"<tr><td>门店编号</td><td>门店名称</td><td>门店管理员</td><td>操作</td></tr>");
 						$
@@ -41,7 +41,7 @@
 										function(key, value) {
 											var row = JSON
 													.stringify(stores[key]);
-											$("#userList")
+											$("#StoresList")
 													.append(
 															"<tr><td>"
 																	+ stores[key].StoreNum
@@ -217,7 +217,7 @@
 
 			<div class="row" style="margin-top: 15px">
 				<div class="col-md-12" align="center">
-					<table id="userList" style="text-align: center;"
+					<table id="StoresList" style="text-align: center;"
 						class="table table-striped"></table>
 				</div>
 			</div>

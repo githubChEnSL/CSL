@@ -36,18 +36,18 @@ public class RegulatorController extends HttpServlet {
 		String RegulatorName = request.getParameter("regulatorName");
 		// 获取前台传来的RegulatorRoleName
 		String RegulatorRoleName = request.getParameter("RegulatorRoleName");
-		// 获取所有的门店信息
-		List<Map<String, Object>> storeData = new ArrayList<Map<String, Object>>();
+		// 获取所有的管理员信息
+		List<Map<String, Object>> RegulatorData = new ArrayList<Map<String, Object>>();
 		// 获取前台传来的RegulatorId
 		String RegulatorId = request.getParameter("RegulatorId");
 		// 定义与数据库交互的对象
-		DatabaseRegulator ReguRegulatorData = new DatabaseRegulator();
+		DatabaseRegulator RegulatorDatabase = new DatabaseRegulator();
 		// 保存提示信息
 		String msgString = "";
 		// 判断登陆者的身份
 		HttpSession session = request.getSession();
 		regulator loginRegulator = new regulator();
-		loginRegulator = ReguRegulatorData.GetRegulatorForId(session.getAttribute("name").toString());
+		loginRegulator = RegulatorDatabase.GetRegulatorForId(session.getAttribute("name").toString());
 		String RoleId = loginRegulator.getRegulatorRoleId();
 		if ("add".equals(action)) {
 			System.out.println("RegulatorName:" + RegulatorName + " RegulatorRoleName:" + RegulatorRoleName
@@ -56,21 +56,21 @@ public class RegulatorController extends HttpServlet {
 			regulator addobject = new regulator();
 			try {
 				// 判断添加的名称是否有重复
-				if ("".equals(ReguRegulatorData.GetIdForName(RegulatorName))) {
+				if ("".equals(RegulatorDatabase.GetIdForName(RegulatorName))) {
 					// 没有重复（可以添加）
 					// 判断登陆者的权限
 					if (RoleId.equals("1")) {
 						// 超级管理员可以随意添加
 						addobject.setRegulatorName(RegulatorName);
-						addobject.setRegulatorRoleId(ReguRegulatorData.GetRegulatorRoleId(RegulatorRoleName));
-						ReguRegulatorData.insertRegulator(addobject);
+						addobject.setRegulatorRoleId(RegulatorDatabase.GetRegulatorRoleId(RegulatorRoleName));
+						RegulatorDatabase.insertRegulator(addobject);
 						msgString = "添加成功";
 					} else if (RoleId.equals("2")) {
 						// 管理员（店长）只能添加普通员工
-						if (ReguRegulatorData.GetRegulatorRoleId(RegulatorRoleName).equals("3")) {
+						if (RegulatorDatabase.GetRegulatorRoleId(RegulatorRoleName).equals("3")) {
 							addobject.setRegulatorName(RegulatorName);
-							addobject.setRegulatorRoleId(ReguRegulatorData.GetRegulatorRoleId(RegulatorRoleName));
-							ReguRegulatorData.insertRegulator(addobject);
+							addobject.setRegulatorRoleId(RegulatorDatabase.GetRegulatorRoleId(RegulatorRoleName));
+							RegulatorDatabase.insertRegulator(addobject);
 							msgString = "添加成功";
 						} else {
 							msgString = "添加失败，您没有权限添加";
@@ -88,7 +88,7 @@ public class RegulatorController extends HttpServlet {
 			}
 		} else if ("delete".equals(action)) {
 			System.out.println("RegulatorId:" + RegulatorId + "  action:" + action);
-			if (ReguRegulatorData.deleteRegulator(RegulatorId)) {
+			if (RegulatorDatabase.deleteRegulator(RegulatorId)) {
 				msgString = "删除成功";
 			} else {
 				msgString = "删除失败";
@@ -97,7 +97,7 @@ public class RegulatorController extends HttpServlet {
 			System.out.println("RegulatorId:" + RegulatorId + " RegulatorName:" + RegulatorName + " RegulatorRoleName:"
 					+ RegulatorRoleName + "  action:" + action);
 			// 由ID获取原来的门店信息
-			regulator oldRegulator=ReguRegulatorData.GetRegulatorForId(RegulatorId);
+			regulator oldRegulator=RegulatorDatabase.GetRegulatorForId(RegulatorId);
 			//封装修改信息
 			regulator newRegulator=new regulator();
 			//写入ID
@@ -110,19 +110,19 @@ public class RegulatorController extends HttpServlet {
 				//写入旧密码
 				newRegulator.setPassword(oldRegulator.getPassword());
 				//写入角色编号
-				newRegulator.setRegulatorRoleId(ReguRegulatorData.GetRegulatorRoleId(RegulatorRoleName));
-				ReguRegulatorData.updateRegulator(newRegulator);
+				newRegulator.setRegulatorRoleId(RegulatorDatabase.GetRegulatorRoleId(RegulatorRoleName));
+				RegulatorDatabase.updateRegulator(newRegulator);
 				msgString="修改成功";
 			}else if(RoleId.equals("2")) {
 				//只能修改员工信息
-				if(ReguRegulatorData.GetRegulatorRoleId(RegulatorRoleName).equals("3")) {
+				if(RegulatorDatabase.GetRegulatorRoleId(RegulatorRoleName).equals("3")) {
 					//写入名称
 					newRegulator.setRegulatorName(RegulatorName);
 					//写入旧密码
 					newRegulator.setPassword(oldRegulator.getPassword());
 					//写入角色编号
-					newRegulator.setRegulatorRoleId(ReguRegulatorData.GetRegulatorRoleId(RegulatorRoleName));
-					ReguRegulatorData.updateRegulator(newRegulator);
+					newRegulator.setRegulatorRoleId(RegulatorDatabase.GetRegulatorRoleId(RegulatorRoleName));
+					RegulatorDatabase.updateRegulator(newRegulator);
 					msgString="修改成功";
 				}else {
 					msgString="修改失败，您没有权限";
@@ -137,14 +137,14 @@ public class RegulatorController extends HttpServlet {
 			if (RoleId.equals("1")) {
 				System.err.println("超级管理员");
 				// 获取管理员
-				List<regulator> list1 = ReguRegulatorData.ListRegulator();
+				List<regulator> list1 = RegulatorDatabase.ListRegulator();
 				// 获取普通员工
-				List<regulator> list2 = ReguRegulatorData.listOrdinaryRegulators();
+				List<regulator> list2 = RegulatorDatabase.listOrdinaryRegulators();
 				listregulator.addAll(list1);
 				listregulator.addAll(list2);
 			} else if (RoleId.equals("2")) {
 				System.err.println("管理员");
-				listregulator = ReguRegulatorData.listOrdinaryRegulators();
+				listregulator = RegulatorDatabase.listOrdinaryRegulators();
 			} else {
 				;
 			}
@@ -154,16 +154,16 @@ public class RegulatorController extends HttpServlet {
 					regulator entity = listregulator.get(i);
 					row.put("RegulatorNum", entity.getRegulatorId());
 					row.put("RegulatorName", entity.getRegulatorName());
-					row.put("RegulatorRole", ReguRegulatorData.GetRegulatorRoleName(entity.getRegulatorRoleId()));
-					storeData.add(row);
+					row.put("RegulatorRole", RegulatorDatabase.GetRegulatorRoleName(entity.getRegulatorRoleId()));
+					RegulatorData.add(row);
 				}
 			} else {
-				storeData = null;
+				RegulatorData = null;
 			}
 		}
 		/** 封装返回前端的Map */
 		Map<String, Object> preparedata = new HashMap<String, Object>();
-		preparedata.put("rows", storeData);// 数据
+		preparedata.put("rows", RegulatorData);// 数据
 		preparedata.put("msg", msgString);// 提示信息
 		// 将map转为json
 		JSONObject data = new JSONObject(preparedata);
@@ -171,7 +171,7 @@ public class RegulatorController extends HttpServlet {
 		out.print(data);
 		out.flush();
 		out.close();
-		ReguRegulatorData.CloseDatabase();
+		RegulatorDatabase.CloseDatabase();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

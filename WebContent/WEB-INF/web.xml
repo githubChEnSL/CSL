@@ -70,4 +70,13 @@
         <servlet-name>RegulatorMangement</servlet-name>
         <url-pattern>/RegulatorMangement</url-pattern>
     </servlet-mapping>
+    <!-- 会员管理 -->
+    <servlet>
+        <servlet-name>UsersMangement</servlet-name>
+        <servlet-class>controller.UserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsersMangement</servlet-name>
+        <url-pattern>/UsersMangement</url-pattern>
+    </servlet-mapping>
 </web-app>

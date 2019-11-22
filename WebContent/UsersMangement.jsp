@@ -4,56 +4,55 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>员工信息管理</title>
+<title>会员信息管理</title>
 </head>
 <script type="text/javascript">
-	var RegulatorId = "";
+	var UserNum = "";
 	$(function() {
 		search();
-		addRegulator(); //添加员工信息框
-		Add();//添加员工信息
-		Delete();//删除员工信息
-		Update();//修改员工信息
+		addUser(); //添加会员信息框
+		Add();//添加会员信息
+		Delete();//删除会员信息
+		Update();//修改会员信息
 		refresh();//刷新列表
 	})
 	//刷新操作
 	function refresh() {
-		$("#RegulatorList").html("");
+		$("#userList").html("");
 		var data = {
 			action : "all"
 		}
-		$
-				.ajax({
-					url : "RegulatorMangement",
+		$.ajax({
+					url : "UsersMangement",
 					type : "post",
 					data : data,
 					dataType : "json",
 					contentType : "application/json",
 					success : function(data) {
-						//获取后台员工信息 
-						var regulators = data.rows;
-						$("#RegulatorList")
+						//获取后台商店信息 
+						var users = data.rows;
+						$("#userList")
 								.append(
-										"<tr><td>员工编号</td><td>员工名称</td><td>员工角色</td><td>操作</td></tr>");
+										"<tr><td>会员编号</td><td>会员名称</td><td>会员等级</td><td>操作</td></tr>");
 						$
 								.each(
-										regulators,
+										users,
 										function(key, value) {
 											var row = JSON
-													.stringify(regulators[key]);
-											$("#RegulatorList")
+													.stringify(users[key]);
+											$("#userList")
 													.append(
 															"<tr><td>"
-																	+ regulators[key].RegulatorNum
+																	+ users[key].UserNum
 																	+ "</td><td>"
-																	+ regulators[key].RegulatorName
+																	+ users[key].UserName
 																	+ "</td><td>"
-																	+ regulators[key].RegulatorRole
-																	+ "</td><td><button class='btn btn-info' onclick='updateRegulator("
+																	+ users[key].UserRoleName
+																	+ "</td><td><button class='btn btn-info' onclick='updateUser("
 																	+ row
 																	+ ")'><span>编辑</span></button>"
 																	+ "  "
-																	+ "<button class='btn btn-danger' onclick='deleteRegulator("
+																	+ "<button class='btn btn-danger' onclick='deleteUser("
 																	+ row
 																	+ ")'><span>删除</span></button></td></tr>");
 										})
@@ -63,58 +62,65 @@
 					}
 				})
 	}
-	//查询员工信息
+	//查询会员信息
 	function search() {
 		$('#search_button').click(function() {
 			refresh();
 		})
 	}
 	//弹出添加框
-	function addRegulator() {
-		$('#add_regulator').click(function() {
+	function addUser() {
+		$('#add_users').click(function() {
 			$('#addModal').modal('show');
 		})
 	}
 	//弹出删除框
-	function deleteRegulator(row) {
+	function deleteUser(row) {
 		$('#deleteModal').modal('show');
-		RegulatorId = row.RegulatorNum;
-		$('#deletemsg').html("是否删除：" + row.RegulatorNum + "?");
+		UserNum = row.UserNum;
+		$('#deletemsg').html("是否删除：" + row.UserName + "?");
 	}
 	//弹出修改框
-	function updateRegulator(row) {
+	function updateUser(row) {
 		$('#updateModal').modal('show');
-		$('#updateRegulatorid').val(row.RegulatorNum);
-		$('#updateRegulatorName').val(row.RegulatorName);
-		$('#updateRegulatorRoleName').val(row.RegulatorRole);
+		$('#updateuserid').val(row.UserNum);
+		$('#updateuserName').val(row.UserName);
+		$('#updateRoleName').val(row.UserRoleName);
 	}
 	//添加操作
 	function Add() {
 		$('#addbut').click(function() {
-			var data = {
-				action : "add",
-				regulatorName : $('#addregulatorName').val(),
-				RegulatorRoleName : $('#addRegulatorRoleName').val()
-			}
-			//请求添加
-			$.ajax({
-				type : "POST",
-				url : "RegulatorMangement",
-				data : data,
-				dataType : "json",
-				async : true,
-				success : function(data) {
-					//刷新列表
-					refresh();
-					$('#addModal').modal('hide');
-					$('#tipsmsg').html(data.msg);
-					$('#TipsModal').modal('show');
-				},
-				error : function(data) {
-					$('#tipsmsg').html("请求错误");
-					$('#TipsModal').modal('show');
+			var add1 = $('#adduserName').val();
+			var add2 = $('#addRoleName').val();
+			if (add1 == "" || add2 == "") {
+				$('#tipsmsg').html("信息不可为空");
+				$('#TipsModal').modal('show');
+			} else {
+				var data = {
+					action : "add",
+					UserName : $('#adduserName').val(),
+					RoleName : $('#addRoleName').val()
 				}
-			})
+				//请求添加
+				$.ajax({
+					type : "POST",
+					url : "UsersMangement",
+					data : data,
+					dataType : "json",
+					async : true,
+					success : function(data) {
+						//刷新列表
+						refresh();
+						$('#addModal').modal('hide');
+						$('#tipsmsg').html(data.msg);
+						$('#TipsModal').modal('show');
+					},
+					error : function(data) {
+						$('#tipsmsg').html("请求错误");
+						$('#TipsModal').modal('show');
+					}
+				})
+			}
 		})
 	}
 	//删除操作
@@ -122,12 +128,12 @@
 		$('#deletebut').click(function() {
 			var data = {
 				action : "delete",
-				RegulatorId : RegulatorId
+				UserNum : UserNum
 			}
 			//请求删除
 			$.ajax({
 				type : "POST",
-				url : "RegulatorMangement",
+				url : "UsersMangement",
 				data : data,
 				async : true,
 				success : function(data) {
@@ -150,15 +156,15 @@
 		$('#updatebut').click(function() {
 			var data = {
 				action : "update",
-				RegulatorId : $('#updateRegulatorid').val(),
-				regulatorName : $('#updateRegulatorName').val(),
-				RegulatorRoleName : $('#updateRegulatorRoleName').val()
+				UserNum : $('#updateuserid').val(),
+				UserName : $('#updateuserName').val(),
+				RoleName : $('#updateRoleName').val()
 			}
 			//请求删除
 			//请求添加
 			$.ajax({
 				type : "POST",
-				url : "RegulatorMangement",
+				url : "UsersMangement",
 				data : data,
 				async : true,
 				success : function(data) {
@@ -168,7 +174,7 @@
 					$('#tipsmsg').html(data.msg);
 					$('#TipsModal').modal('show');
 				},
-				error : function(msg) {
+				error : function(data) {
 					$('#addModal').modal('hide');
 					$('#tipsmsg').html("请求错误");
 					$('#TipsModal').modal('show');
@@ -180,16 +186,15 @@
 <body>
 	<div class="panel panel-default">
 		<ol class="breadcrumb">
-			<li>员工信息管理</li>
+			<li>会员信息管理</li>
 		</ol>
 		<div class="panel-body">
 			<div class="row">
-				<!-- 后期添加权限 -->
-				<!-- 				<div class="col-md-3 col-sm-3"> -->
-				<!-- 					<select name="" id="Store_select" class="form-control "> -->
-				<!-- 						<option value="">所有</option> -->
-				<!-- 					</select> -->
-				<!-- 				</div> -->
+				<div class="col-md-3 col-sm-3">
+					<select name="" id="Store_select" class="form-control ">
+						<option value="">所有</option>
+					</select>
+				</div>
 				<div class="col-md-6 col-sm-6">
 					<div>
 						<div class="col-md-2 col-sm-2">
@@ -202,8 +207,8 @@
 			</div>
 			<div class="row" style="margin-top: 25px">
 				<div class="col-md-5">
-					<button class="btn btn-sm btn-default" id="add_regulator">
-						<span>添加员工</span>
+					<button class="btn btn-sm btn-default" id="add_users">
+						<span>添加会员</span>
 					</button>
 				</div>
 				<div class="col-md-5"></div>
@@ -211,13 +216,13 @@
 
 			<div class="row" style="margin-top: 15px">
 				<div class="col-md-12" align="center">
-					<table id="RegulatorList" style="text-align: center;"
+					<table id="userList" style="text-align: center;"
 						class="table table-striped"></table>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- 模态框（Modal）添加员工 -->
+	<!-- 模态框（Modal）添加会员 -->
 	<div class="modal fade in" id="addModal" tabindex="-1" role="dialog"
 		aria-hidden="">
 		<div class="modal-dialog">
@@ -225,7 +230,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title">添加员工信息</h4>
+					<h4 class="modal-title">添加会员信息</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
@@ -234,38 +239,39 @@
 							<div class="form-horizontal">
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>员工名称：</span>
+										<span>会员名称：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<input type="text" class="form-control" id="addregulatorName"
-											name="addregulatorName" placeholder="员工名称">
+										<input type="text" class="form-control" id="adduserName"
+											name="adduserName" placeholder="门店名称">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>员工角色：</span>
+										<span>会员等级：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<select name="" id="addRegulatorRoleName"
+										<select name="" id="addRoleName"
 											class="form-control ">
-											<option value="超级管理员">超级管理员</option>
-											<option value="管理员">管理员</option>
-											<option value="普通员工">普通员工</option>
+											<option value="至尊会员">至尊会员</option>
+											<option value="超级会员">超级会员</option>
+											<option value="普通会员">普通会员</option>
 										</select>
 									</div>
 								</div>
+
 							</div>
 						</div>
 					</div>
 				</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				<button type="button" id="addbut" class="btn btn-primary">添加</button>
-			</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" id="addbut" class="btn btn-primary">添加</button>
+				</div>
 			</div>
 		</div>
 	</div>
-	<!-- 模态框（Modal）修改员工 -->
+	<!-- 模态框（Modal）修改会员 -->
 	<div class="modal fade in" id="updateModal" tabindex="-1" role="dialog"
 		aria-hidden="">
 		<div class="modal-dialog">
@@ -273,7 +279,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title">修改员工信息</h4>
+					<h4 class="modal-title">修改门店信息</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
@@ -282,35 +288,37 @@
 							<div class="form-horizontal">
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>员工编号：</span>
+										<span>会员编号：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
 										<input type="text" disabled="disabled" class="form-control"
-											id="updateRegulatorid" name="updateRegulatorid" placeholder="员工编号">
+											id="updateuserid" name="updateuserid" placeholder="会员编号">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>员工名称：</span>
+										<span>会员名称：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<input type="text" class="form-control" id="updateRegulatorName"
-											name="updateRegulatorName" placeholder="员工名称">
+										<input type="text" class="form-control" id="updateuserName"
+											name="updateuserName" placeholder="会员名称">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>员工角色：</span>
+										<span>门店店主：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<select name="" id="updateRegulatorRoleName"
+										<select name="" id="updateRoleName"
 											class="form-control ">
-											<option value="超级管理员">超级管理员</option>
-											<option value="管理员">管理员</option>
-											<option value="普通员工">普通员工</option>
+											<option value="至尊会员">至尊会员</option>
+											<option value="超级会员">超级会员</option>
+											<option value="普通会员">普通会员</option>
 										</select>
 									</div>
+									
 								</div>
+
 							</div>
 						</div>
 					</div>
@@ -322,7 +330,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- 模态框（Modal）删除员工 -->
+	<!-- 模态框（Modal）删除会员 -->
 	<div class="modal fade in" id="deleteModal" tabindex="-1" role="dialog"
 		aria-hidden="">
 		<div class="modal-dialog">
@@ -330,10 +338,10 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title">删除员工信息</h4>
+					<h4 class="modal-title">删除会员信息</h4>
 				</div>
 				<div class="modal-body">
-					<h3 id="deletemsg">是否删除该员工？</h3>
+					<h3 id="deletemsg">是否删除该会员？</h3>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

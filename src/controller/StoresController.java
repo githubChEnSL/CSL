@@ -46,8 +46,8 @@ public class StoresController extends HttpServlet {
 		// 获取前台传来的StoreId
 		String StoreId = request.getParameter("StoreId");
 		// 定义与数据库交互的对象
-		DatabaseStore StoreData = new DatabaseStore();
-		DatabaseRegulator RegulatorData = new DatabaseRegulator();
+		DatabaseStore StoreDatabase = new DatabaseStore();
+		DatabaseRegulator RegulatorDatabase = new DatabaseRegulator();
 		// 保存提示信息
 		String msgString = "";
 		if ("add".equals(action)) {
@@ -56,27 +56,27 @@ public class StoresController extends HttpServlet {
 			store addobject = new store();
 			try {
 				// 判断门店名称是否有重复
-				if ("".equals(StoreData.getIdForName(StoreName))) {
+				if ("".equals(StoreDatabase.getIdForName(StoreName))) {
 					// 没有重复（可以添加）
 					// 验证管理员是否已经存在
-					if ("".equals(RegulatorData.GetIdForName(RegulatorName))) {
+					if ("".equals(RegulatorDatabase.GetIdForName(RegulatorName))) {
 						/** 不存在管理员 */
 						// 添加管理员
 						regulator addreglRegulator = new regulator();
 						addreglRegulator.setRegulatorName(RegulatorName);
 						addreglRegulator.setRegulatorRoleId("2");
-						RegulatorData.insertRegulator(addreglRegulator);
+						RegulatorDatabase.insertRegulator(addreglRegulator);
 						// 添加门店信息
 						addobject.setStoreName(StoreName);
-						addobject.setRegulatorId(RegulatorData.GetRegulatorRoleId(RegulatorName));
-						StoreData.insertStore(addobject);
+						addobject.setRegulatorId(RegulatorDatabase.GetRegulatorRoleId(RegulatorName));
+						StoreDatabase.insertStore(addobject);
 						msgString = "添加成功";
 					} else {
 						/** 存在管理员 */
 						//添加门店信息
 						addobject.setStoreName(StoreName);
-						addobject.setRegulatorId(RegulatorData.GetIdForName(RegulatorName));
-						StoreData.insertStore(addobject);
+						addobject.setRegulatorId(RegulatorDatabase.GetIdForName(RegulatorName));
+						StoreDatabase.insertStore(addobject);
 						msgString = "添加成功";
 					}
 				} else {
@@ -88,7 +88,7 @@ public class StoresController extends HttpServlet {
 			}
 		} else if ("delete".equals(action)) {
 			System.out.println("StoreId:" + StoreId + "  action:" + action);
-			if (StoreData.deleteStore(StoreId)) {
+			if (StoreDatabase.deleteStore(StoreId)) {
 				msgString = "删除成功";
 			} else {
 				msgString = "删除失败";
@@ -97,7 +97,7 @@ public class StoresController extends HttpServlet {
 			System.out.println("StoreId:" + StoreId + " StoreName:" + StoreName + " RegulatorName:" + RegulatorName
 					+ "  action:" + action);
 			// 由ID获取原来的门店信息
-			store oldStore = StoreData.getStoreForId(StoreId);
+			store oldStore = StoreDatabase.getStoreForId(StoreId);
 			// 定义新的门店信息
 			store newStore = new store();
 			// 写入ID
@@ -109,111 +109,109 @@ public class StoresController extends HttpServlet {
 				newStore.setStoreName(oldStore.getStoreName());
 				// 判断管理员名称是否有变化
 				//输入的管理员名称是否已经存在
-				if(RegulatorData.GetRegulatorRoleId(RegulatorName)!=null) {
+				if(RegulatorDatabase.GetRegulatorRoleId(RegulatorName)!=null) {
 					//存在
-					if (RegulatorData.GetRegulatorRoleId(RegulatorName).equals(oldStore.getRegulatorId())) {
+					if (RegulatorDatabase.GetRegulatorRoleId(RegulatorName).equals(oldStore.getRegulatorId())) {
 						// 管理员没变（写入管理员）
 						newStore.setRegulatorId(oldStore.getRegulatorId());
 						msgString = "修改成功";
-						StoreData.updateStore(newStore);
+						StoreDatabase.updateStore(newStore);
 					} else {
 						// 管理员变了（判断管理员是否已存在）
-						if ("".equals(RegulatorData.GetIdForName(RegulatorName))) {
+						if ("".equals(RegulatorDatabase.GetIdForName(RegulatorName))) {
 							// 管理员不存在（添加管理员信息）
 							regulator addreglRegulator = new regulator();
 							addreglRegulator.setRegulatorName(RegulatorName);
 							// 角色默认为店长（管理员）
 							addreglRegulator.setRegulatorRoleId("2");
-							RegulatorData.insertRegulator(addreglRegulator);
+							RegulatorDatabase.insertRegulator(addreglRegulator);
 							// 写入管理理员
-							newStore.setRegulatorId(RegulatorData.GetIdForName(RegulatorName));
-							StoreData.updateStore(newStore);
+							newStore.setRegulatorId(RegulatorDatabase.GetIdForName(RegulatorName));
+							StoreDatabase.updateStore(newStore);
 							msgString = "修改成功";
 						} else {
 							// 管理员存在（写入管理员）
-							newStore.setRegulatorId(RegulatorData.GetIdForName(RegulatorName));
-							StoreData.updateStore(newStore);
+							newStore.setRegulatorId(RegulatorDatabase.GetIdForName(RegulatorName));
+							StoreDatabase.updateStore(newStore);
 							msgString = "修改成功";
 						}
 					}
 				}else {
 					//不存在
-					if ("".equals(RegulatorData.GetIdForName(RegulatorName))) {
+					if ("".equals(RegulatorDatabase.GetIdForName(RegulatorName))) {
 						// 管理员不存在（添加管理员信息）
 						regulator addreglRegulator = new regulator();
 						addreglRegulator.setRegulatorName(RegulatorName);
 						// 角色默认为店长（管理员）
 						addreglRegulator.setRegulatorRoleId("2");
-						RegulatorData.insertRegulator(addreglRegulator);
+						RegulatorDatabase.insertRegulator(addreglRegulator);
 						// 写入管理理员
-						newStore.setRegulatorId(RegulatorData.GetIdForName(RegulatorName));
-						StoreData.updateStore(newStore);
+						newStore.setRegulatorId(RegulatorDatabase.GetIdForName(RegulatorName));
+						StoreDatabase.updateStore(newStore);
 						msgString = "修改成功";
 					} else {
 						// 管理员存在（写入管理员）
-						newStore.setRegulatorId(RegulatorData.GetIdForName(RegulatorName));
-						StoreData.updateStore(newStore);
+						newStore.setRegulatorId(RegulatorDatabase.GetIdForName(RegulatorName));
+						StoreDatabase.updateStore(newStore);
 						msgString = "修改成功";
 					}
 				}
 			} else {
 				// 名称变了（判断是否和其他的名称重复）
 				// 由名称获取信息
-				
-				if ("".equals(StoreData.getIdForName(StoreName))) {
+				if ("".equals(StoreDatabase.getIdForName(StoreName))) {
 					// 名称没重复
 					// 写入名称
-					
-					newStore.setStoreName(oldStore.getStoreName());
+					newStore.setStoreName(StoreName);
 					// 判断管理员名称是否有变化
 					//输入的管理员名称是否已经存在
-					if(RegulatorData.GetRegulatorRoleId(RegulatorName)!=null) {
+					if(RegulatorDatabase.GetRegulatorRoleId(RegulatorName)!=null) {
 						//存在
-						if (RegulatorData.GetRegulatorRoleId(RegulatorName).equals(oldStore.getRegulatorId())) {
+						if (RegulatorDatabase.GetRegulatorRoleId(RegulatorName).equals(oldStore.getRegulatorId())) {
 							// 管理员没变（写入管理员）
 							newStore.setRegulatorId(oldStore.getRegulatorId());
 							msgString = "修改成功";
-							StoreData.updateStore(newStore);
+							StoreDatabase.updateStore(newStore);
 							System.err.println("管理员没变");
 						} else {
 							// 管理员变了（判断管理员是否已存在）
 							System.err.println("管理员变了");
-							if ("".equals(RegulatorData.GetIdForName(RegulatorName))) {
+							if ("".equals(RegulatorDatabase.GetIdForName(RegulatorName))) {
 								// 管理员不存在（添加管理员信息）
 								regulator addreglRegulator = new regulator();
 								addreglRegulator.setRegulatorName(RegulatorName);
 								// 角色默认为店长（管理员）
 								addreglRegulator.setRegulatorRoleId("2");
-								RegulatorData.insertRegulator(addreglRegulator);
+								RegulatorDatabase.insertRegulator(addreglRegulator);
 								// 写入管理理员
-								newStore.setRegulatorId(RegulatorData.GetIdForName(RegulatorName));
-								StoreData.updateStore(newStore);
+								newStore.setRegulatorId(RegulatorDatabase.GetIdForName(RegulatorName));
+								StoreDatabase.updateStore(newStore);
 								msgString = "修改成功";
 							} else {
 								// 管理员存在（写入管理员）
-								newStore.setRegulatorId(RegulatorData.GetIdForName(RegulatorName));
-								StoreData.updateStore(newStore);
+								newStore.setRegulatorId(RegulatorDatabase.GetIdForName(RegulatorName));
+								StoreDatabase.updateStore(newStore);
 								msgString = "修改成功";
 							}
 						}
 					}else {
 						//不存在
 						newStore.setStoreName(StoreName);
-						if ("".equals(RegulatorData.GetIdForName(RegulatorName))) {
+						if ("".equals(RegulatorDatabase.GetIdForName(RegulatorName))) {
 							// 管理员不存在（添加管理员信息）
 							regulator addreglRegulator = new regulator();
 							addreglRegulator.setRegulatorName(RegulatorName);
 							// 角色默认为店长（管理员）
 							addreglRegulator.setRegulatorRoleId("2");
-							RegulatorData.insertRegulator(addreglRegulator);
+							RegulatorDatabase.insertRegulator(addreglRegulator);
 							// 写入管理理员
-							newStore.setRegulatorId(RegulatorData.GetIdForName(RegulatorName));
-							StoreData.updateStore(newStore);
+							newStore.setRegulatorId(RegulatorDatabase.GetIdForName(RegulatorName));
+							StoreDatabase.updateStore(newStore);
 							msgString = "修改成功";
 						} else {
 							// 管理员存在（写入管理员）
-							newStore.setRegulatorId(RegulatorData.GetIdForName(RegulatorName));
-							StoreData.updateStore(newStore);
+							newStore.setRegulatorId(RegulatorDatabase.GetIdForName(RegulatorName));
+							StoreDatabase.updateStore(newStore);
 							msgString = "修改成功";
 						}
 					}
@@ -225,13 +223,13 @@ public class StoresController extends HttpServlet {
 		} else {
 			System.out.println();
 			System.out.println("查询所有的店铺信息");
-			List<store> listStores = StoreData.ListStore();
+			List<store> listStores = StoreDatabase.ListStore();
 			for (int i = 0; i < listStores.size(); i++) {
 				Map<String, Object> row = new HashMap<>();
 				store entity = listStores.get(i);
 				row.put("StoreNum", entity.getStoreId());
 				row.put("StoreName", entity.getStoreName());
-				row.put("RegulatorName", RegulatorData.GetRegulatorForId(entity.getRegulatorId()).getRegulatorName());
+				row.put("RegulatorName", RegulatorDatabase.GetRegulatorForId(entity.getRegulatorId()).getRegulatorName());
 				storeData.add(row);
 			}
 		}
@@ -246,8 +244,8 @@ public class StoresController extends HttpServlet {
 		out.print(data);
 		out.flush();
 		out.close();
-		RegulatorData.CloseDatabase();
-		StoreData.CloseDatabase();
+		RegulatorDatabase.CloseDatabase();
+		StoreDatabase.CloseDatabase();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

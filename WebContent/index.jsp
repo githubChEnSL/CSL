@@ -113,7 +113,7 @@
 						<div id="collapse3" class="panel-collapse collapse collapseBody">
 							<div class="panel-body" style="background-color: #fff">
 								<ul class="list-group">
-									<a href="javascript:void(0)" id="" class="menu_item" name="">
+									<a href="javascript:void(0)" id="" class="menu_item" name="UsersMangement.jsp">
 										<li class="list-group-item">会员信息</li>
 									</a>
 
