@@ -10,10 +10,10 @@
 	var RegulatorId = "";
 	$(function() {
 		search();
-		addRegulator(); //添加门店信息框
-		Add();//添加门店信息
-		Delete();//删除门店信息
-		Update();//修改门店信息
+		addRegulator(); //添加员工信息框
+		Add();//添加员工信息
+		Delete();//删除员工信息
+		Update();//修改员工信息
 		refresh();//刷新列表
 	})
 	//刷新操作
@@ -30,7 +30,7 @@
 					dataType : "json",
 					contentType : "application/json",
 					success : function(data) {
-						//获取后台商店信息 
+						//获取后台员工信息 
 						var regulators = data.rows;
 						$("#userList")
 								.append(
@@ -63,7 +63,7 @@
 					}
 				})
 	}
-	//查询商店信息
+	//查询员工信息
 	function search() {
 		$('#search_button').click(function() {
 			refresh();
