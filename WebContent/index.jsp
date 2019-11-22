@@ -10,6 +10,14 @@
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/index.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/index.js"></script>
 </head>
 <body>
 	<!-- 导航栏 -->
@@ -22,7 +30,6 @@
 			<div class="navbar-header">
 				<a href="javascript:void(0)" class="navbar-brand home">店铺管理系统后台</a>
 			</div>
-
 			<!-- 导航栏下拉菜单；用户信息与注销登陆 -->
 			<div>
 				<ul class="nav navbar-nav navbar-right">
@@ -38,7 +45,6 @@
 		</div>
 		</nav>
 	</div>
-
 	<div class="container-fluid" style="padding-left: 0px;">
 		<div class="row">
 			<!-- 左侧导航栏 -->
@@ -61,7 +67,8 @@
 						<div id="collapse1" class="panel-collapse collapse collapseBody">
 							<div class="panel-body" style="background-color: #fff">
 								<ul class="list-group">
-									<a href="javascript:void(0)" id="" class="menu_item" name="StoresMangement.jsp">
+									<a href="javascript:void(0)" id="" class="menu_item"
+										name="StoresMangement.jsp">
 										<button class="list-group-item">门店信息</button>
 									</a>
 								</ul>
@@ -84,7 +91,7 @@
 							<div class="panel-body" style="background-color: #fff">
 
 								<ul class="list-group">
-									<a href="javascript:void(0)" id="" class="menu_item" name="">
+									<a href="javascript:void(0)" id="" class="menu_item" name="RegulatorsMangement.jsp">
 										<li class="list-group-item">员工信息</li>
 									</a>
 								</ul>
@@ -202,17 +209,5 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/js/jquery-2.2.3.min.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.bundle.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/js/index.js"></script>
-		<script type="text/javascript"
-		src="${pageContext.request.contextPath}/css/bootstrap-table.min.js"></script>
 </body>
 </html>

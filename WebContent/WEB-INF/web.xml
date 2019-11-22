@@ -61,4 +61,13 @@
         <servlet-name>StoreMangement</servlet-name>
         <url-pattern>/StoreMangement</url-pattern>
     </servlet-mapping>
+    <!-- 员工管理 -->
+     <servlet>
+        <servlet-name>RegulatorMangement</servlet-name>
+        <servlet-class>controller.RegulatorController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegulatorMangement</servlet-name>
+        <url-pattern>/RegulatorMangement</url-pattern>
+    </servlet-mapping>
 </web-app>

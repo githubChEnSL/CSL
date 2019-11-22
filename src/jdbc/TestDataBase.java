@@ -20,6 +20,10 @@ public class TestDataBase {
 			System.out.println("根据管理员角色编号获取管理员角色名称");
 			System.out.println(Database.GetRegulatorRoleName("2"));
 			System.out.println();
+			/**根据管理员角色名称获取管理员角色编号*/
+			System.out.println("根据管理员角色名称获取管理员角色编号");
+			System.out.println(Database.GetRegulatorRoleId("超级管理员"));
+			System.out.println();
 			/**添加管理员信息*/
 			System.out.println("添加管理员信息");
 			regulator addobject=new regulator();
@@ -51,9 +55,17 @@ public class TestDataBase {
 			regulator getRegu=Database.GetRegulatorForId("10003");
 			System.out.println(" ID:"+getRegu.getRegulatorId()+" Name:"+getRegu.getRegulatorName()+" Password:"+getRegu.getPassword()+" RegulatorRoleId:"+getRegu.getRegulatorRoleId());
 			System.out.println();
+			/**通过管理员名称获取管理员信息*/
+			System.out.println("通过管理员名称获取管理员信息");
+			System.out.println(Database.GetIdForName("陈少磊"));
+			System.out.println();
 			/**删除管理员信息*/
 			System.out.println("删除管理员信息");
 			Database.deleteRegulator("10003");
+			System.out.println();
+			/**获取最大管理员编号*/
+			System.out.println("获取最大管理员编号");
+			System.out.println(Database.GetMaxId());
 			System.out.println();
 			Database.CloseDatabase();
 		} catch (Exception e) {
@@ -119,7 +131,7 @@ public class TestDataBase {
 			System.out.println();
 			/**根据管理员编号获取所有商店的信息*/
 			System.out.println("根据管理员编号获取所有商店的信息");
-			List<store> allstore=Database.GetAllStoreByRegulatorId("10002");
+			List<store> allstore=Database.GetAllStoreByRegulatorId("10001");
 			for(int i=0;i<allstore.size();i++) {
 				store entity=allstore.get(i);
 				System.out.println("StoreId:"+entity.getStoreId()+" StoreName:"+entity.getStoreName()+" RegulatorId:"+entity.getRegulatorId());
@@ -155,9 +167,13 @@ public class TestDataBase {
 			store getstore=Database.getStoreForId("4");
 			System.out.println("StoreID:"+getstore.getStoreId()+" StoreName:"+getstore.getStoreName()+" RegulatorId:"+getstore.getRegulatorId());
 			System.out.println();
-			/**删除用户信息*/
+			/**删除商店信息*/
 			System.out.println("删除商店信息");
 			Database.deleteStore("4");
+			System.out.println();
+			/**获取最大商店编号*/
+			System.out.println("获取最大商店编号");
+			System.out.println(Database.GetMaxId());
 			System.out.println();
 			Database.CloseDatabase();
 		} catch (Exception e) {

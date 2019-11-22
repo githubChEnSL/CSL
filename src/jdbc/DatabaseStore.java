@@ -4,140 +4,211 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.mysql.cj.protocol.Resultset;
 
 import entity.store;
 
-public class DatabaseStore extends Database{
-	
-	/**根据管理员编号获取所有商店的信息*/
+public class DatabaseStore extends Database {
+
+	/** 鏍规嵁绠＄悊鍛樼紪鍙疯幏鍙栨墍鏈夊晢搴楃殑淇℃伅 */
 	public List<store> GetAllStoreByRegulatorId(String regulatorId) {
 		List<store> AllStore = new ArrayList<store>();
-		String sql="select * from store where regulatorid="+regulatorId;
+		String sql = "select * from store where regulatorid=" + regulatorId;
 		try {
-			//创建实例
-			Statement GetAllStore=null;
-			GetAllStore=createSta(GetAllStore);
-			resuset=(Resultset) GetAllStore.executeQuery(sql);
-			while(((ResultSet) resuset).next()) {
-				store object=new store();
-				String storeid=((ResultSet) resuset).getString("storeid");
-				String storename=((ResultSet) resuset).getString("storename");
-				String regulatorid=((ResultSet) resuset).getString("regulatorid");
+			// 鍒涘缓瀹炰緥
+			Statement GetAllStore = null;
+			GetAllStore = createSta(GetAllStore);
+			resuset = (Resultset) GetAllStore.executeQuery(sql);
+			while (((ResultSet) resuset).next()) {
+				store object = new store();
+				String storeid = ((ResultSet) resuset).getString("storeid");
+				String storename = ((ResultSet) resuset).getString("storename");
+				String regulatorid = ((ResultSet) resuset).getString("regulatorid");
 				object.setStoreId(storeid);
 				object.setStoreName(storename);
 				object.setRegulatorId(regulatorid);
 				AllStore.add(object);
 			}
-			//关闭实例
-			 CloseStatement(GetAllStore);
+			// 鍏抽棴瀹炰緥
+			CloseStatement(GetAllStore);
 		} catch (Exception e) {
-			System.out.println("获取用户角色名称失败");
+			System.out.println("鑾峰彇鐢ㄦ埛瑙掕壊鍚嶇О澶辫触");
 		}
 		return AllStore;
 	}
-	/**获取所有的商店信息*/
-	public List<store> ListStore(){
-		List<store> listStore=new ArrayList<store>();
-		String sql="select * from store";
+
+	/** 鑾峰彇鎵�鏈夌殑鍟嗗簵淇℃伅 */
+	public List<store> ListStore() {
+		List<store> listStore = new ArrayList<store>();
+		String sql = "select * from store";
 		try {
-			//创建实例
-			Statement GetAllStore=null;
-			GetAllStore=createSta(GetAllStore);
-			resuset= (Resultset) GetAllStore.executeQuery(sql);
-			 while(((ResultSet) resuset).next()){
-				store object=new store();
-				String storeid=((ResultSet) resuset).getString("storeid");
-				String storename=((ResultSet) resuset).getString("storename");
-				String regulatorid=((ResultSet) resuset).getString("regulatorid");
+			// 鍒涘缓瀹炰緥
+			Statement GetAllStore = null;
+			GetAllStore = createSta(GetAllStore);
+			resuset = (Resultset) GetAllStore.executeQuery(sql);
+			while (((ResultSet) resuset).next()) {
+				store object = new store();
+				String storeid = ((ResultSet) resuset).getString("storeid");
+				String storename = ((ResultSet) resuset).getString("storename");
+				String regulatorid = ((ResultSet) resuset).getString("regulatorid");
 				object.setStoreId(storeid);
 				object.setStoreName(storename);
 				object.setRegulatorId(regulatorid);
 				listStore.add(object);
-		      }
-			//关闭实例
-			 CloseStatement(GetAllStore);
+			}
+			// 鍏抽棴瀹炰緥
+			CloseStatement(GetAllStore);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return listStore;
 	}
-	/**通过商店编号获取上商店信息*/
+
+	/** 閫氳繃鍟嗗簵缂栧彿鑾峰彇鍟嗗簵淇℃伅 */
 	public store getStoreForId(String storeId) {
-		store getstore=new store();
-		String sql="select * from store where storeid="+storeId;
+		store getstore = new store();
+		String sql = "select * from store where storeid='" + storeId + "'";
 		try {
-			//创建实例
-			Statement GetStore=null;
-			GetStore=createSta(GetStore);
-			resuset=(Resultset) GetStore.executeQuery(sql);
-			while(((ResultSet) resuset).next()) {
-				String storeid=((ResultSet) resuset).getString("storeid");
-				String storename=((ResultSet) resuset).getString("storename");
-				String regulatorid=((ResultSet) resuset).getString("regulatorid");
+			// 鍒涘缓瀹炰緥
+			Statement GetStore = null;
+			GetStore = createSta(GetStore);
+			resuset = (Resultset) GetStore.executeQuery(sql);
+			while (((ResultSet) resuset).next()) {
+				String storeid = ((ResultSet) resuset).getString("storeid");
+				String storename = ((ResultSet) resuset).getString("storename");
+				String regulatorid = ((ResultSet) resuset).getString("regulatorid");
 				getstore.setStoreId(storeid);
 				getstore.setStoreName(storename);
 				getstore.setRegulatorId(regulatorid);
 			}
-			System.out.println("获取商店信息成功");
-			//关闭实例
-			 CloseStatement(GetStore);
+			System.out.println("鑾峰彇鍟嗗簵淇℃伅鎴愬姛");
+			// 鍏抽棴瀹炰緥
+			CloseStatement(GetStore);
 		} catch (Exception e) {
-			System.out.println("获取商店信息失败");
+			System.out.println("鑾峰彇鍟嗗簵淇℃伅澶辫触");
 		}
 		return getstore;
 	}
-	/**添加商店信息*/
-	public void insertStore(store addobject) {
-		String ID=addobject.getStoreId();
-		String Name=addobject.getStoreName();
-		String RegulatorId=addobject.getRegulatorId();
-		String sql="insert into store value("+ID+",'"+Name+"','"+RegulatorId+"')";
+
+	/** 閫氳繃闂ㄥ簵鍚嶇О鑾峰彇鍟嗗簵缂栧彿 */
+	public String getIdForName(String storeName) {
+		String Id = "";
+		String sql = "select * from store where storename='" + storeName + "'";
 		try {
-			//创建实例
-			Statement addstore=null;
-			addstore=createSta(addstore);
+			// 鍒涘缓瀹炰緥
+			Statement GetStore = null;
+			GetStore = createSta(GetStore);
+			resuset = (Resultset) GetStore.executeQuery(sql);
+			while (((ResultSet) resuset).next()) {
+				Id = ((ResultSet) resuset).getString("storeid");
+			}
+			// 鍏抽棴瀹炰緥
+			CloseStatement(GetStore);
+		} catch (Exception e) {
+			// 鑾峰彇淇℃伅澶辫触
+		}
+		return Id;
+	}
+
+	/** 娣诲姞鍟嗗簵淇℃伅 */
+	public boolean insertStore(store addobject) {
+		boolean flag = false;
+		String Number = "";
+		// 鍒ゆ柇琛ㄤ腑鏄惁瀛樺湪鏈�澶у�硷紙琛ㄦ槸鍚︿负绌猴級
+		try {
+			if ("".equals(this.GetMaxId())) {
+				Number = "0";
+			} else {
+				Number = this.GetMaxId();
+			}
+		} catch (Exception e) {
+			Number = "0";
+		}
+		String ID = String.valueOf(Integer.parseInt(Number)+1);
+		String Name = addobject.getStoreName();
+		String RegulatorId = addobject.getRegulatorId();
+		String sql = "insert into store value('" + ID + "','" + Name + "','" + RegulatorId + "')";
+		try {
+			// 鍒涘缓瀹炰緥
+			Statement addstore = null;
+			addstore = createSta(addstore);
 			addstore.execute(sql);
-			System.out.println("添加商店信息成功");
-			//关闭实例
+			System.out.println("娣诲姞鍟嗗簵淇℃伅鎴愬姛");
+			flag = true;
+			// 鍏抽棴瀹炰緥
 			CloseStatement(addstore);
 		} catch (Exception e) {
-			System.out.println("添加商店信息失败");
+			System.out.println("娣诲姞鍟嗗簵淇℃伅澶辫触");
+			flag = false;
 		}
+		return flag;
 	}
-	/**删除用户信息*/
-	public void deleteStore(String StoreId) {
-		String sql="delete from store where storeid="+StoreId;
+
+	/** 鍒犻櫎鍟嗗簵淇℃伅 */
+	public boolean deleteStore(String StoreId) {
+		boolean flag = false;
+		String sql = "delete from store where storeid=" + StoreId;
 		try {
-			//创建实例
-			Statement delstore=null;
-			delstore=createSta(delstore);
+			// 鍒涘缓瀹炰緥
+			Statement delstore = null;
+			delstore = createSta(delstore);
 			delstore.execute(sql);
-			//关闭实例
+			// 鍏抽棴瀹炰緥
 			CloseStatement(delstore);
-			System.out.println("删除商店信息成功");
+			flag = true;
+			System.out.println("鍒犻櫎鍟嗗簵淇℃伅鎴愬姛");
 		} catch (Exception e) {
-			System.out.println("删除商店信息失败");
+			flag = false;
+			System.out.println("鍒犻櫎鍟嗗簵淇℃伅澶辫触");
 		}
+		return flag;
 	}
-	/**修改用户信息*/
-	public void updateStore(store updatestore) {
-		String ID=updatestore.getStoreId();
-		String Name=updatestore.getStoreName();
-		String RegulatorId=updatestore.getRegulatorId();
-		String sql="update store set storeid='"+ID+"',storename='"+Name+"',regulatorid='"+RegulatorId+"' where storeid='"+ID+"'";
+
+	/** 淇敼鐢ㄦ埛淇℃伅 */
+	public boolean updateStore(store updatestore) {
+		boolean flag = false;
+		String ID = updatestore.getStoreId();
+		String Name = updatestore.getStoreName();
+		String RegulatorId = updatestore.getRegulatorId();
+		String sql = "update store set storeid='" + ID + "',storename='" + Name + "',regulatorid='" + RegulatorId
+				+ "' where storeid='" + ID + "'";
 		try {
-			//创建实例
-			Statement Updatestore=null;
-			Updatestore=createSta(Updatestore);
+			// 鍒涘缓瀹炰緥
+			Statement Updatestore = null;
+			Updatestore = createSta(Updatestore);
 			Updatestore.execute(sql);
-			System.out.println("修改商店信息成功");
-			//关闭实例
+			flag = true;
+			System.out.println("淇敼鍟嗗簵淇℃伅鎴愬姛");
+			// 鍏抽棴瀹炰緥
 			CloseStatement(Updatestore);
 		} catch (Exception e) {
-			System.out.println("修改商店信息失败");
-		}	
+			flag = false;
+			System.out.println("淇敼鍟嗗簵淇℃伅澶辫触");
+		}
+		return flag;
+	}
+
+	/** 鑾峰彇鏈�澶х殑鍟嗗簵缂栧彿 */
+	public String GetMaxId() {
+		List<Integer> listId = new ArrayList<Integer>();
+		String sql = "select * from store";
+		try {
+			// 鍒涘缓瀹炰緥
+			Statement GetStore = null;
+			GetStore = createSta(GetStore);
+			resuset = (Resultset) GetStore.executeQuery(sql);
+			while (((ResultSet) resuset).next()) {
+				listId.add(Integer.parseInt(((ResultSet) resuset).getString("storeid")));
+			}
+			System.out.println("鑾峰彇淇℃伅鎴愬姛");
+			// 鍏抽棴瀹炰緥
+			CloseStatement(GetStore);
+		} catch (Exception e) {
+			System.out.println("鑾峰彇淇℃伅澶辫触");
+		}
+		return Collections.max(listId).toString();
 	}
 }

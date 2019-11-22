@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>门店信息管理</title>
+<title>员工信息管理</title>
 </head>
 <script type="text/javascript">
-	var StoreId = "";
+	var RegulatorId = "";
 	$(function() {
 		search();
-		addStore(); //添加门店信息框
+		addRegulator(); //添加门店信息框
 		Add();//添加门店信息
 		Delete();//删除门店信息
 		Update();//修改门店信息
@@ -24,31 +24,31 @@
 		}
 		$
 				.ajax({
-					url : "StoreMangement",
+					url : "RegulatorMangement",
 					type : "post",
 					data : data,
 					dataType : "json",
 					contentType : "application/json",
 					success : function(data) {
 						//获取后台商店信息 
-						var stores = data.rows;
+						var regulators = data.rows;
 						$("#userList")
 								.append(
-										"<tr><td>门店编号</td><td>门店名称</td><td>门店管理员</td><td>操作</td></tr>");
+										"<tr><td>员工编号</td><td>员工名称</td><td>员工角色</td><td>操作</td></tr>");
 						$
 								.each(
-										stores,
+										regulators,
 										function(key, value) {
 											var row = JSON
-													.stringify(stores[key]);
+													.stringify(regulators[key]);
 											$("#userList")
 													.append(
 															"<tr><td>"
-																	+ stores[key].StoreNum
+																	+ regulators[key].RegulatorNum
 																	+ "</td><td>"
-																	+ stores[key].StoreName
+																	+ regulators[key].RegulatorName
 																	+ "</td><td>"
-																	+ stores[key].RegulatorName
+																	+ regulators[key].RegulatorRole
 																	+ "</td><td><button class='btn btn-info' onclick='updateStore("
 																	+ row
 																	+ ")'><span>编辑</span></button>"
@@ -70,58 +70,51 @@
 		})
 	}
 	//弹出添加框
-	function addStore() {
-		$('#add_stores').click(function() {
+	function addRegulator() {
+		$('#add_regulator').click(function() {
 			$('#addModal').modal('show');
 		})
 	}
 	//弹出删除框
 	function deleteStore(row) {
 		$('#deleteModal').modal('show');
-		StoreId = row.StoreNum;
-		$('#deletemsg').html("是否删除：" + row.StoreName + "?");
+		RegulatorId = row.RegulatorNum;
+		$('#deletemsg').html("是否删除：" + row.RegulatorNum + "?");
 	}
 	//弹出修改框
 	function updateStore(row) {
 		$('#updateModal').modal('show');
-		$('#updatestoreid').val(row.StoreNum);
-		$('#updatestoreName').val(row.StoreName);
+		$('#updateRegulatorid').val(row.RegulatorNum);
 		$('#updateRegulatorName').val(row.RegulatorName);
+		$('#updateRegulatorRoleName').val(row.RegulatorRole);
 	}
 	//添加操作
 	function Add() {
 		$('#addbut').click(function() {
-			var add1 = $('#addstoreName').val();
-			var add2 = $('#addRegulatorName').val();
-			if (add1 == "" || add2 == "") {
-				$('#tipsmsg').html("信息不可为空");
-				$('#TipsModal').modal('show');
-			} else {
-				var data = {
-					action : "add",
-					StoreName : $('#addstoreName').val(),
-					RegulatorName : $('#addRegulatorName').val()
-				}
-				//请求添加
-				$.ajax({
-					type : "POST",
-					url : "StoreMangement",
-					data : data,
-					dataType : "json",
-					async : true,
-					success : function(data) {
-						//刷新列表
-						refresh();
-						$('#addModal').modal('hide');
-						$('#tipsmsg').html(data.msg);
-						$('#TipsModal').modal('show');
-					},
-					error : function(data) {
-						$('#tipsmsg').html("请求错误");
-						$('#TipsModal').modal('show');
-					}
-				})
+			var data = {
+				action : "add",
+				regulatorName : $('#addregulatorName').val(),
+				RegulatorRoleName : $('#addRegulatorRoleName').val()
 			}
+			//请求添加
+			$.ajax({
+				type : "POST",
+				url : "RegulatorMangement",
+				data : data,
+				dataType : "json",
+				async : true,
+				success : function(data) {
+					//刷新列表
+					refresh();
+					$('#addModal').modal('hide');
+					$('#tipsmsg').html(data.msg);
+					$('#TipsModal').modal('show');
+				},
+				error : function(data) {
+					$('#tipsmsg').html("请求错误");
+					$('#TipsModal').modal('show');
+				}
+			})
 		})
 	}
 	//删除操作
@@ -129,12 +122,12 @@
 		$('#deletebut').click(function() {
 			var data = {
 				action : "delete",
-				StoreId : StoreId
+				RegulatorId : RegulatorId
 			}
 			//请求删除
 			$.ajax({
 				type : "POST",
-				url : "StoreMangement",
+				url : "RegulatorMangement",
 				data : data,
 				async : true,
 				success : function(data) {
@@ -157,15 +150,15 @@
 		$('#updatebut').click(function() {
 			var data = {
 				action : "update",
-				StoreId : $('#updatestoreid').val(),
-				StoreName : $('#updatestoreName').val(),
-				RegulatorName : $('#updateRegulatorName').val()
+				RegulatorId : $('#updateRegulatorid').val(),
+				regulatorName : $('#updateRegulatorName').val(),
+				RegulatorRoleName : $('#updateRegulatorRoleName').val()
 			}
 			//请求删除
 			//请求添加
 			$.ajax({
 				type : "POST",
-				url : "StoreMangement",
+				url : "RegulatorMangement",
 				data : data,
 				async : true,
 				success : function(data) {
@@ -175,7 +168,7 @@
 					$('#tipsmsg').html(data.msg);
 					$('#TipsModal').modal('show');
 				},
-				error : function(data) {
+				error : function(msg) {
 					$('#addModal').modal('hide');
 					$('#tipsmsg').html("请求错误");
 					$('#TipsModal').modal('show');
@@ -187,15 +180,16 @@
 <body>
 	<div class="panel panel-default">
 		<ol class="breadcrumb">
-			<li>门店信息管理</li>
+			<li>员工信息管理</li>
 		</ol>
 		<div class="panel-body">
 			<div class="row">
-				<div class="col-md-3 col-sm-3">
-					<select name="" id="Store_select" class="form-control ">
-						<option value="">所有</option>
-					</select>
-				</div>
+				<!-- 后期添加权限 -->
+				<!-- 				<div class="col-md-3 col-sm-3"> -->
+				<!-- 					<select name="" id="Store_select" class="form-control "> -->
+				<!-- 						<option value="">所有</option> -->
+				<!-- 					</select> -->
+				<!-- 				</div> -->
 				<div class="col-md-6 col-sm-6">
 					<div>
 						<div class="col-md-2 col-sm-2">
@@ -208,8 +202,8 @@
 			</div>
 			<div class="row" style="margin-top: 25px">
 				<div class="col-md-5">
-					<button class="btn btn-sm btn-default" id="add_stores">
-						<span>添加门店</span>
+					<button class="btn btn-sm btn-default" id="add_regulator">
+						<span>添加员工</span>
 					</button>
 				</div>
 				<div class="col-md-5"></div>
@@ -223,7 +217,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- 模态框（Modal）添加门店 -->
+	<!-- 模态框（Modal）添加员工 -->
 	<div class="modal fade in" id="addModal" tabindex="-1" role="dialog"
 		aria-hidden="">
 		<div class="modal-dialog">
@@ -231,7 +225,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title">添加门店信息</h4>
+					<h4 class="modal-title">添加员工信息</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
@@ -240,35 +234,38 @@
 							<div class="form-horizontal">
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>门店名称：</span>
+										<span>员工名称：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<input type="text" class="form-control" id="addstoreName"
-											name="addstoreName" placeholder="门店名称">
+										<input type="text" class="form-control" id="addregulatorName"
+											name="addregulatorName" placeholder="员工名称">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>门店店主：</span>
+										<span>员工角色：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<input type="text" class="form-control" id="addRegulatorName"
-											name="addRegulatorName" placeholder="门店店主">
+										<select name="" id="addRegulatorRoleName"
+											class="form-control ">
+											<option value="超级管理员">超级管理员</option>
+											<option value="管理员">管理员</option>
+											<option value="普通员工">普通员工</option>
+										</select>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" id="addbut" class="btn btn-primary">添加</button>
-				</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" id="addbut" class="btn btn-primary">添加</button>
+			</div>
 			</div>
 		</div>
 	</div>
-	<!-- 模态框（Modal）修改门店 -->
+	<!-- 模态框（Modal）修改员工 -->
 	<div class="modal fade in" id="updateModal" tabindex="-1" role="dialog"
 		aria-hidden="">
 		<div class="modal-dialog">
@@ -276,7 +273,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title">修改门店信息</h4>
+					<h4 class="modal-title">修改员工信息</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
@@ -285,33 +282,35 @@
 							<div class="form-horizontal">
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>门店编号：</span>
+										<span>员工编号：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
 										<input type="text" disabled="disabled" class="form-control"
-											id="updatestoreid" name="updatestoreid" placeholder="门店编号">
+											id="updateRegulatorid" name="updateRegulatorid" placeholder="员工编号">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>门店名称：</span>
+										<span>员工名称：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<input type="text" class="form-control" id="updatestoreName"
-											name="updatestoreName" placeholder="门店名称">
+										<input type="text" class="form-control" id="updateRegulatorName"
+											name="updateRegulatorName" placeholder="员工名称">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>门店店主：</span>
+										<span>员工角色：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<input type="text" class="form-control"
-											id="updateRegulatorName" name="updateRegulatorName"
-											placeholder="门店店主">
+										<select name="" id="updateRegulatorRoleName"
+											class="form-control ">
+											<option value="超级管理员">超级管理员</option>
+											<option value="管理员">管理员</option>
+											<option value="普通员工">普通员工</option>
+										</select>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -323,7 +322,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- 模态框（Modal）删除门店 -->
+	<!-- 模态框（Modal）删除员工 -->
 	<div class="modal fade in" id="deleteModal" tabindex="-1" role="dialog"
 		aria-hidden="">
 		<div class="modal-dialog">
@@ -331,10 +330,10 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title">删除门店信息</h4>
+					<h4 class="modal-title">删除员工信息</h4>
 				</div>
 				<div class="modal-body">
-					<h3 id="deletemsg">是否删除该门店？</h3>
+					<h3 id="deletemsg">是否删除该员工？</h3>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
