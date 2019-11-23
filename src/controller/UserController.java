@@ -75,7 +75,8 @@ public class UserController extends HttpServlet {
 				msgString = "删除失败";
 			}
 		} else if ("update".equals(action)) {
-			System.out.println("UserNum:" + UserNum+ " UserName:" + UserName  + " RoleName:" + RoleName + "  action:" + action);
+			System.out.println(
+					"UserNum:" + UserNum + " UserName:" + UserName + " RoleName:" + RoleName + "  action:" + action);
 			// 由ID获取原来的会员信息
 			user oldUser = UserData.getUserForId(UserNum);
 			// 定义新的会员信息
@@ -86,22 +87,22 @@ public class UserController extends HttpServlet {
 			if (UserName.equals(oldUser.getUserName())) {
 				// 名称没变（写入名称）
 				newUser.setUserName(oldUser.getUserName());
-				//写入会员角色
+				// 写入会员角色
 				newUser.setRoleId(UserData.GetUserRoleId(RoleName));
-				//修改会员信息
+				// 修改会员信息
 				UserData.updateUser(newUser);
-				msgString="修改成功";
+				msgString = "修改成功";
 			} else {
 				// 名称变了（判断是否和其他的名称重复）
 				// 由名称获取信息
 				if ("".equals(UserData.getUserIdForName(UserName))) {
 					// 名称没重复（写入名称）
 					newUser.setUserName(UserName);
-					//写入会员角色
+					// 写入会员角色
 					newUser.setRoleId(UserData.GetUserRoleId(RoleName));
-					//修改会员信息
+					// 修改会员信息
 					UserData.updateUser(newUser);
-					msgString="修改成功";
+					msgString = "修改成功";
 				} else {
 					// 名称重复
 					msgString = "名称重复，修改失败";
@@ -122,6 +123,7 @@ public class UserController extends HttpServlet {
 		}
 		/** 封装返回前端的Map */
 		Map<String, Object> preparedata = new HashMap<String, Object>();
+
 		preparedata.put("rows", storeData);
 		preparedata.put("msg", msgString);
 		// 将map转为json

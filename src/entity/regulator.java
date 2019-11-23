@@ -5,6 +5,7 @@ public class regulator {
 	private String regulatorName;
 	private String password;
 	private String regulatorRoleId;
+	private String storeId;
 	public String getRegulatorId() {
 		return regulatorId;
 	}
@@ -28,5 +29,11 @@ public class regulator {
 	}
 	public void setRegulatorRoleId(String regulatorRoleId) {
 		this.regulatorRoleId = regulatorRoleId;
+	}
+	public String getStoreId() {
+		return storeId;
+	}
+	public void setStoreId(String storeId) {
+		this.storeId = storeId;
 	}
 }

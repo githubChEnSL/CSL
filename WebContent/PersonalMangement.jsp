@@ -4,56 +4,55 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>门店信息管理</title>
+<title>个人信息管理</title>
 </head>
 <script type="text/javascript">
-	var StoreId = "";
+	var UserNum = "";
 	$(function() {
 		search();
-		addStore(); //添加门店信息框
-		Add();//添加门店信息
-		Delete();//删除门店信息
-		Update();//修改门店信息
+		addUser(); //添加会员信息框
+		Add();//添加会员信息
+		Delete();//删除会员信息
+		Update();//修改会员信息
 		refresh();//刷新列表
 	})
 	//刷新操作
 	function refresh() {
-		$("#StoresList").html("");
+		$("#userList").html("");
 		var data = {
 			action : "all"
 		}
-		$
-				.ajax({
-					url : "StoreMangement",
+		$.ajax({
+					url : "UsersMangement",
 					type : "post",
 					data : data,
 					dataType : "json",
 					contentType : "application/json",
 					success : function(data) {
 						//获取后台商店信息 
-						var stores = data.rows;
-						$("#StoresList")
+						var users = data.rows;
+						$("#userList")
 								.append(
-										"<tr><td>门店编号</td><td>门店名称</td><td>门店管理员</td><td>操作</td></tr>");
+										"<tr><td>会员编号</td><td>会员名称</td><td>会员等级</td><td>操作</td></tr>");
 						$
 								.each(
-										stores,
+										users,
 										function(key, value) {
 											var row = JSON
-													.stringify(stores[key]);
-											$("#StoresList")
+													.stringify(users[key]);
+											$("#userList")
 													.append(
 															"<tr><td>"
-																	+ stores[key].StoreNum
+																	+ users[key].UserNum
 																	+ "</td><td>"
-																	+ stores[key].StoreName
+																	+ users[key].UserName
 																	+ "</td><td>"
-																	+ stores[key].RegulatorName
-																	+ "</td><td><button class='btn btn-info' onclick='updateStore("
+																	+ users[key].UserRoleName
+																	+ "</td><td><button class='btn btn-info' onclick='updateUser("
 																	+ row
 																	+ ")'><span>编辑</span></button>"
 																	+ "  "
-																	+ "<button class='btn btn-danger' onclick='deleteStore("
+																	+ "<button class='btn btn-danger' onclick='deleteUser("
 																	+ row
 																	+ ")'><span>删除</span></button></td></tr>");
 										})
@@ -63,49 +62,49 @@
 					}
 				})
 	}
-	//查询商店信息
+	//查询会员信息
 	function search() {
 		$('#search_button').click(function() {
 			refresh();
 		})
 	}
 	//弹出添加框
-	function addStore() {
-		$('#add_stores').click(function() {
+	function addUser() {
+		$('#add_users').click(function() {
 			$('#addModal').modal('show');
 		})
 	}
 	//弹出删除框
-	function deleteStore(row) {
+	function deleteUser(row) {
 		$('#deleteModal').modal('show');
-		StoreId = row.StoreNum;
-		$('#deletemsg').html("是否删除：" + row.StoreName + "?");
+		UserNum = row.UserNum;
+		$('#deletemsg').html("是否删除：" + row.UserName + "?");
 	}
 	//弹出修改框
-	function updateStore(row) {
+	function updateUser(row) {
 		$('#updateModal').modal('show');
-		$('#updatestoreid').val(row.StoreNum);
-		$('#updatestoreName').val(row.StoreName);
-		$('#updateRegulatorName').val(row.RegulatorName);
+		$('#updateuserid').val(row.UserNum);
+		$('#updateuserName').val(row.UserName);
+		$('#updateRoleName').val(row.UserRoleName);
 	}
 	//添加操作
 	function Add() {
 		$('#addbut').click(function() {
-			var add1 = $('#addstoreName').val();
-			var add2 = $('#addRegulatorName').val();
+			var add1 = $('#adduserName').val();
+			var add2 = $('#addRoleName').val();
 			if (add1 == "" || add2 == "") {
 				$('#tipsmsg').html("信息不可为空");
 				$('#TipsModal').modal('show');
 			} else {
 				var data = {
 					action : "add",
-					StoreName : $('#addstoreName').val(),
-					RegulatorName : $('#addRegulatorName').val()
+					UserName : $('#adduserName').val(),
+					RoleName : $('#addRoleName').val()
 				}
 				//请求添加
 				$.ajax({
 					type : "POST",
-					url : "StoreMangement",
+					url : "UsersMangement",
 					data : data,
 					dataType : "json",
 					async : true,
@@ -129,12 +128,12 @@
 		$('#deletebut').click(function() {
 			var data = {
 				action : "delete",
-				StoreId : StoreId
+				UserNum : UserNum
 			}
 			//请求删除
 			$.ajax({
 				type : "POST",
-				url : "StoreMangement",
+				url : "UsersMangement",
 				data : data,
 				async : true,
 				success : function(data) {
@@ -157,15 +156,15 @@
 		$('#updatebut').click(function() {
 			var data = {
 				action : "update",
-				StoreId : $('#updatestoreid').val(),
-				StoreName : $('#updatestoreName').val(),
-				RegulatorName : $('#updateRegulatorName').val()
+				UserNum : $('#updateuserid').val(),
+				UserName : $('#updateuserName').val(),
+				RoleName : $('#updateRoleName').val()
 			}
 			//请求删除
 			//请求添加
 			$.ajax({
 				type : "POST",
-				url : "StoreMangement",
+				url : "UsersMangement",
 				data : data,
 				async : true,
 				success : function(data) {
@@ -187,7 +186,7 @@
 <body>
 	<div class="panel panel-default">
 		<ol class="breadcrumb">
-			<li>门店信息管理</li>
+			<li>会员信息管理</li>
 		</ol>
 		<div class="panel-body">
 			<div class="row">
@@ -208,22 +207,22 @@
 			</div>
 			<div class="row" style="margin-top: 25px">
 				<div class="col-md-5">
-					<button class="btn btn-sm btn-default" id="add_stores">
-						<span>添加门店</span>
+					<button class="btn btn-sm btn-default" id="add_users">
+						<span>添加会员</span>
 					</button>
 				</div>
 				<div class="col-md-5"></div>
 			</div>
 
 			<div class="row" style="margin-top: 15px">
-				<div class="col-md-12" align="center" style="overflow-x: auto; overflow-y: auto; height: 445px; width:1200px;">
-					<table id="StoresList" style="text-align: center;"
+				<div class="col-md-12" align="center">
+					<table id="userList" style="text-align: center;"
 						class="table table-striped"></table>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- 模态框（Modal）添加门店 -->
+	<!-- 模态框（Modal）添加会员 -->
 	<div class="modal fade in" id="addModal" tabindex="-1" role="dialog"
 		aria-hidden="">
 		<div class="modal-dialog">
@@ -231,7 +230,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title">添加门店信息</h4>
+					<h4 class="modal-title">添加会员信息</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
@@ -240,20 +239,24 @@
 							<div class="form-horizontal">
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>门店名称：</span>
+										<span>会员名称：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<input type="text" class="form-control" id="addstoreName"
-											name="addstoreName" placeholder="门店名称">
+										<input type="text" class="form-control" id="adduserName"
+											name="adduserName" placeholder="门店名称">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>门店店主：</span>
+										<span>会员等级：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<input type="text" class="form-control" id="addRegulatorName"
-											name="addRegulatorName" placeholder="门店店主">
+										<select name="" id="addRoleName"
+											class="form-control ">
+											<option value="至尊会员">至尊会员</option>
+											<option value="超级会员">超级会员</option>
+											<option value="普通会员">普通会员</option>
+										</select>
 									</div>
 								</div>
 
@@ -268,7 +271,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- 模态框（Modal）修改门店 -->
+	<!-- 模态框（Modal）修改会员 -->
 	<div class="modal fade in" id="updateModal" tabindex="-1" role="dialog"
 		aria-hidden="">
 		<div class="modal-dialog">
@@ -285,20 +288,20 @@
 							<div class="form-horizontal">
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>门店编号：</span>
+										<span>会员编号：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
 										<input type="text" disabled="disabled" class="form-control"
-											id="updatestoreid" name="updatestoreid" placeholder="门店编号">
+											id="updateuserid" name="updateuserid" placeholder="会员编号">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="" class="control-label col-md-4 col-sm-4">
-										<span>门店名称：</span>
+										<span>会员名称：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<input type="text" class="form-control" id="updatestoreName"
-											name="updatestoreName" placeholder="门店名称">
+										<input type="text" class="form-control" id="updateuserName"
+											name="updateuserName" placeholder="会员名称">
 									</div>
 								</div>
 								<div class="form-group">
@@ -306,10 +309,14 @@
 										<span>门店店主：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<input type="text" class="form-control"
-											id="updateRegulatorName" name="updateRegulatorName"
-											placeholder="门店店主">
+										<select name="" id="updateRoleName"
+											class="form-control ">
+											<option value="至尊会员">至尊会员</option>
+											<option value="超级会员">超级会员</option>
+											<option value="普通会员">普通会员</option>
+										</select>
 									</div>
+									
 								</div>
 
 							</div>
@@ -323,7 +330,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- 模态框（Modal）删除门店 -->
+	<!-- 模态框（Modal）删除会员 -->
 	<div class="modal fade in" id="deleteModal" tabindex="-1" role="dialog"
 		aria-hidden="">
 		<div class="modal-dialog">
@@ -331,10 +338,10 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title">删除门店信息</h4>
+					<h4 class="modal-title">删除会员信息</h4>
 				</div>
 				<div class="modal-body">
-					<h3 id="deletemsg">是否删除该门店？</h3>
+					<h3 id="deletemsg">是否删除该会员？</h3>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

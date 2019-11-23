@@ -12,6 +12,27 @@ import entity.regulator;
 
 public class DatabaseRegulator extends Database {
 
+	/**获取所有的管理员角色名称*/
+	public List<String> ListRegulatorRoleName() {
+		List<String> ListRoleName = new ArrayList<String>();
+		String sql = "select * from regulator_role";
+		try {
+			// 创建实例
+			Statement seleectReguRoleName = null;
+			seleectReguRoleName = createSta(seleectReguRoleName);
+			resuset = (Resultset) seleectReguRoleName.executeQuery(sql);
+			while (((ResultSet) resuset).next()) {
+				String name=((ResultSet) resuset).getString("regulator_role_name");
+				ListRoleName.add(name);
+			}
+			// 关闭实例
+			CloseStatement(seleectReguRoleName);
+		} catch (Exception e) {
+			System.out.println("获取管理员角色名称失败");
+		}
+		return ListRoleName;
+	}
+	
 	/** 根据管理员角色编号获取管理员角色名称 */
 	public String GetRegulatorRoleName(String regulatorRoleid) {
 		String RoleName = null;
@@ -54,7 +75,7 @@ public class DatabaseRegulator extends Database {
 	/** 获取所有的管理员信息 */
 	public List<regulator> ListRegulator() {
 		List<regulator> listregulators = new ArrayList<regulator>();
-		String sql = "select * from regulator where regulator_role_id='2'";
+		String sql = "select * from regulator";
 		try {
 			// 创建实例
 			Statement SelectStd = null;
@@ -65,11 +86,13 @@ public class DatabaseRegulator extends Database {
 				String regulatorname = ((ResultSet) resuset).getString("regulatorname");
 				String password = ((ResultSet) resuset).getString("password");
 				String regulatorRoleId = ((ResultSet) resuset).getString("regulator_role_id");
+				String storeId= ((ResultSet) resuset).getString("storeid");
 				regulator regu = new regulator();
 				regu.setRegulatorId(regulatorid);
 				regu.setRegulatorName(regulatorname);
 				regu.setPassword(password);
 				regu.setRegulatorRoleId(regulatorRoleId);
+				regu.setStoreId(storeId);
 				listregulators.add(regu);
 			}
 			// 关闭实例
@@ -79,6 +102,37 @@ public class DatabaseRegulator extends Database {
 		}
 		return listregulators;
 	}
+	/**根据门店编号获取员工信息*/
+	public List<regulator> listRegulatorByStoreId(String StoreId){
+		List<regulator> list=new ArrayList<regulator>();
+		String sql = "select * from regulator where storeid='"+StoreId+"'";
+		try {
+			// 创建实例
+			Statement SelectStd = null;
+			SelectStd = createSta(SelectStd);
+			resuset = (Resultset) SelectStd.executeQuery(sql);
+			while (((ResultSet) resuset).next()) {
+				String regulatorid = ((ResultSet) resuset).getString("regulatorid");
+				String regulatorname = ((ResultSet) resuset).getString("regulatorname");
+				String password = ((ResultSet) resuset).getString("password");
+				String regulatorRoleId = ((ResultSet) resuset).getString("regulator_role_id");
+				String storeId= ((ResultSet) resuset).getString("storeid");
+				regulator regu = new regulator();
+				regu.setRegulatorId(regulatorid);
+				regu.setRegulatorName(regulatorname);
+				regu.setPassword(password);
+				regu.setRegulatorRoleId(regulatorRoleId);
+				regu.setStoreId(storeId);
+				list.add(regu);
+			}
+			// 关闭实例
+			CloseStatement(SelectStd);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	/**获取所有的普通员工的信息*/
 	public List<regulator> listOrdinaryRegulators(){
 		List<regulator> list=new ArrayList<regulator>();
@@ -93,11 +147,13 @@ public class DatabaseRegulator extends Database {
 				String regulatorname = ((ResultSet) resuset).getString("regulatorname");
 				String password = ((ResultSet) resuset).getString("password");
 				String regulatorRoleId = ((ResultSet) resuset).getString("regulator_role_id");
+				String storeId= ((ResultSet) resuset).getString("storeid");
 				regulator regu = new regulator();
 				regu.setRegulatorId(regulatorid);
 				regu.setRegulatorName(regulatorname);
 				regu.setPassword(password);
 				regu.setRegulatorRoleId(regulatorRoleId);
+				regu.setStoreId(storeId);
 				list.add(regu);
 			}
 			// 关闭实例
@@ -121,10 +177,12 @@ public class DatabaseRegulator extends Database {
 				String Name = ((ResultSet) resuset).getString("regulatorname");
 				String password = ((ResultSet) resuset).getString("password");
 				String regulatorRoleId = ((ResultSet) resuset).getString("regulator_role_id");
+				String storeId= ((ResultSet) resuset).getString("storeid");
 				regu.setRegulatorId(ID);
 				regu.setRegulatorName(Name);
 				regu.setPassword(password);
 				regu.setRegulatorRoleId(regulatorRoleId);
+				regu.setStoreId(storeId);
 			}
 			System.out.println("获取管理员信息成功");
 			// 关闭实例
@@ -175,7 +233,8 @@ public class DatabaseRegulator extends Database {
 		// 默认密码为172056236
 		String Password = "172056236";
 		String Roleid = regulator.getRegulatorRoleId();
-		String sql = "insert into regulator value('" + ID + "','" + Name + "','" + Password + "','" + Roleid + "')";
+		String Storeid=regulator.getStoreId();
+		String sql = "insert into regulator value('" + ID + "','" + Name + "','" + Password + "','" + Roleid +",'"+Storeid+"')";
 		try {
 			// 创建实例
 			Statement AddRegu = null;
@@ -219,9 +278,10 @@ public class DatabaseRegulator extends Database {
 		String Name = regulator.getRegulatorName();
 		String Password = regulator.getPassword();
 		String Roleid = regulator.getRegulatorRoleId();
-
+		String Storeid=regulator.getStoreId();
+		
 		String sql = "update regulator set regulatorid='" + ID + "',regulatorname='" + Name + "',password='" + Password
-				+ "',regulator_role_id='" + Roleid + "' where regulatorid='" + ID + "'";
+				+ "',regulator_role_id='" + Roleid + "',storeid='"+Storeid+"' where regulatorid='" + ID + "'";
 		try {
 			// 创建实例
 			Statement UpdateRegu = null;

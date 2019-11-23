@@ -5,7 +5,6 @@
 $(function() {
 	menuClickAction();
 	welcomePageInit();
-	signOut();
 	homePage();	
 });
 // 加载欢迎界面
@@ -36,9 +35,3 @@ var delay = (function(){
 	timer = setTimeout(callback, ms);
 	};
 })();
-// 注销登陆
-function signOut() {
-	$("#signOut").click(function() {
-		window.location.href = "./Exit.jsp";
-	})
-}

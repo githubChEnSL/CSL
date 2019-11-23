@@ -14,18 +14,60 @@
 		Add();//添加员工信息
 		Delete();//删除员工信息
 		Update();//修改员工信息
-		refresh();//刷新列表
+		refresh();
+		listStoreName();//获取所有的门店名称
 	})
+	//获取所有的门店和管理员名称
+	function listStoreName() {
+		$.ajax({
+			type : "GET",
+			url : "RegulatorMangement",
+			dataType : "json",
+			success : function(data) {
+				//获取角色名称
+				var listrole=data.listRoleName;
+				$.each(listrole, function(key, value) {
+					$('#addRegulatorRoleName').append(
+							"<option value='"+listrole[key]+"'>"
+									+ listrole[key] + "</option>");
+					$('#updateRegulatorRoleName').append(
+							"<option value='"+listrole[key]+"'>"
+									+ listrole[key] + "</option>");
+					
+				})
+				//获取门店名称
+				var liststore = data.liststorename;
+				$('#Store_select').html("");
+				$('#Store_select').append("<option value='所有'>所有</option>");
+				$.each(liststore, function(key, value) {
+					$('#Store_select').append(
+							"<option value='"+liststore[key]+"'>"
+									+ liststore[key] + "</option>");
+					$('#addStoreName').append(
+							"<option value='"+liststore[key]+"'>"
+									+ liststore[key] + "</option>");
+					$('#updateStoreName').append(
+							"<option value='"+liststore[key]+"'>"
+									+ liststore[key] + "</option>");
+				})
+				
+			},
+			error : function(data) {
+				alert("请求失败");
+			}
+		})
+	}
 	//刷新操作
 	function refresh() {
 		$("#RegulatorList").html("");
 		var data = {
-			action : "all"
+			action : "search",
+			StoreName : $('#Store_select').val()
 		}
 		$
 				.ajax({
 					url : "RegulatorMangement",
-					type : "post",
+					type : "GET",
 					data : data,
 					dataType : "json",
 					contentType : "application/json",
@@ -34,7 +76,7 @@
 						var regulators = data.rows;
 						$("#RegulatorList")
 								.append(
-										"<tr><td>员工编号</td><td>员工名称</td><td>员工角色</td><td>操作</td></tr>");
+										"<tr><td>员工编号</td><td>员工名称</td><td>员工角色</td><td>所属门店</td><td>操作</td></tr>");
 						$
 								.each(
 										regulators,
@@ -49,6 +91,8 @@
 																	+ regulators[key].RegulatorName
 																	+ "</td><td>"
 																	+ regulators[key].RegulatorRole
+																	+ "</td><td>"
+																	+ regulators[key].StoreName
 																	+ "</td><td><button class='btn btn-info' onclick='updateRegulator("
 																	+ row
 																	+ ")'><span>编辑</span></button>"
@@ -87,6 +131,7 @@
 		$('#updateRegulatorid').val(row.RegulatorNum);
 		$('#updateRegulatorName').val(row.RegulatorName);
 		$('#updateRegulatorRoleName').val(row.RegulatorRole);
+		$('#updateStoreName').val(row.StoreName);
 	}
 	//添加操作
 	function Add() {
@@ -94,7 +139,8 @@
 			var data = {
 				action : "add",
 				regulatorName : $('#addregulatorName').val(),
-				RegulatorRoleName : $('#addRegulatorRoleName').val()
+				RegulatorRoleName : $('#addRegulatorRoleName').val(),
+				StoreName:$('#addStoreName').val()
 			}
 			//请求添加
 			$.ajax({
@@ -152,7 +198,8 @@
 				action : "update",
 				RegulatorId : $('#updateRegulatorid').val(),
 				regulatorName : $('#updateRegulatorName').val(),
-				RegulatorRoleName : $('#updateRegulatorRoleName').val()
+				RegulatorRoleName : $('#updateRegulatorRoleName').val(),
+				StoreName:$('#updateStoreName').val()
 			}
 			//请求删除
 			//请求添加
@@ -183,13 +230,15 @@
 			<li>员工信息管理</li>
 		</ol>
 		<div class="panel-body">
+		<!-- 后期添加权限隐藏查询功能 -->
 			<div class="row">
-				<!-- 后期添加权限 -->
-				<!-- 				<div class="col-md-3 col-sm-3"> -->
-				<!-- 					<select name="" id="Store_select" class="form-control "> -->
-				<!-- 						<option value="">所有</option> -->
-				<!-- 					</select> -->
-				<!-- 				</div> -->
+				<div class="col-md-1 col-sm-2">
+					<span>选择门店：</span>
+				</div>
+				<div class="col-md-3 col-sm-3">
+					<select name="" id="Store_select" class="form-control ">
+					</select>
+				</div>
 				<div class="col-md-6 col-sm-6">
 					<div>
 						<div class="col-md-2 col-sm-2">
@@ -210,7 +259,7 @@
 			</div>
 
 			<div class="row" style="margin-top: 15px">
-				<div class="col-md-12" align="center">
+				<div class="col-md-12" align="center" style="overflow-x: auto; overflow-y: auto; height: 445px; width:1200px;">
 					<table id="RegulatorList" style="text-align: center;"
 						class="table table-striped"></table>
 				</div>
@@ -248,9 +297,16 @@
 									<div class="col-md-8 col-sm-8">
 										<select name="" id="addRegulatorRoleName"
 											class="form-control ">
-											<option value="超级管理员">超级管理员</option>
-											<option value="管理员">管理员</option>
-											<option value="普通员工">普通员工</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="" class="control-label col-md-4 col-sm-4">
+										<span>所属门店：</span>
+									</label>
+									<div class="col-md-8 col-sm-8">
+										<select name="" id="addStoreName" class="form-control ">
+
 										</select>
 									</div>
 								</div>
@@ -258,10 +314,10 @@
 						</div>
 					</div>
 				</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				<button type="button" id="addbut" class="btn btn-primary">添加</button>
-			</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" id="addbut" class="btn btn-primary">添加</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -286,7 +342,8 @@
 									</label>
 									<div class="col-md-8 col-sm-8">
 										<input type="text" disabled="disabled" class="form-control"
-											id="updateRegulatorid" name="updateRegulatorid" placeholder="员工编号">
+											id="updateRegulatorid" name="updateRegulatorid"
+											placeholder="员工编号">
 									</div>
 								</div>
 								<div class="form-group">
@@ -294,8 +351,9 @@
 										<span>员工名称：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<input type="text" class="form-control" id="updateRegulatorName"
-											name="updateRegulatorName" placeholder="员工名称">
+										<input type="text" class="form-control"
+											id="updateRegulatorName" name="updateRegulatorName"
+											placeholder="员工名称">
 									</div>
 								</div>
 								<div class="form-group">
@@ -305,9 +363,16 @@
 									<div class="col-md-8 col-sm-8">
 										<select name="" id="updateRegulatorRoleName"
 											class="form-control ">
-											<option value="超级管理员">超级管理员</option>
-											<option value="管理员">管理员</option>
-											<option value="普通员工">普通员工</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="" class="control-label col-md-4 col-sm-4">
+										<span>所属门店：</span>
+									</label>
+									<div class="col-md-8 col-sm-8">
+										<select name="" id="updateStoreName"
+											class="form-control ">
 										</select>
 									</div>
 								</div>

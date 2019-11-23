@@ -38,7 +38,8 @@
 							<span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu">
-							<li><a href="javascript:void(0)" id="signOut">&nbsp;&nbsp;注销登录</a></li>
+							<li><a href="javascript:void(0)" class="menu_item"
+								name="Exit.jsp">&nbsp;&nbsp;注销登录</a></li>
 						</ul>
 				</ul>
 			</div>
@@ -91,7 +92,8 @@
 							<div class="panel-body" style="background-color: #fff">
 
 								<ul class="list-group">
-									<a href="javascript:void(0)" id="" class="menu_item" name="RegulatorsMangement.jsp">
+									<a href="javascript:void(0)" id="" class="menu_item"
+										name="RegulatorsMangement.jsp">
 										<li class="list-group-item">员工信息</li>
 									</a>
 								</ul>
@@ -113,7 +115,8 @@
 						<div id="collapse3" class="panel-collapse collapse collapseBody">
 							<div class="panel-body" style="background-color: #fff">
 								<ul class="list-group">
-									<a href="javascript:void(0)" id="" class="menu_item" name="UsersMangement.jsp">
+									<a href="javascript:void(0)" id="" class="menu_item"
+										name="UsersMangement.jsp">
 										<li class="list-group-item">会员信息</li>
 									</a>
 
@@ -136,7 +139,8 @@
 						<div id="collapse4" class="panel-collapse collapse collapseBody">
 							<div class="panel-body" style="background-color: #fff">
 								<ul class="list-group">
-									<a href="javascript:void(0)" id="" class="menu_item" name="">
+									<a href="javascript:void(0)" id="" class="menu_item"
+										name="PersonalMangement.jsp">
 										<li class="list-group-item">个人信息</li>
 									</a>
 								</ul>
@@ -159,12 +163,9 @@
 							<div class="panel-body" style="background-color: #fff">
 								<ul class="list-group">
 									<a href="javascript:void(0)" id="" class="menu_item" name="">
-										<li class="list-group-item">更改密码</li>
-									</a>
-									<a href="javascript:void(0)" id="" class="menu_item" name="">
 										<li class="list-group-item">登陆日志</li>
 									</a>
-									<a href="javascript:void(0)" id="" class="menu_item" name="">
+									<a href="javascript:void(0)" class="menu_item" name="Exit.jsp">
 										<li class="list-group-item">注销登陆</li>
 									</a>
 								</ul>

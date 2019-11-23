@@ -13,7 +13,7 @@
 	<div class="login_div">
 		<div class="title">店铺管理后台</div>
 		<form action="LoginServlet" method="post">
-			<h2>用户登陆</h2>
+			<h2>用户登录</h2>
 			<div class="msg">
 				<custom:errormessage></custom:errormessage>
 			</div>
@@ -31,7 +31,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<input type="submit" class="btn btn-info col-sm-12" value="登陆 " />
+				<input type="submit" class="btn btn-info col-sm-12" value="登录 " />
 			</div>
 		</form>
 	</div>

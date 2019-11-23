@@ -13,6 +13,27 @@ import entity.store;
 
 public class DatabaseStore extends Database {
 
+	/**获取所有的门店名称*/
+	public List<String> ListStoresName(){
+		List<String> listname=new ArrayList<String>();
+		String sql = "select * from store";
+		try {
+			// 创建实例
+			Statement GetAllStore = null;
+			GetAllStore = createSta(GetAllStore);
+			resuset = (Resultset) GetAllStore.executeQuery(sql);
+			while (((ResultSet) resuset).next()) {
+				String storename = ((ResultSet) resuset).getString("storename");
+				listname.add(storename);
+			}
+			// 关闭实例
+			CloseStatement(GetAllStore);
+		} catch (Exception e) {
+			System.out.println("获取所有的门店名称失败");
+		}
+		return listname;
+	}
+	
 	/** 根据管理员编号获取所有商店的信息 */
 	public List<store> GetAllStoreByRegulatorId(String regulatorId) {
 		List<store> AllStore = new ArrayList<store>();
@@ -35,7 +56,7 @@ public class DatabaseStore extends Database {
 			// 关闭实例
 			CloseStatement(GetAllStore);
 		} catch (Exception e) {
-			System.out.println("获取用户角色名称失败");
+			System.out.println("根据管理员编号获取所有商店的信息");
 		}
 		return AllStore;
 	}
