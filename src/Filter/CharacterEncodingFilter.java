@@ -14,21 +14,28 @@ import javax.servlet.ServletResponse;
 public class CharacterEncodingFilter implements Filter {
 
 	private static String encoding; // 定义变量接收初始化的值
+
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		try {
 			request.setCharacterEncoding(encoding);
 			response.setCharacterEncoding(encoding);
-			//System.out.println("设置字符编码--成功");
+			// System.out.println("设置字符编码--成功");
 		} catch (Exception e) {
 			System.out.println("设置字符编码--失败");
 		}
 		chain.doFilter(request, response);
 	}
+
 	@Override
 	public void init(FilterConfig fConfig) throws ServletException {
-		encoding=fConfig.getInitParameter("encoding");
+		encoding = fConfig.getInitParameter("encoding");
 	}
 
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+
+	}
 }

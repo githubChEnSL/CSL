@@ -60,7 +60,7 @@ public class RegulatorController extends HttpServlet {
 		//验证用户是否登录
 		try {
 			//如果获取到null进入catch
-			loginRegulator = RegulatorDatabase.GetRegulatorForId(session.getAttribute("name").toString());
+			loginRegulator = RegulatorDatabase.GetRegulatorForId(session.getAttribute("id").toString());
 			String RoleId = loginRegulator.getRegulatorRoleId();
 			if ("add".equals(action)) {
 				System.out.println("RegulatorName:" + RegulatorName + " RegulatorRoleName:" + RegulatorRoleName

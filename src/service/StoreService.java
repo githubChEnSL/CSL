@@ -7,8 +7,10 @@ import entity.store;
 import jdbc.DatabaseStore;
 
 public class StoreService extends DatabaseStore{
-	//@Autowired
 	DatabaseStore dataStore;
+	public StoreService() {
+		dataStore=new DatabaseStore();
+	}
 	/**根据管理员编号获取所有商店的信息*/
 	public List<store> GetAllStoreByRegulatorId(String regulatorId) {
 		return dataStore.GetAllStoreByRegulatorId(regulatorId);
@@ -34,7 +36,7 @@ public class StoreService extends DatabaseStore{
 		return dataStore.updateStore(updatestore);
 	}
 	/**关闭*/
-	public void close() {
+	public void closeStoreService() {
 		dataStore.CloseDatabase();
 	}
 	

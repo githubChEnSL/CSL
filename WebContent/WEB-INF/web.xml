@@ -79,4 +79,13 @@
         <servlet-name>UsersMangement</servlet-name>
         <url-pattern>/UsersMangement</url-pattern>
     </servlet-mapping>
+    <!-- 个人信息管理 -->
+    <servlet>
+        <servlet-name>PersonalMangement</servlet-name>
+        <servlet-class>controller.PersonalController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PersonalMangement</servlet-name>
+        <url-pattern>/PersonalMangement</url-pattern>
+    </servlet-mapping>
 </web-app>

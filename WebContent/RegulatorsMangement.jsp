@@ -54,7 +54,8 @@
 				
 			},
 			error : function(data) {
-				alert("请求失败");
+				$('#tipsmsg').html("请求错误");
+				$('#TipsModal').modal('show');
 			}
 		})
 	}
@@ -104,7 +105,8 @@
 										})
 					},
 					error : function(data) {
-						alert("请求失败");
+						$('#tipsmsg').html("请求错误");
+						$('#TipsModal').modal('show');
 					}
 				})
 	}
@@ -405,25 +407,6 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 					<button type="button" id="deletebut" class="btn btn-primary">确定</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 模态框（Modal）操作状态提示信息 -->
-	<div class="modal fade in" id="TipsModal" tabindex="-1" role="dialog"
-		style="text-align: center;" aria-hidden="">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title">提示</h4>
-				</div>
-				<div class="modal-body">
-					<h3 id="tipsmsg"></h3>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 				</div>
 			</div>
 		</div>

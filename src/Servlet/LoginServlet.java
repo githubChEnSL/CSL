@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.regulator;
-import jdbc.DatabaseRegulator;
+import service.RegulatorService;
+import service.StoreService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -23,23 +24,25 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public LoginServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	// 管理员登陆
 	public static Map<String, Object> RegulatorLogin(String RegulatorNum, String Password) {
 		boolean flag = false;
 		Map<String, Object> map=new HashMap<String, Object>();
-		DatabaseRegulator database = new DatabaseRegulator();
-		Integer roleid=-1;
+		RegulatorService regulatorService = new RegulatorService();
+		StoreService service=new StoreService();
+		Integer roleId=-1;
+		String loginName="";
 		try {
-			regulator getObject = database.GetRegulatorForId(RegulatorNum);
-			roleid=Integer.parseInt(getObject.getRegulatorRoleId());
+			regulator getObject = regulatorService.GetRegulatorForId(RegulatorNum);
 			if(Integer.parseInt(getObject.getRegulatorRoleId())==3) {
 				flag=false;
 			}else {
-				if (getObject.getRegulatorName() != null) {
+				if (getObject.getRegulatorId() != null) {
 					if (getObject.getPassword().equals(Password)) {
+						roleId=Integer.parseInt(getObject.getRegulatorRoleId());
+						loginName=getObject.getRegulatorName();
 						flag = true;
 					} else {
 						flag = false;
@@ -52,9 +55,10 @@ public class LoginServlet extends HttpServlet {
 			flag = false;
 		}
 		map.put("flag", flag);
-		map.put("roleid", roleid);
-		database.CloseDatabase();
-		
+		map.put("loginName", loginName);
+		map.put("roleid", roleId);
+		regulatorService.CloseRegulatorService();
+		service.closeStoreService();
 		return map;
 	}
 
@@ -64,25 +68,26 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String name = request.getParameter("userName");
+		String id = request.getParameter("userName");
 		String password = request.getParameter("password");
 		String error = "";
-		boolean flag=(boolean) RegulatorLogin(name, password).get("flag");
+		Map<String,	Object> loginMap=RegulatorLogin(id, password);
+		boolean flag=(boolean) loginMap.get("flag");
 		System.err.println(flag);
-		Integer id=(Integer) RegulatorLogin(name, password).get("roleid");
+		Integer roleid=(Integer) loginMap.get("roleid");
+		String loginName=(String) loginMap.get("loginName");
 		if (flag) {
 			System.out.println("登陆请求----登陆成功");
-			System.err.println(id);
-			request.getSession().setAttribute("roleId", id);
-			request.getSession().setAttribute("name", name);
+			System.err.println(roleid);
+			request.getSession().setAttribute("roleId", roleid);
+			request.getSession().setAttribute("id", id);
+			request.getSession().setAttribute("loginName", loginName);
 			request.getSession().setAttribute("error", "");
 			response.sendRedirect("index.jsp");
-//				request.getRequestDispatcher("index.jsp").forward(request, response);
 		} else {
 			System.out.println("登陆请求----登陆失败");
-			error = "账号或密码错误,或您无权登陆系统";
+			error = "账号或密码错误,您无权登陆系统";
 			request.getSession().setAttribute("error", error);
-			// response.sendRedirect("login.jsp");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 		response.getWriter().append("Served at: ").append(request.getContextPath());
