@@ -16,8 +16,10 @@ import javax.servlet.http.HttpSession;
 import com.alibaba.fastjson.JSONObject;
 
 import entity.regulator;
-import jdbc.DatabaseRegulator;
-import jdbc.DatabaseStore;
+import service.RegulatorService;
+import service.StoreService;
+import service.impl.RegulatorServiceImpl;
+import service.impl.StoreServiceImpl;
 
 public class RegulatorController extends HttpServlet {
 	/**
@@ -43,13 +45,13 @@ public class RegulatorController extends HttpServlet {
 		List<Map<String, Object>> RegulatorData = new ArrayList<Map<String, Object>>();
 		// 获取前台传来的RegulatorId
 		String RegulatorId = request.getParameter("RegulatorId");
-		// 定义与数据库交互的对象
-		DatabaseRegulator RegulatorDatabase = new DatabaseRegulator();
-		DatabaseStore StoreDatabase = new DatabaseStore();
+		// 定义与service实现类的对象
+		RegulatorService RegulatorService = new RegulatorServiceImpl();
+		StoreService StoreService = new StoreServiceImpl();
 		// 获取所有的门店名称
-		List<String> listStoreName = StoreDatabase.ListStoresName();
+		List<String> listStoreName = StoreService.ListStoresName();
 		// 获取所有的管理者角色名称
-		List<String> listRoleName = RegulatorDatabase.ListRegulatorRoleName();
+		List<String> listRoleName = RegulatorService.ListRegulatorRoleName();
 		// 保存提示信息
 		String msgString = "";
 		// 封装返回的数据
@@ -57,10 +59,10 @@ public class RegulatorController extends HttpServlet {
 		// 判断登陆者的身份
 		HttpSession session = request.getSession();
 		regulator loginRegulator = new regulator();
-		//验证用户是否登录
+		// 验证用户是否登录
 		try {
-			//如果获取到null进入catch
-			loginRegulator = RegulatorDatabase.GetRegulatorForId(session.getAttribute("id").toString());
+			// 如果获取到null进入catch
+			loginRegulator = RegulatorService.GetRegulatorForId(session.getAttribute("id").toString());
 			String RoleId = loginRegulator.getRegulatorRoleId();
 			if ("add".equals(action)) {
 				System.out.println("RegulatorName:" + RegulatorName + " RegulatorRoleName:" + RegulatorRoleName
@@ -69,25 +71,26 @@ public class RegulatorController extends HttpServlet {
 				regulator addobject = new regulator();
 				try {
 					// 判断添加的名称是否有重复
-					if ("".equals(RegulatorDatabase.GetIdForName(RegulatorName))) {
+					if ("".equals(RegulatorService.GetIdForName(RegulatorName))) {
 						// 没有重复（可以添加）
 						// 判断登陆者的权限
 						if (RoleId.equals("1")) {
 							// 超级管理员可以随意添加
 							addobject.setRegulatorName(RegulatorName);
-							addobject.setRegulatorRoleId(RegulatorDatabase.GetRegulatorRoleId(RegulatorRoleName));
-							RegulatorDatabase.insertRegulator(addobject);
-							addobject.setStoreId(StoreDatabase.getIdForName(StoreName));
+							addobject.setRegulatorRoleId(RegulatorService.GetRegulatorRoleId(RegulatorRoleName));
+							RegulatorService.insertRegulator(addobject);
+							addobject.setStoreId(StoreService.getIdForName(StoreName));
 							msgString = "添加成功";
 						} else if (RoleId.equals("2")) {
 							// 管理员（店长）只能添加普通员工
-							if (RegulatorDatabase.GetRegulatorRoleId(RegulatorRoleName).equals("3")) {
+							if (RegulatorService.GetRegulatorRoleId(RegulatorRoleName).equals("3")) {
 								// 是否为本门店
-								if (StoreDatabase.getIdForName(StoreName).equals(loginRegulator.getStoreId())) {
+								if (StoreService.getIdForName(StoreName).equals(loginRegulator.getStoreId())) {
 									addobject.setRegulatorName(RegulatorName);
-									addobject.setRegulatorRoleId(RegulatorDatabase.GetRegulatorRoleId(RegulatorRoleName));
-									addobject.setStoreId(StoreDatabase.getIdForName(StoreName));
-									RegulatorDatabase.insertRegulator(addobject);
+									addobject
+											.setRegulatorRoleId(RegulatorService.GetRegulatorRoleId(RegulatorRoleName));
+									addobject.setStoreId(StoreService.getIdForName(StoreName));
+									RegulatorService.insertRegulator(addobject);
 									msgString = "添加成功";
 								} else {
 									msgString = "添加失败，您无法添加其他门店的员工";
@@ -108,16 +111,16 @@ public class RegulatorController extends HttpServlet {
 				}
 			} else if ("delete".equals(action)) {
 				System.out.println("RegulatorId:" + RegulatorId + "  action:" + action);
-				if (RegulatorDatabase.deleteRegulator(RegulatorId)) {
+				if (RegulatorService.deleteRegulator(RegulatorId)) {
 					msgString = "删除成功";
 				} else {
 					msgString = "删除失败";
 				}
 			} else if ("update".equals(action)) {
-				System.out.println("RegulatorId:" + RegulatorId + " RegulatorName:" + RegulatorName + " RegulatorRoleName:"
-						+ RegulatorRoleName + " StoreName:" + StoreName+ "  action:" + action);
+				System.out.println("RegulatorId:" + RegulatorId + " RegulatorName:" + RegulatorName
+						+ " RegulatorRoleName:" + RegulatorRoleName + " StoreName:" + StoreName + "  action:" + action);
 				// 由ID获取原来的门店信息
-				regulator oldRegulator = RegulatorDatabase.GetRegulatorForId(RegulatorId);
+				regulator oldRegulator = RegulatorService.GetRegulatorForId(RegulatorId);
 				// 封装修改信息
 				regulator newRegulator = new regulator();
 				// 写入ID
@@ -130,23 +133,23 @@ public class RegulatorController extends HttpServlet {
 					// 写入旧密码
 					newRegulator.setPassword(oldRegulator.getPassword());
 					// 写入角色编号
-					newRegulator.setRegulatorRoleId(RegulatorDatabase.GetRegulatorRoleId(RegulatorRoleName));
-					//写入门店编号
-					newRegulator.setStoreId(StoreDatabase.getIdForName(StoreName));
-					RegulatorDatabase.updateRegulator(newRegulator);
+					newRegulator.setRegulatorRoleId(RegulatorService.GetRegulatorRoleId(RegulatorRoleName));
+					// 写入门店编号
+					newRegulator.setStoreId(StoreService.getIdForName(StoreName));
+					RegulatorService.updateRegulator(newRegulator);
 					msgString = "修改成功";
 				} else if (RoleId.equals("2")) {
 					// 只能修改员工信息
-					if (RegulatorDatabase.GetRegulatorRoleId(RegulatorRoleName).equals("3")) {
+					if (RegulatorService.GetRegulatorRoleId(RegulatorRoleName).equals("3")) {
 						// 写入名称
 						newRegulator.setRegulatorName(RegulatorName);
 						// 写入旧密码
 						newRegulator.setPassword(oldRegulator.getPassword());
 						// 写入角色编号
-						newRegulator.setRegulatorRoleId(RegulatorDatabase.GetRegulatorRoleId(RegulatorRoleName));
-						//写入门店编号
-						newRegulator.setStoreId(StoreDatabase.getIdForName(StoreName));
-						RegulatorDatabase.updateRegulator(newRegulator);
+						newRegulator.setRegulatorRoleId(RegulatorService.GetRegulatorRoleId(RegulatorRoleName));
+						// 写入门店编号
+						newRegulator.setStoreId(StoreService.getIdForName(StoreName));
+						RegulatorService.updateRegulator(newRegulator);
 						msgString = "修改成功";
 					} else {
 						msgString = "修改失败，您没有权限";
@@ -161,18 +164,18 @@ public class RegulatorController extends HttpServlet {
 					if (RoleId.equals("1")) {
 						System.err.println("超级");
 						if ("所有".equals(StoreName)) {
-							listregulator = RegulatorDatabase.ListRegulator();
+							listregulator = RegulatorService.ListRegulator();
 						} else {
 							// 根据门店名称获取门店编号
-							String StoreId = StoreDatabase.getIdForName(StoreName);
-							listregulator = RegulatorDatabase.listRegulatorByStoreId(StoreId);
+							String StoreId = StoreService.getIdForName(StoreName);
+							listregulator = RegulatorService.listRegulatorByStoreId(StoreId);
 						}
 					} else if (RoleId.equals("2")) {
 						System.err.println("管理员");
 						// 管理员身份
 						// 获取本门店的所有员工信息
 						String StoreId = loginRegulator.getStoreId();
-						listregulator = RegulatorDatabase.listRegulatorByStoreId(StoreId);
+						listregulator = RegulatorService.listRegulatorByStoreId(StoreId);
 					} else {
 						listregulator = null;
 					}
@@ -180,35 +183,36 @@ public class RegulatorController extends HttpServlet {
 					// 管理员身份
 					// 获取本门店的所有员工信息
 					String StoreId = loginRegulator.getStoreId();
-					listregulator = RegulatorDatabase.listRegulatorByStoreId(StoreId);
+					listregulator = RegulatorService.listRegulatorByStoreId(StoreId);
 				}
 			}
 			if (listregulator.size() != 0) {
 				for (int i = 0; i < listregulator.size(); i++) {
 					Map<String, Object> row = new HashMap<>();
 					regulator entity = listregulator.get(i);
-					if(entity.getRegulatorRoleId().equals("1")) {
-						if(RoleId.equals("1")) {
+					if (entity.getRegulatorRoleId().equals("1")) {
+						if (RoleId.equals("1")) {
 							row.put("RegulatorNum", entity.getRegulatorId());
 							row.put("RegulatorName", entity.getRegulatorName());
-							row.put("RegulatorRole", RegulatorDatabase.GetRegulatorRoleName(entity.getRegulatorRoleId()));
+							row.put("RegulatorRole",
+									RegulatorService.GetRegulatorRoleName(entity.getRegulatorRoleId()));
 							if ("".equals(entity.getStoreId())) {
 								row.put("StoreName", "空");
 							} else {
-								row.put("StoreName", StoreDatabase.getStoreForId(entity.getStoreId()).getStoreName());
+								row.put("StoreName", StoreService.getStoreForId(entity.getStoreId()).getStoreName());
 							}
 							RegulatorData.add(row);
-						}else {
-							
+						} else {
+
 						}
-					}else {
+					} else {
 						row.put("RegulatorNum", entity.getRegulatorId());
 						row.put("RegulatorName", entity.getRegulatorName());
-						row.put("RegulatorRole", RegulatorDatabase.GetRegulatorRoleName(entity.getRegulatorRoleId()));
+						row.put("RegulatorRole", RegulatorService.GetRegulatorRoleName(entity.getRegulatorRoleId()));
 						if ("".equals(entity.getStoreId())) {
 							row.put("StoreName", "空");
 						} else {
-							row.put("StoreName", StoreDatabase.getStoreForId(entity.getStoreId()).getStoreName());
+							row.put("StoreName", StoreService.getStoreForId(entity.getStoreId()).getStoreName());
 						}
 						RegulatorData.add(row);
 					}
@@ -231,9 +235,10 @@ public class RegulatorController extends HttpServlet {
 		out.print(data);
 		out.flush();
 		out.close();
-		StoreDatabase.CloseDatabase();
-		RegulatorDatabase.CloseDatabase();
+		StoreService.CloseStoreService();
+		RegulatorService.CloseRegulatorService();
 	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub

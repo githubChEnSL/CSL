@@ -1,4 +1,4 @@
-package jdbc;
+package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,8 +9,9 @@ import java.util.List;
 import com.mysql.cj.protocol.Resultset;
 
 import entity.regulator;
+import jdbc.Database;
 
-public class DatabaseRegulator extends Database {
+public class DaoRegulator extends Database {
 
 	/**获取所有的管理员角色名称*/
 	public List<String> ListRegulatorRoleName() {

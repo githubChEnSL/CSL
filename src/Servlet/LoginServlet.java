@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.regulator;
 import service.RegulatorService;
-import service.StoreService;
+import service.impl.RegulatorServiceImpl;
 
 /**
  * Servlet implementation class LoginServlet
@@ -29,20 +29,20 @@ public class LoginServlet extends HttpServlet {
 	// 管理员登陆
 	public static Map<String, Object> RegulatorLogin(String RegulatorNum, String Password) {
 		boolean flag = false;
-		Map<String, Object> map=new HashMap<String, Object>();
-		RegulatorService regulatorService = new RegulatorService();
-		StoreService service=new StoreService();
-		Integer roleId=-1;
-		String loginName="";
+		Map<String, Object> map = new HashMap<String, Object>();
+		// 定义与service实现类的对象
+		RegulatorService RegulatorService = new RegulatorServiceImpl();
+		Integer roleId = -1;
+		String loginName = "";
 		try {
-			regulator getObject = regulatorService.GetRegulatorForId(RegulatorNum);
-			if(Integer.parseInt(getObject.getRegulatorRoleId())==3) {
-				flag=false;
-			}else {
+			regulator getObject = RegulatorService.GetRegulatorForId(RegulatorNum);
+			if (Integer.parseInt(getObject.getRegulatorRoleId()) == 3) {
+				flag = false;
+			} else {
 				if (getObject.getRegulatorId() != null) {
 					if (getObject.getPassword().equals(Password)) {
-						roleId=Integer.parseInt(getObject.getRegulatorRoleId());
-						loginName=getObject.getRegulatorName();
+						roleId = Integer.parseInt(getObject.getRegulatorRoleId());
+						loginName = getObject.getRegulatorName();
 						flag = true;
 					} else {
 						flag = false;
@@ -57,8 +57,7 @@ public class LoginServlet extends HttpServlet {
 		map.put("flag", flag);
 		map.put("loginName", loginName);
 		map.put("roleid", roleId);
-		regulatorService.CloseRegulatorService();
-		service.closeStoreService();
+		RegulatorService.CloseRegulatorService();
 		return map;
 	}
 
@@ -71,11 +70,11 @@ public class LoginServlet extends HttpServlet {
 		String id = request.getParameter("userName");
 		String password = request.getParameter("password");
 		String error = "";
-		Map<String,	Object> loginMap=RegulatorLogin(id, password);
-		boolean flag=(boolean) loginMap.get("flag");
+		Map<String, Object> loginMap = RegulatorLogin(id, password);
+		boolean flag = (boolean) loginMap.get("flag");
 		System.err.println(flag);
-		Integer roleid=(Integer) loginMap.get("roleid");
-		String loginName=(String) loginMap.get("loginName");
+		Integer roleid = (Integer) loginMap.get("roleid");
+		String loginName = (String) loginMap.get("loginName");
 		if (flag) {
 			System.out.println("登陆请求----登陆成功");
 			System.err.println(roleid);

@@ -1,4 +1,4 @@
-package jdbc;
+package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,10 +9,11 @@ import java.util.List;
 
 import com.mysql.cj.protocol.Resultset;
 import entity.user;
+import jdbc.Database;
 
-public class DatabaseUser extends Database{
+public class DaoUser extends Database{
 
-	public DatabaseUser(){
+	public DaoUser(){
 		super();
 	}
 	/**根据用户员角色编号获取用户角色名称*/

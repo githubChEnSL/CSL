@@ -1,4 +1,4 @@
-package jdbc;
+package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,8 +10,9 @@ import java.util.List;
 import com.mysql.cj.protocol.Resultset;
 
 import entity.store;
+import jdbc.Database;
 
-public class DatabaseStore extends Database {
+public class DaoStore extends Database {
 
 	/**获取所有的门店名称*/
 	public List<String> ListStoresName(){

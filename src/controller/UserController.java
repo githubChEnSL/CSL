@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONObject;
 
 import entity.user;
-import jdbc.DatabaseUser;
+import service.UserService;
+import service.impl.UserServiceImpl;
 
 public class UserController extends HttpServlet {
 
@@ -44,8 +45,8 @@ public class UserController extends HttpServlet {
 		List<Map<String, Object>> storeData = new ArrayList<Map<String, Object>>();
 		// 获取前台传来的UserNum
 		String UserNum = request.getParameter("UserNum");
-		// 定义与数据库交互的对象
-		DatabaseUser UserData = new DatabaseUser();
+		// 定义与service实现类的对象
+		UserService UserService = new UserServiceImpl();
 		// 保存提示信息
 		String msgString = "";
 		if ("add".equals(action)) {
@@ -54,11 +55,11 @@ public class UserController extends HttpServlet {
 			user addobject = new user();
 			try {
 				// 判断名称是否有重复
-				if ("".equals(UserData.getUserIdForName(UserName))) {
+				if ("".equals(UserService.getUserIdForName(UserName))) {
 					// 没有重复（可以添加）
 					addobject.setUserName(UserName);
-					addobject.setRoleId(UserData.GetUserRoleId(RoleName));
-					UserData.insertUser(addobject);
+					addobject.setRoleId(UserService.GetUserRoleId(RoleName));
+					UserService.insertUser(addobject);
 					msgString = "添加成功";
 				} else {
 					// 名称重复
@@ -69,7 +70,7 @@ public class UserController extends HttpServlet {
 			}
 		} else if ("delete".equals(action)) {
 			System.out.println("UserNum:" + UserNum + "  action:" + action);
-			if (UserData.deleteUser(UserNum)) {
+			if (UserService.deleteUser(UserNum)) {
 				msgString = "删除成功";
 			} else {
 				msgString = "删除失败";
@@ -78,7 +79,7 @@ public class UserController extends HttpServlet {
 			System.out.println(
 					"UserNum:" + UserNum + " UserName:" + UserName + " RoleName:" + RoleName + "  action:" + action);
 			// 由ID获取原来的会员信息
-			user oldUser = UserData.getUserForId(UserNum);
+			user oldUser = UserService.getUserForId(UserNum);
 			// 定义新的会员信息
 			user newUser = new user();
 			// 写入ID
@@ -88,20 +89,20 @@ public class UserController extends HttpServlet {
 				// 名称没变（写入名称）
 				newUser.setUserName(oldUser.getUserName());
 				// 写入会员角色
-				newUser.setRoleId(UserData.GetUserRoleId(RoleName));
+				newUser.setRoleId(UserService.GetUserRoleId(RoleName));
 				// 修改会员信息
-				UserData.updateUser(newUser);
+				UserService.updateUser(newUser);
 				msgString = "修改成功";
 			} else {
 				// 名称变了（判断是否和其他的名称重复）
 				// 由名称获取信息
-				if ("".equals(UserData.getUserIdForName(UserName))) {
+				if ("".equals(UserService.getUserIdForName(UserName))) {
 					// 名称没重复（写入名称）
 					newUser.setUserName(UserName);
 					// 写入会员角色
-					newUser.setRoleId(UserData.GetUserRoleId(RoleName));
+					newUser.setRoleId(UserService.GetUserRoleId(RoleName));
 					// 修改会员信息
-					UserData.updateUser(newUser);
+					UserService.updateUser(newUser);
 					msgString = "修改成功";
 				} else {
 					// 名称重复
@@ -111,13 +112,13 @@ public class UserController extends HttpServlet {
 		} else {
 			System.out.println();
 			System.out.println("查询所有的会员信息");
-			List<user> listStores = UserData.ListUser();
+			List<user> listStores = UserService.ListUser();
 			for (int i = 0; i < listStores.size(); i++) {
 				Map<String, Object> row = new HashMap<>();
 				user entity = listStores.get(i);
 				row.put("UserNum", entity.getUserId());
 				row.put("UserName", entity.getUserName());
-				row.put("UserRoleName", UserData.GetUserRoleName(entity.getRoleId()));
+				row.put("UserRoleName", UserService.GetUserRoleName(entity.getRoleId()));
 				storeData.add(row);
 			}
 		}
@@ -133,7 +134,7 @@ public class UserController extends HttpServlet {
 		out.print(data);
 		out.flush();
 		out.close();
-		UserData.CloseDatabase();
+		UserService.CloseService();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
