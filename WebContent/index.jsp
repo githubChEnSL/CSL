@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="CustomTag" prefix="custom"%>
+	<!-- 导入核心标签库 -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,7 +35,7 @@
 			<div>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span>欢迎&nbsp;</span> 用户名:<custom:name></custom:name></span>
+						data-toggle="dropdown"> <span>欢迎&nbsp;</span> 用户名:${sessionScope.name}
 							<span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu">

@@ -26,12 +26,12 @@ public class AuthenticationFilter implements Filter {
 				System.out.println("身份验证-----在线中,用户为:"+session.getAttribute("name"));
 				arg2.doFilter(arg0, arg1);
 			}else {
-				request.getSession().setAttribute("error", "登陆状态异常,请重新登陆");
+				request.getSession().setAttribute("LoginMsg", "登陆状态异常,请重新登陆");
 				response.sendRedirect("login.jsp");
 				System.out.println("身份验证-----离线中,请重新登陆");
 			}
 		} catch (Exception e) {
-			request.getSession().setAttribute("error", "登陆状态异常,请重新登陆");
+			request.getSession().setAttribute("LoginMsg", "登陆状态异常,请重新登陆");
 			response.sendRedirect("login.jsp");
 			System.out.println("身份验证-----离线中,请重新登陆");
 		}

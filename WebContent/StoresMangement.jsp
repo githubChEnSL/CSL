@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -189,6 +190,7 @@
 		<ol class="breadcrumb">
 			<li>门店信息管理</li>
 		</ol>
+		<c:if test="${sessionScope.roleId==1}">
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-3 col-sm-3">
@@ -222,6 +224,8 @@
 				</div>
 			</div>
 		</div>
+		</c:if>
+		<c:if test="${sessionScope.roleId!=1}">您没有权限进行相关操作！</c:if>
 	</div>
 	<!-- 模态框（Modal）添加门店 -->
 	<div class="modal fade in" id="addModal" tabindex="-1" role="dialog"

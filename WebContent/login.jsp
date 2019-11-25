@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="CustomTag" prefix="custom"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +14,7 @@
 		<form action="LoginServlet" method="post">
 			<h2>用户登录</h2>
 			<div class="msg">
-				<custom:errormessage></custom:errormessage>
+				<p style="color:red;">${sessionScope.LoginMsg}</p>
 			</div>
 			<div class="form-group">
 				<input class="form form-control" type="text" placeholder="用户名"
@@ -27,7 +26,7 @@
 			</div>
 			<div class="form-group">
 				<div class="msg">
-					<custom:Tips></custom:Tips>
+				<p style="color:red;">${sessionScope.error}</p>
 				</div>
 			</div>
 			<div class="form-group">

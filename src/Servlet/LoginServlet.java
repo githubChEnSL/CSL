@@ -1,6 +1,8 @@
 package Servlet;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,12 +27,15 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	// 管理员登陆
-	public static boolean RegulatorLogin(String RegulatorNum, String Password) {
+	public static Map<String, Object> RegulatorLogin(String RegulatorNum, String Password) {
 		boolean flag = false;
+		Map<String, Object> map=new HashMap<String, Object>();
 		DatabaseRegulator database = new DatabaseRegulator();
+		Integer roleid=-1;
 		try {
 			regulator getObject = database.GetRegulatorForId(RegulatorNum);
-			if(getObject.getRegulatorRoleId()=="3") {
+			roleid=Integer.parseInt(getObject.getRegulatorRoleId());
+			if(Integer.parseInt(getObject.getRegulatorRoleId())==3) {
 				flag=false;
 			}else {
 				if (getObject.getRegulatorName() != null) {
@@ -46,8 +51,11 @@ public class LoginServlet extends HttpServlet {
 		} catch (Exception e) {
 			flag = false;
 		}
+		map.put("flag", flag);
+		map.put("roleid", roleid);
 		database.CloseDatabase();
-		return flag;
+		
+		return map;
 	}
 
 	/**
@@ -58,17 +66,22 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String name = request.getParameter("userName");
 		String password = request.getParameter("password");
-		String LoginMsg = "";
-		if (RegulatorLogin(name, password)) {
+		String error = "";
+		boolean flag=(boolean) RegulatorLogin(name, password).get("flag");
+		System.err.println(flag);
+		Integer id=(Integer) RegulatorLogin(name, password).get("roleid");
+		if (flag) {
 			System.out.println("登陆请求----登陆成功");
+			System.err.println(id);
+			request.getSession().setAttribute("roleId", id);
 			request.getSession().setAttribute("name", name);
-			request.getSession().setAttribute("LoginMsg", LoginMsg);
+			request.getSession().setAttribute("error", "");
 			response.sendRedirect("index.jsp");
 //				request.getRequestDispatcher("index.jsp").forward(request, response);
 		} else {
 			System.out.println("登陆请求----登陆失败");
-			LoginMsg = "账号或密码错误,或您无权登陆系统";
-			request.getSession().setAttribute("LoginMsg", LoginMsg);
+			error = "账号或密码错误,或您无权登陆系统";
+			request.getSession().setAttribute("error", error);
 			// response.sendRedirect("login.jsp");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}

@@ -187,15 +187,31 @@ public class RegulatorController extends HttpServlet {
 				for (int i = 0; i < listregulator.size(); i++) {
 					Map<String, Object> row = new HashMap<>();
 					regulator entity = listregulator.get(i);
-					row.put("RegulatorNum", entity.getRegulatorId());
-					row.put("RegulatorName", entity.getRegulatorName());
-					row.put("RegulatorRole", RegulatorDatabase.GetRegulatorRoleName(entity.getRegulatorRoleId()));
-					if ("".equals(entity.getStoreId())) {
-						row.put("StoreName", "Пе");
-					} else {
-						row.put("StoreName", StoreDatabase.getStoreForId(entity.getStoreId()).getStoreName());
+					if(entity.getRegulatorRoleId().equals("1")) {
+						if(RoleId.equals("1")) {
+							row.put("RegulatorNum", entity.getRegulatorId());
+							row.put("RegulatorName", entity.getRegulatorName());
+							row.put("RegulatorRole", RegulatorDatabase.GetRegulatorRoleName(entity.getRegulatorRoleId()));
+							if ("".equals(entity.getStoreId())) {
+								row.put("StoreName", "Пе");
+							} else {
+								row.put("StoreName", StoreDatabase.getStoreForId(entity.getStoreId()).getStoreName());
+							}
+							RegulatorData.add(row);
+						}else {
+							
+						}
+					}else {
+						row.put("RegulatorNum", entity.getRegulatorId());
+						row.put("RegulatorName", entity.getRegulatorName());
+						row.put("RegulatorRole", RegulatorDatabase.GetRegulatorRoleName(entity.getRegulatorRoleId()));
+						if ("".equals(entity.getStoreId())) {
+							row.put("StoreName", "Пе");
+						} else {
+							row.put("StoreName", StoreDatabase.getStoreForId(entity.getStoreId()).getStoreName());
+						}
+						RegulatorData.add(row);
 					}
-					RegulatorData.add(row);
 				}
 			} else {
 				System.out.println("nullllllll..............");

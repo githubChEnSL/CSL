@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 import com.mysql.cj.protocol.Resultset;
 
+
 public class Database {
 	private final String DatabaseURL="jdbc:mysql://localhost:3306/sso?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT";
 	private final String DatabaseNAME="root";

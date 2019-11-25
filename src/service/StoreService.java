@@ -2,13 +2,12 @@ package service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import entity.store;
 import jdbc.DatabaseStore;
 
 public class StoreService extends DatabaseStore{
-	@Autowired
+	//@Autowired
 	DatabaseStore dataStore;
 	/**根据管理员编号获取所有商店的信息*/
 	public List<store> GetAllStoreByRegulatorId(String regulatorId) {

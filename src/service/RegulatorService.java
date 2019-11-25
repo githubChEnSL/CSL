@@ -5,9 +5,13 @@ import java.util.List;
 
 import entity.regulator;
 import jdbc.DatabaseRegulator;
-
+/**业务逻辑类*/
 public class RegulatorService extends DatabaseRegulator{
+
 	DatabaseRegulator DataRegulator;
+	public RegulatorService() {
+		DataRegulator=new DatabaseRegulator();
+	}
 	/**根据管理员角色编号获取管理员角色名称*/
 	public String GetRegulatorRoleName(String regulatorRoleid) {
 		return DataRegulator.GetRegulatorRoleName(regulatorRoleid);
@@ -31,5 +35,9 @@ public class RegulatorService extends DatabaseRegulator{
 	/**修改管理员信息*/
 	public boolean updateRegulator(regulator regulator) {
 		return DataRegulator.updateRegulator(regulator);
+	}
+	/**关闭业务逻辑*/
+	public void CloseRegulatorService() {
+		DataRegulator.CloseDatabase();
 	}
 }
