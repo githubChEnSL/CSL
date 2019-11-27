@@ -15,14 +15,14 @@
 		Delete();//删除会员信息
 		Update();//修改会员信息
 		refresh();//刷新列表
-		
+
 		//监控查询条件
-		$('#select_type').change(function(){
-			var type=$('#select_type').val();
-			if(type=="所有"){
-				$('#select_Userid').attr("disabled","disabled");
+		$('#select_type').change(function() {
+			var type = $('#select_type').val();
+			if (type == "所有") {
+				$('#select_Userid').attr("disabled", "disabled");
 				$('#select_Userid').val("");
-			}else if(type=="编号"){
+			} else if (type == "编号") {
 				$('#select_Userid').removeAttr("disabled");
 				$('#select_Userid').val("");
 			}
@@ -44,7 +44,7 @@
 					success : function(data) {
 						//获取后台商店信息 
 						var users = data.rows;
-						$('#number').html("共"+users.length+"条数据");
+						$('#number').html("共" + users.length + "条数据");
 						$("#userList")
 								.append(
 										"<tr><td>会员编号</td><td>会员名称</td><td>会员等级</td><td>操作</td></tr>");
@@ -214,7 +214,8 @@
 					</select>
 				</div>
 				<div class="col-md-3 col-sm-3">
-					<input type="text" id="select_Userid" disabled="disabled" class="form-control"/>
+					<input type="text" id="select_Userid" disabled="disabled"
+						class="form-control" />
 				</div>
 				<div class="col-md-6 col-sm-6">
 					<div>
@@ -232,11 +233,11 @@
 						<span>添加会员</span>
 					</button>
 				</div>
-				
+
 			</div>
 			<div class="col-md-5" style="margin-top: 25px">
-						<span id="number"></span>
-				</div>
+				<span id="number"></span>
+			</div>
 			<div class="row" style="margin-top: 15px">
 				<div class="col-md-12" align="center">
 					<table id="userList" style="text-align: center;"

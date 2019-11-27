@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import entity.regulator;
 import service.RegulatorService;
 import service.impl.RegulatorServiceImpl;
@@ -19,6 +22,9 @@ import service.impl.RegulatorServiceImpl;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	// 定义Log4j日志
+	private static Logger logger = LogManager.getLogger(Class.class);
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -28,6 +34,7 @@ public class LoginServlet extends HttpServlet {
 
 	// 管理员登陆
 	public static Map<String, Object> RegulatorLogin(String RegulatorNum, String Password) {
+		logger.info("管理员登陆");
 		boolean flag = false;
 		Map<String, Object> map = new HashMap<String, Object>();
 		// 定义与service实现类的对象
@@ -72,19 +79,21 @@ public class LoginServlet extends HttpServlet {
 		String error = "";
 		Map<String, Object> loginMap = RegulatorLogin(id, password);
 		boolean flag = (boolean) loginMap.get("flag");
-		System.err.println(flag);
+		//System.err.println(flag);
 		Integer roleid = (Integer) loginMap.get("roleid");
 		String loginName = (String) loginMap.get("loginName");
 		if (flag) {
-			System.out.println("登陆请求----登陆成功");
-			System.err.println(roleid);
+			//System.out.println("登陆请求----登陆成功");
+			//System.err.println(roleid);
+			logger.info("登陆请求----登陆成功");
 			request.getSession().setAttribute("roleId", roleid);
 			request.getSession().setAttribute("id", id);
 			request.getSession().setAttribute("loginName", loginName);
 			request.getSession().setAttribute("error", "");
 			response.sendRedirect("index.jsp");
 		} else {
-			System.out.println("登陆请求----登陆失败");
+			//System.out.println("登陆请求----登陆失败");
+			logger.error("登陆请求----登陆失败");
 			error = "账号或密码错误,您无权登陆系统";
 			request.getSession().setAttribute("error", error);
 			request.getRequestDispatcher("login.jsp").forward(request, response);

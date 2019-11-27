@@ -1,3 +1,10 @@
-[17:02:38:343] [ERROR] - dao.TestLog4j.main(TestLog4j.java:11) - error
-[17:02:38:343] [INFO] - dao.TestLog4j.main(TestLog4j.java:12) - info
-[17:02:38:343] [WARN] - dao.TestLog4j.main(TestLog4j.java:14) - warn
+[20:37:24:016] [ERROR] - util.TestLog4j.main(TestLog4j.java:30) - error
+[20:37:24:017] [INFO] - util.TestLog4j.main(TestLog4j.java:31) - info
+[20:37:24:017] [WARN] - util.TestLog4j.main(TestLog4j.java:33) - warn
+[20:37:36:239] [ERROR] - util.TestLog4j.main(TestLog4j.java:30) - error
+[20:37:36:240] [INFO] - util.TestLog4j.main(TestLog4j.java:31) - info
+[20:37:36:240] [WARN] - util.TestLog4j.main(TestLog4j.java:33) - warn
+[20:38:52:867] [ERROR] - util.TestLog4j.main(TestLog4j.java:30) - error
+[20:38:52:869] [INFO] - util.TestLog4j.main(TestLog4j.java:31) - info
+[20:38:52:869] [WARN] - util.TestLog4j.main(TestLog4j.java:33) - warn
+[20:38:52:871] [INFO] - util.Log4j.LoggerINFO(Log4j.java:27) - infofooooo

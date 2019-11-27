@@ -19,6 +19,7 @@ encoding//src/dao/TestDataBase.java=UTF-8
 encoding//src/entity/regulator.java=UTF-8
 encoding//src/entity/store.java=UTF-8
 encoding//src/entity/user.java=UTF-8
+encoding//src/log4j2.xml=UTF-8
 encoding//src/service/RegulatorService.java=UTF-8
 encoding//src/service/StoreService.java=UTF-8
 encoding//src/service/UserService.java=UTF-8

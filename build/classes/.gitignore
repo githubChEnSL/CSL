@@ -1,10 +1,5 @@
-/dao/
-/log4j.properties
-/controller/
 /log4j2.xml
-/jdbc/
-/service/
-/Servlet/
-/Filter/
-/entity/
+/dao/
 /util/
+/controller/
+/Filter/

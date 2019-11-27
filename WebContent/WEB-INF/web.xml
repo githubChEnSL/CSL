@@ -1,91 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>sso</display-name>
-  <welcome-file-list>
-    <welcome-file>login.html</welcome-file>
-    <welcome-file>login.htm</welcome-file>
-    <welcome-file>login.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  
-  <!-- *******************************************过滤器 *******************-->
-  <!-- 简单身份验证 -->
-  <filter>
-      <filter-name>AuthenticationFilter</filter-name>
-      <filter-class>Filter.AuthenticationFilter</filter-class>
-  </filter>
-  <filter-mapping>
-      <filter-name>AuthenticationFilter</filter-name>
-      <url-pattern>/index.jsp</url-pattern>
-  </filter-mapping>
-  <!-- 设置字符编码 -->
-   <filter>
-      <filter-name>CharacterEncodingFilter</filter-name>
-      <filter-class>Filter.CharacterEncodingFilter</filter-class>
-      <init-param>
-		<param-name>encoding</param-name>
-		<param-value>utf-8</param-value>
-	</init-param>
-  </filter>
-   <filter-mapping>
-      <filter-name>CharacterEncodingFilter</filter-name>
-      <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  <!-- 退出登陸 -->
-  <filter>
-      <filter-name>OutloginFilter</filter-name>
-      <filter-class>Filter.OutloginFilter</filter-class>
-  </filter>
-  <filter-mapping>
-      <filter-name>OutloginFilter</filter-name>
-      <url-pattern>/Exit.jsp</url-pattern>
-  </filter-mapping>
-  <!-- *********************************************Servlet**************************** -->
-   <!-- 用户登陆-->
-   <servlet>
-      <servlet-name>LoginServlet</servlet-name>
-      <servlet-class>controller.LoginServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-      <servlet-name>LoginServlet</servlet-name>
-      <url-pattern>/LoginServlet</url-pattern>
-  </servlet-mapping>
-    <!-- 商店管理 -->
-    <servlet>
-        <servlet-name>StoreMangement</servlet-name>
-        <servlet-class>controller.StoresController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>StoreMangement</servlet-name>
-        <url-pattern>/StoreMangement</url-pattern>
-    </servlet-mapping>
-    <!-- 员工管理 -->
-     <servlet>
-        <servlet-name>RegulatorMangement</servlet-name>
-        <servlet-class>controller.RegulatorController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>RegulatorMangement</servlet-name>
-        <url-pattern>/RegulatorMangement</url-pattern>
-    </servlet-mapping>
-    <!-- 会员管理 -->
-    <servlet>
-        <servlet-name>UsersMangement</servlet-name>
-        <servlet-class>controller.UserController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UsersMangement</servlet-name>
-        <url-pattern>/UsersMangement</url-pattern>
-    </servlet-mapping>
-    <!-- 个人信息管理 -->
-    <servlet>
-        <servlet-name>PersonalMangement</servlet-name>
-        <servlet-class>controller.PersonalController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PersonalMangement</servlet-name>
-        <url-pattern>/PersonalMangement</url-pattern>
-    </servlet-mapping>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>sso</display-name>
+	<welcome-file-list>
+		<welcome-file>login.html</welcome-file>
+		<welcome-file>login.htm</welcome-file>
+		<welcome-file>login.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- *******************************************过滤器 ******************* -->
+	<!-- 简单身份验证 -->
+	<filter>
+		<filter-name>AuthenticationFilter</filter-name>
+		<filter-class>Filter.AuthenticationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AuthenticationFilter</filter-name>
+		<url-pattern>/index.jsp</url-pattern>
+	</filter-mapping>
+	<!-- 设置字符编码 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>Filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 退出登陸 -->
+	<filter>
+		<filter-name>OutloginFilter</filter-name>
+		<filter-class>Filter.OutloginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>OutloginFilter</filter-name>
+		<url-pattern>/Exit.jsp</url-pattern>
+	</filter-mapping>
+	<!-- *********************************************Servlet**************************** -->
+	<!-- 用户登陆 -->
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>controller.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/LoginServlet</url-pattern>
+	</servlet-mapping>
+	<!-- 商店管理 -->
+	<servlet>
+		<servlet-name>StoreMangement</servlet-name>
+		<servlet-class>controller.StoresController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StoreMangement</servlet-name>
+		<url-pattern>/StoreMangement</url-pattern>
+	</servlet-mapping>
+	<!-- 员工管理 -->
+	<servlet>
+		<servlet-name>RegulatorMangement</servlet-name>
+		<servlet-class>controller.RegulatorController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RegulatorMangement</servlet-name>
+		<url-pattern>/RegulatorMangement</url-pattern>
+	</servlet-mapping>
+	<!-- 会员管理 -->
+	<servlet>
+		<servlet-name>UsersMangement</servlet-name>
+		<servlet-class>controller.UserController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UsersMangement</servlet-name>
+		<url-pattern>/UsersMangement</url-pattern>
+	</servlet-mapping>
+	<!-- 个人信息管理 -->
+	<servlet>
+		<servlet-name>PersonalMangement</servlet-name>
+		<servlet-class>controller.PersonalController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PersonalMangement</servlet-name>
+		<url-pattern>/PersonalMangement</url-pattern>
+	</servlet-mapping>
 </web-app>

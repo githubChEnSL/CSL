@@ -6,6 +6,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.mysql.cj.protocol.Resultset;
 
 import entity.regulator;
@@ -16,6 +20,9 @@ import entity.regulator;
  * @author chenshaolei 2019年11月27日 上午11:20:23
  */
 public class DaoRegulator extends Database {
+
+	// 定义Log4j日志
+	private static Logger logger = LogManager.getLogger(Class.class);
 
 	/**
 	 * 获取所有的管理员角色名称
@@ -34,10 +41,12 @@ public class DaoRegulator extends Database {
 				String name = ((ResultSet) resuset).getString("regulator_role_name");
 				ListRoleName.add(name);
 			}
+			logger.info("获取所有的管理员角色名称-----成功");
 			// 关闭实例
 			CloseStatement(seleectReguRoleName);
 		} catch (Exception e) {
-			System.out.println("获取管理员角色名称失败");
+			// System.out.println("获取管理员角色名称失败");
+			logger.error("获取所有的管理员角色名称-----失败");
 		}
 		return ListRoleName;
 	}
@@ -59,10 +68,12 @@ public class DaoRegulator extends Database {
 			while (((ResultSet) resuset).next()) {
 				RoleName = ((ResultSet) resuset).getString("regulator_role_name");
 			}
+			logger.info("根据管理员角色编号获取管理员角色名称-----成功");
 			// 关闭实例
 			CloseStatement(seleectReguRoleName);
 		} catch (Exception e) {
-			System.out.println("获取管理员角色名称失败");
+			// System.out.println("获取管理员角色名称失败");
+			logger.error("根据管理员角色编号获取管理员角色名称-----失败");
 		}
 		return RoleName;
 	}
@@ -84,10 +95,12 @@ public class DaoRegulator extends Database {
 			while (((ResultSet) resuset).next()) {
 				RoleId = ((ResultSet) resuset).getString("regulator_role_id");
 			}
+			logger.info("根据管理员角色名称获取管理员角色编号-----成功");
 			// 关闭实例
 			CloseStatement(seleectReguRoleName);
 		} catch (Exception e) {
-			System.out.println("获取管理员角色名称失败");
+			// System.out.println("获取管理员角色名称失败");
+			logger.error("根据管理员角色名称获取管理员角色编号-----失败");
 		}
 		return RoleId;
 	}
@@ -119,10 +132,12 @@ public class DaoRegulator extends Database {
 				regu.setStoreId(storeId);
 				listregulators.add(regu);
 			}
+			logger.info("获取所有的管理员信息-----成功");
 			// 关闭实例
 			CloseStatement(SelectStd);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error("获取所有的管理员信息-----失败");
 		}
 		return listregulators;
 	}
@@ -155,10 +170,12 @@ public class DaoRegulator extends Database {
 				regu.setStoreId(storeId);
 				list.add(regu);
 			}
+			logger.info("根据门店编号获取员工信息-----成功");
 			// 关闭实例
 			CloseStatement(SelectStd);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error("根据门店编号获取员工信息-----失败");
 		}
 		return list;
 	}
@@ -190,10 +207,12 @@ public class DaoRegulator extends Database {
 				regu.setStoreId(storeId);
 				list.add(regu);
 			}
+			logger.info("获取所有的普通员工的信息----成功");
 			// 关闭实例
 			CloseStatement(SelectStd);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error("获取所有的普通员工的信息----失败");
 		}
 		return list;
 	}
@@ -224,11 +243,13 @@ public class DaoRegulator extends Database {
 				regu.setRegulatorRoleId(regulatorRoleId);
 				regu.setStoreId(storeId);
 			}
-			System.out.println("获取管理员信息成功");
+			logger.info("通过管理员编号获取管理员信息-----成功");
+			// System.out.println("通过管理员编号获取管理员信息成功");
 			// 关闭实例
 			CloseStatement(GetRegulator);
 		} catch (Exception e) {
-			System.out.println("获取管理员信息失败");
+			// System.out.println("通过管理员编号获取管理员信息失败");
+			logger.error("通过管理员编号获取管理员信息-----失败");
 		}
 		return regu;
 	}
@@ -250,11 +271,13 @@ public class DaoRegulator extends Database {
 			while (((ResultSet) resuset).next()) {
 				regulatorId = ((ResultSet) resuset).getString("regulatorid");
 			}
-			System.out.println("获取管理员信息成功");
+			logger.info("通过管理员名称获取管理员编号-----成功");
+			// System.out.println("通过管理员名称获取管理员编号-----成功");
 			// 关闭实例
 			CloseStatement(GetRegulator);
 		} catch (Exception e) {
-			System.out.println("获取管理员信息失败");
+//			System.out.println("通过管理员名称获取管理员编号-----失败");
+			logger.error("通过管理员名称获取管理员编号-----失败");
 		}
 		return regulatorId;
 	}
@@ -292,11 +315,13 @@ public class DaoRegulator extends Database {
 			AddRegu = createSta(AddRegu);
 			AddRegu.execute(sql);
 			flag = true;
-			System.out.println("添加管理员信息成功");
+			// System.out.println("添加管理员信息成功");
+			logger.info("添加管理员信息-----成功");
 			// 关闭实例
 			CloseStatement(AddRegu);
 		} catch (Exception e) {
-			System.out.println("添加管理员信息失败");
+			// System.out.println("添加管理员信息失败");
+			logger.error("添加管理员信息-----失败");
 			flag = false;
 		}
 		return flag;
@@ -319,10 +344,12 @@ public class DaoRegulator extends Database {
 			// 关闭实例
 			CloseStatement(delStatement);
 			flag = true;
-			System.out.println("删除管理员信息成功");
+			// System.out.println("删除管理员信息成功");
+			logger.info("删除管理员信息-----成功");
 		} catch (Exception e) {
 			flag = false;
-			System.out.println("删除管理员信息失败");
+			// System.out.println("删除管理员信息失败");
+			logger.error("删除管理员信息-----失败");
 		}
 		return flag;
 	}
@@ -349,12 +376,14 @@ public class DaoRegulator extends Database {
 			UpdateRegu = createSta(UpdateRegu);
 			UpdateRegu.execute(sql);
 			flag = true;
-			System.out.println("修改管理员信息成功");
+			// System.out.println("修改管理员信息成功");
+			logger.info("修改管理员信息-----成功");
 			// 关闭实例
 			CloseStatement(UpdateRegu);
 		} catch (Exception e) {
 			flag = false;
-			System.out.println("修改管理员信息失败");
+			// System.out.println("修改管理员信息失败");
+			logger.error("修改管理员信息-----失败");
 		}
 		return flag;
 	}
@@ -375,11 +404,13 @@ public class DaoRegulator extends Database {
 			while (((ResultSet) resuset).next()) {
 				listId.add(Integer.parseInt(((ResultSet) resuset).getString("regulatorid")));
 			}
-			System.out.println("获取信息成功");
+			// System.out.println("获取信息成功");
+			logger.info("获取管理员编号的最大值-----成功");
 			// 关闭实例
 			CloseStatement(GetRegulator);
 		} catch (Exception e) {
-			System.out.println("获取信息失败");
+			// System.out.println("获取信息失败");
+			logger.error("获取管理员编号的最大值-----失败");
 		}
 		return Collections.max(listId).toString();
 	}

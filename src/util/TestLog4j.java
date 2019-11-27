@@ -1,8 +1,8 @@
 package util;
 
-import org.junit.Test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Test;
 
 /**
  * 
@@ -31,5 +31,12 @@ public class TestLog4j {
 		logger.info("info");
 		logger.debug("debug");
 		logger.warn("warn");
+		try {
+			Log4j.LoggerINFO("infofooooo");
+			Log4j.LoggerERROR("?");
+		} catch (Exception e) {
+			System.err.println("cuo");
+			e.getStackTrace();
+		}
 	}
 }

@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.alibaba.fastjson.JSONObject;
 
 import entity.regulator;
@@ -27,6 +30,10 @@ import service.impl.StoreServiceImpl;
  * @author chenshaolei 2019年11月27日 上午11:45:39
  */
 public class StoresController extends HttpServlet {
+
+	// 定义Log4j日志
+	private static Logger logger = LogManager.getLogger(Class.class);
+
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -41,6 +48,7 @@ public class StoresController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		logger.info("门店信息管理");
 		// 设置字符编号
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -61,7 +69,8 @@ public class StoresController extends HttpServlet {
 		// 保存提示信息
 		String msgString = "";
 		if ("add".equals(action)) {
-			System.out.println("StoreName:" + StoreName + " RegulatorName:" + RegulatorName + "  action:" + action);
+			// System.out.println("StoreName:" + StoreName + " RegulatorName:" +
+			// RegulatorName + " action:" + action);
 			/** 封装添加的对象 */
 			store addobject = new store();
 			try {
@@ -100,15 +109,16 @@ public class StoresController extends HttpServlet {
 				msgString = "添加失败";
 			}
 		} else if ("delete".equals(action)) {
-			System.out.println("StoreId:" + StoreId + "  action:" + action);
+			// System.out.println("StoreId:" + StoreId + " action:" + action);
 			if (StoreService.deleteStore(StoreId)) {
 				msgString = "删除成功";
 			} else {
 				msgString = "删除失败";
 			}
 		} else if ("update".equals(action)) {
-			System.out.println("StoreId:" + StoreId + " StoreName:" + StoreName + " RegulatorName:" + RegulatorName
-					+ "  action:" + action);
+			// System.out.println("StoreId:" + StoreId + " StoreName:" + StoreName + "
+			// RegulatorName:" + RegulatorName
+			// + " action:" + action);
 			// 由ID获取原来的门店信息
 			store oldStore = StoreService.getStoreForId(StoreId);
 			// 定义新的门店信息
@@ -185,10 +195,10 @@ public class StoresController extends HttpServlet {
 							newStore.setRegulatorId(oldStore.getRegulatorId());
 							msgString = "修改成功";
 							StoreService.updateStore(newStore);
-							System.err.println("管理员没变");
+							// System.err.println("管理员没变");
 						} else {
 							// 管理员变了（判断管理员是否已经存在）
-							System.err.println("管理员变了");
+							// System.err.println("管理员变了");
 							if ("".equals(RegulatorService.GetIdForName(RegulatorName))) {
 								// 管理员不存在（添加管理员信息）
 								regulator addreglRegulator = new regulator();
@@ -234,7 +244,7 @@ public class StoresController extends HttpServlet {
 				}
 			}
 		} else {
-			System.out.println("查询所有的门店信息");
+			// System.out.println("查询所有的门店信息");
 			List<store> listStores = StoreService.ListStore();
 			for (int i = 0; i < listStores.size(); i++) {
 				Map<String, Object> row = new HashMap<>();

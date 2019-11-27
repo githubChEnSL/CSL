@@ -26,7 +26,7 @@
 			dataType : "json",
 			success : function(data) {
 				//获取角色名称
-				var listrole=data.listRoleName;
+				var listrole = data.listRoleName;
 				$.each(listrole, function(key, value) {
 					$('#addRegulatorRoleName').append(
 							"<option value='"+listrole[key]+"'>"
@@ -34,7 +34,7 @@
 					$('#updateRegulatorRoleName').append(
 							"<option value='"+listrole[key]+"'>"
 									+ listrole[key] + "</option>");
-					
+
 				})
 				//获取门店名称
 				var liststore = data.liststorename;
@@ -51,7 +51,7 @@
 							"<option value='"+liststore[key]+"'>"
 									+ liststore[key] + "</option>");
 				})
-				
+
 			},
 			error : function(data) {
 				$('#tipsmsg').html("请求错误");
@@ -76,6 +76,7 @@
 					success : function(data) {
 						//获取后台员工信息 
 						var regulators = data.rows;
+						$('#number').html("共" + regulators.length + "条数据");
 						$("#RegulatorList")
 								.append(
 										"<tr><td>员工编号</td><td>员工名称</td><td>员工角色</td><td>所属门店</td><td>操作</td></tr>");
@@ -143,7 +144,7 @@
 				action : "add",
 				regulatorName : $('#addregulatorName').val(),
 				RegulatorRoleName : $('#addRegulatorRoleName').val(),
-				StoreName:$('#addStoreName').val()
+				StoreName : $('#addStoreName').val()
 			}
 			//请求添加
 			$.ajax({
@@ -202,7 +203,7 @@
 				RegulatorId : $('#updateRegulatorid').val(),
 				regulatorName : $('#updateRegulatorName').val(),
 				RegulatorRoleName : $('#updateRegulatorRoleName').val(),
-				StoreName:$('#updateStoreName').val()
+				StoreName : $('#updateStoreName').val()
 			}
 			//请求删除
 			//请求添加
@@ -233,26 +234,26 @@
 			<li>员工信息管理</li>
 		</ol>
 		<div class="panel-body">
-		<c:if test="${sessionScope.roleId==1}">
-			<div class="row">
-				<div class="col-md-1 col-sm-2">
-					<span>选择门店：</span>
-				</div>
-				<div class="col-md-3 col-sm-3">
-					<select name="" id="Store_select" class="form-control ">
-					</select>
-				</div>
-				<div class="col-md-6 col-sm-6">
-					<div>
-						<div class="col-md-2 col-sm-2">
-							<button id="search_button" class="btn btn-success">
-								<span>查询</span>
-							</button>
+			<c:if test="${sessionScope.roleId==1}">
+				<div class="row">
+					<div class="col-md-1 col-sm-2">
+						<span>选择门店：</span>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<select name="" id="Store_select" class="form-control ">
+						</select>
+					</div>
+					<div class="col-md-6 col-sm-6">
+						<div>
+							<div class="col-md-2 col-sm-2">
+								<button id="search_button" class="btn btn-success">
+									<span>查询</span>
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</c:if>
+			</c:if>
 			<div class="row" style="margin-top: 25px">
 				<div class="col-md-5">
 					<button class="btn btn-sm btn-info" id="add_regulator">
@@ -261,9 +262,12 @@
 				</div>
 				<div class="col-md-5"></div>
 			</div>
-
+			<div class="col-md-5" style="margin-top: 25px">
+				<span id="number"></span>
+			</div>
 			<div class="row" style="margin-top: 15px">
-				<div class="col-md-12" align="center" style="overflow-x: auto; overflow-y: auto; height: 445px; width:1200px;">
+				<div class="col-md-12" align="center"
+					style="overflow-x: auto; overflow-y: auto; height: 445px; width: 1200px;">
 					<table id="RegulatorList" style="text-align: center;"
 						class="table table-striped"></table>
 				</div>
@@ -375,8 +379,7 @@
 										<span>所属门店：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<select name="" id="updateStoreName"
-											class="form-control ">
+										<select name="" id="updateStoreName" class="form-control ">
 										</select>
 									</div>
 								</div>

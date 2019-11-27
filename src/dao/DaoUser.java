@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.mysql.cj.protocol.Resultset;
 import entity.user;
 
@@ -16,6 +19,10 @@ import entity.user;
  * @author chenshaolei 2019年11月27日 上午11:31:34
  */
 public class DaoUser extends Database {
+
+	// 定义Log4j日志
+	private static Logger logger = LogManager.getLogger(Class.class);
+
 	/**
 	 * 根据用户员角色编号获取用户角色名称
 	 * 
@@ -33,10 +40,12 @@ public class DaoUser extends Database {
 			while (((ResultSet) resuset).next()) {
 				RoleName = ((ResultSet) resuset).getString("rolename");
 			}
+			logger.info("根据用户员角色编号获取用户角色名称-----成功");
 			// 关闭实例
 			CloseStatement(GetUserRoleName);
 		} catch (Exception e) {
-			System.out.println("获取用户角色名称失败");
+			// System.out.println("根据用户员角色编号获取用户角色名称失败");
+			logger.error("根据用户员角色编号获取用户角色名称-----失败");
 		}
 		return RoleName;
 	}
@@ -59,9 +68,11 @@ public class DaoUser extends Database {
 				RoleId = ((ResultSet) resuset).getString("roleid");
 			}
 			// 关闭实例
+			logger.info("根据用户员角色名称获取用户角色编号-----成功");
 			CloseStatement(GetUserRoleName);
 		} catch (Exception e) {
-			System.out.println("获取用户角色编号失败");
+			// System.out.println("根据用户员角色名称获取用户角色编号失败");
+			logger.error("根据用户员角色名称获取用户角色编号-----失败");
 		}
 		return RoleId;
 	}
@@ -92,9 +103,11 @@ public class DaoUser extends Database {
 				listUser.add(object);
 			}
 			// 关闭实例
+			logger.info("获取所有的用户信息-----成功");
 			CloseStatement(SelectStd);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error("获取所有的用户信息-----失败");
 		}
 		return listUser;
 	}
@@ -123,11 +136,13 @@ public class DaoUser extends Database {
 				getuser.setPassword(password);
 				getuser.setRoleId(roleid);
 			}
-			System.out.println("获取用户信息成功");
+			logger.info("通过用户编号获取用户信息-----成功");
+			// System.out.println("通过用户编号获取用户信息成功");
 			// 关闭实例
 			CloseStatement(GetUser);
 		} catch (Exception e) {
-			System.out.println("获取用户信息失败");
+			// System.out.println("通过用户编号获取用户信息失败");
+			logger.error("通过用户编号获取用户信息-----失败");
 		}
 		return getuser;
 	}
@@ -149,11 +164,13 @@ public class DaoUser extends Database {
 			while (((ResultSet) resuset).next()) {
 				getId = ((ResultSet) resuset).getString("userid");
 			}
-			System.out.println("获取用户信息成功");
+			logger.info("通过用户名称获取用户编号-----成功");
+			// System.out.println("通过用户名称获取用户编号成功");
 			// 关闭实例
 			CloseStatement(GetUser);
 		} catch (Exception e) {
-			System.out.println("获取用户信息失败");
+			// System.out.println("通过用户名称获取用户编号失败");
+			logger.error("通过用户名称获取用户编号-----失败");
 		}
 		return getId;
 	}
@@ -189,11 +206,13 @@ public class DaoUser extends Database {
 			adduser = createSta(adduser);
 			adduser.execute(sql);
 			flag = true;
-			System.out.println("添加用户信息成功");
+			// System.out.println("添加用户信息成功");
+			logger.info("添加用户信息-----成功");
 			// 关闭实例
 			CloseStatement(adduser);
 		} catch (Exception e) {
-			System.err.println("添加用户信息失败");
+			// System.err.println("添加用户信息失败");
+			logger.error("添加用户信息-----失败");
 			flag = false;
 		}
 		return flag;
@@ -213,12 +232,14 @@ public class DaoUser extends Database {
 			Statement deluser = null;
 			deluser = createSta(deluser);
 			deluser.execute(sql);
-			System.out.println("删除用户信息成功");
+			// System.out.println("删除用户信息成功");
+			logger.info("删除用户信息-----成功");
 			// 关闭实例
 			CloseStatement(deluser);
 			flag = true;
 		} catch (Exception e) {
-			System.err.println("删除用户信息失败");
+			// System.err.println("删除用户信息失败");
+			logger.error("删除用户信息-----失败");
 			flag = false;
 		}
 		return flag;
@@ -243,13 +264,15 @@ public class DaoUser extends Database {
 			Statement Updateuser = null;
 			Updateuser = createSta(Updateuser);
 			Updateuser.execute(sql);
-			System.out.println("修改用户信息成功");
+			// System.out.println("修改用户信息成功");
+			logger.info("修改用户信息-----成功");
 			flag = true;
 			// 关闭实例
 			CloseStatement(Updateuser);
 		} catch (Exception e) {
 			flag = false;
-			System.err.println("修改用户信息失败");
+			// System.err.println("修改用户信息失败");
+			logger.error("修改用户信息----失败");
 		}
 		return flag;
 	}
@@ -270,11 +293,13 @@ public class DaoUser extends Database {
 			while (((ResultSet) resuset).next()) {
 				listId.add(Integer.parseInt(((ResultSet) resuset).getString("userid")));
 			}
-			System.out.println("获取信息成功");
+			// System.out.println("获取最大的客户编号成功");
+			logger.info("获取最大的客户编号-----成功");
 			// 关闭实例
 			CloseStatement(GetStore);
 		} catch (Exception e) {
-			System.out.println("获取信息失败");
+			// System.out.println("获取最大的客户编号失败");
+			logger.error("获取最大的客户编号-----失败");
 		}
 		return Collections.max(listId).toString();
 	}

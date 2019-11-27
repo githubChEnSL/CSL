@@ -33,6 +33,7 @@
 					success : function(data) {
 						//获取后台商店信息 
 						var stores = data.rows;
+						$('#number').html("共" + stores.length + "条数据");
 						$("#StoresList")
 								.append(
 										"<tr><td>门店编号</td><td>门店名称</td><td>门店管理员</td><td>操作</td></tr>");
@@ -191,39 +192,42 @@
 			<li>门店信息管理</li>
 		</ol>
 		<c:if test="${sessionScope.roleId==1}">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-3 col-sm-3">
-					<select name="" id="Store_select" class="form-control ">
-						<option value="">所有</option>
-					</select>
-				</div>
-				<div class="col-md-6 col-sm-6">
-					<div>
-						<div class="col-md-2 col-sm-2">
-							<button id="search_button" class="btn btn-success">
-								<span>查询</span>
-							</button>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-3 col-sm-3">
+						<select name="" id="Store_select" class="form-control ">
+							<option value="">所有</option>
+						</select>
+					</div>
+					<div class="col-md-6 col-sm-6">
+						<div>
+							<div class="col-md-2 col-sm-2">
+								<button id="search_button" class="btn btn-success">
+									<span>查询</span>
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row" style="margin-top: 25px">
-				<div class="col-md-5">
-					<button class="btn btn-sm btn-info" id="add_stores">
-						<span>添加门店</span>
-					</button>
+				<div class="row" style="margin-top: 25px">
+					<div class="col-md-5">
+						<button class="btn btn-sm btn-info" id="add_stores">
+							<span>添加门店</span>
+						</button>
+					</div>
+					<div class="col-md-5"></div>
 				</div>
-				<div class="col-md-5"></div>
-			</div>
-
-			<div class="row" style="margin-top: 15px">
-				<div class="col-md-12" align="center" style="overflow-x: auto; overflow-y: auto; height: 445px; width:1200px;">
-					<table id="StoresList" style="text-align: center;"
-						class="table table-striped"></table>
+				<div class="col-md-5" style="margin-top: 25px">
+					<span id="number"></span>
+				</div>
+				<div class="row" style="margin-top: 15px">
+					<div class="col-md-12" align="center"
+						style="overflow-x: auto; overflow-y: auto; height: 445px; width: 1200px;">
+						<table id="StoresList" style="text-align: center;"
+							class="table table-striped"></table>
+					</div>
 				</div>
 			</div>
-		</div>
 		</c:if>
 		<c:if test="${sessionScope.roleId!=1}">您没有权限进行相关操作！</c:if>
 	</div>

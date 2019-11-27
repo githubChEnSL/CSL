@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.alibaba.fastjson.JSONObject;
 
 import entity.user;
@@ -25,9 +28,9 @@ import service.impl.UserServiceImpl;
  */
 public class UserController extends HttpServlet {
 
-	/**
-	 * 
-	 */
+	// 定义Log4j日志
+	private static Logger logger = LogManager.getLogger(Class.class);
+
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -42,6 +45,7 @@ public class UserController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		logger.info("会员信息管理");
 		// 设置字符编码
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -63,7 +67,8 @@ public class UserController extends HttpServlet {
 		// 保存提示信息
 		String msgString = "";
 		if ("add".equals(action)) {
-			System.out.println("UserName:" + UserName + " RoleName:" + RoleName + "  action:" + action);
+			// System.out.println("UserName:" + UserName + " RoleName:" + RoleName + "
+			// action:" + action);
 			/** 封装添加的对象 */
 			user addobject = new user();
 			try {
@@ -82,15 +87,16 @@ public class UserController extends HttpServlet {
 				msgString = "添加失败";
 			}
 		} else if ("delete".equals(action)) {
-			System.out.println("UserNum:" + UserNum + "  action:" + action);
+			// System.out.println("UserNum:" + UserNum + " action:" + action);
 			if (UserService.deleteUser(UserNum)) {
 				msgString = "删除成功";
 			} else {
 				msgString = "删除失败";
 			}
 		} else if ("update".equals(action)) {
-			System.out.println(
-					"UserNum:" + UserNum + " UserName:" + UserName + " RoleName:" + RoleName + "  action:" + action);
+			// System.out.println(
+			// "UserNum:" + UserNum + " UserName:" + UserName + " RoleName:" + RoleName + "
+			// action:" + action);
 			// 由ID获取原来的会员信息
 			user oldUser = UserService.getUserForId(UserNum);
 			// 定义新的会员信息
@@ -124,7 +130,7 @@ public class UserController extends HttpServlet {
 			}
 		} else {
 			if ("".equals(Userid)) {
-				System.out.println("查询所有的会员信息");
+				// System.out.println("查询所有的会员信息");
 				List<user> listStores = UserService.ListUser();
 				for (int i = 0; i < listStores.size(); i++) {
 					Map<String, Object> row = new HashMap<>();
@@ -145,7 +151,6 @@ public class UserController extends HttpServlet {
 		}
 		/** 封装返回前端的Map */
 		Map<String, Object> preparedata = new HashMap<String, Object>();
-
 		preparedata.put("rows", storeData);
 		preparedata.put("msg", msgString);
 		// 将Map转为json
@@ -160,7 +165,6 @@ public class UserController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 		doGet(request, response);
 	}
 }

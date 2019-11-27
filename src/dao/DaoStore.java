@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.mysql.cj.protocol.Resultset;
 
 import entity.store;
@@ -17,6 +20,9 @@ import entity.store;
  * @author chenshaolei 2019年11月27日 上午11:28:09
  */
 public class DaoStore extends Database {
+
+	// 定义Log4j日志
+	private static Logger logger = LogManager.getLogger(Class.class);
 
 	/**
 	 * 获取所有的门店名称
@@ -36,9 +42,11 @@ public class DaoStore extends Database {
 				listname.add(storename);
 			}
 			// 关闭实例
+			logger.info("获取所有的门店名称-----成功");
 			CloseStatement(GetAllStore);
 		} catch (Exception e) {
-			System.out.println("获取所有的门店名称失败");
+			// System.out.println("获取所有的门店名称失败");
+			logger.error("获取所有的门店名称-----失败");
 		}
 		return listname;
 	}
@@ -67,10 +75,12 @@ public class DaoStore extends Database {
 				object.setRegulatorId(regulatorid);
 				AllStore.add(object);
 			}
+			logger.info("根据管理员编号获取所有商店的信息-----成功");
 			// 关闭实例
 			CloseStatement(GetAllStore);
 		} catch (Exception e) {
-			System.out.println("根据管理员编号获取所有商店的信息");
+			// System.out.println("根据管理员编号获取所有商店的信息");
+			logger.error("根据管理员编号获取所有商店的信息-----失败");
 		}
 		return AllStore;
 	}
@@ -98,10 +108,12 @@ public class DaoStore extends Database {
 				object.setRegulatorId(regulatorid);
 				listStore.add(object);
 			}
+			logger.info("获取所有的商店信息-----成功");
 			// 关闭实例
 			CloseStatement(GetAllStore);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error("获取所有的商店信息-----失败");
 		}
 		return listStore;
 	}
@@ -128,11 +140,13 @@ public class DaoStore extends Database {
 				getstore.setStoreName(storename);
 				getstore.setRegulatorId(regulatorid);
 			}
-			System.out.println("获取商店信息成功");
+			logger.info("通过商店编号获取商店信息-----成功");
+			// System.out.println("获取商店信息成功");
 			// 关闭实例
 			CloseStatement(GetStore);
 		} catch (Exception e) {
-			System.out.println("获取商店信息失败");
+			// System.out.println("获取商店信息失败");
+			logger.error("通过商店编号获取商店信息-----失败");
 		}
 		return getstore;
 	}
@@ -154,10 +168,12 @@ public class DaoStore extends Database {
 			while (((ResultSet) resuset).next()) {
 				Id = ((ResultSet) resuset).getString("storeid");
 			}
+			logger.info("通过门店名称获取商店编号-----成功");
 			// 关闭实例
 			CloseStatement(GetStore);
 		} catch (Exception e) {
 			// 获取信息失败
+			logger.error("通过门店名称获取商店编号-----失败");
 		}
 		return Id;
 	}
@@ -190,12 +206,14 @@ public class DaoStore extends Database {
 			Statement addstore = null;
 			addstore = createSta(addstore);
 			addstore.execute(sql);
-			System.out.println("添加商店信息成功");
+			// System.out.println("添加商店信息成功");
 			flag = true;
 			// 关闭实例
+			logger.info("添加商店信息-----成功");
 			CloseStatement(addstore);
 		} catch (Exception e) {
-			System.out.println("添加商店信息失败");
+			// System.out.println("添加商店信息失败");
+			logger.error("添加商店信息-----失败");
 			flag = false;
 		}
 		return flag;
@@ -218,10 +236,12 @@ public class DaoStore extends Database {
 			// 关闭实例
 			CloseStatement(delstore);
 			flag = true;
-			System.out.println("删除商店信息成功");
+			logger.info("删除商店信息-----成功");
+			// System.out.println("删除商店信息成功");
 		} catch (Exception e) {
 			flag = false;
-			System.out.println("删除商店信息失败");
+			// System.out.println("删除商店信息失败");
+			logger.error("删除商店信息-----失败");
 		}
 		return flag;
 	}
@@ -245,12 +265,14 @@ public class DaoStore extends Database {
 			Updatestore = createSta(Updatestore);
 			Updatestore.execute(sql);
 			flag = true;
-			System.out.println("修改商店信息成功");
+			logger.info("修改用户信息-----成功");
+			// System.out.println("修改商店信息成功");
 			// 关闭实例
 			CloseStatement(Updatestore);
 		} catch (Exception e) {
 			flag = false;
-			System.out.println("修改商店信息失败");
+			// System.out.println("修改商店信息失败");
+			logger.error("修改用户信息-----失败");
 		}
 		return flag;
 	}
@@ -271,11 +293,13 @@ public class DaoStore extends Database {
 			while (((ResultSet) resuset).next()) {
 				listId.add(Integer.parseInt(((ResultSet) resuset).getString("storeid")));
 			}
-			System.out.println("获取信息成功");
+			logger.info("获取最大的商店编号-----成功");
+			// System.out.println("获取信息成功");
 			// 关闭实例
 			CloseStatement(GetStore);
 		} catch (Exception e) {
-			System.out.println("获取信息失败");
+			// System.out.println("获取信息失败");
+			logger.error("获取最大的商店编号-----失败");
 		}
 		return Collections.max(listId).toString();
 	}

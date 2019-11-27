@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.mysql.cj.protocol.Resultset;
 
 /**
@@ -18,6 +22,9 @@ public class Database {
 	protected Connection connection = null;// 数据库连接的对象
 	protected Resultset resuset = null; // 数据库查询到的结果
 
+	// 定义Log4j日志
+	private static Logger logger = LogManager.getLogger(Class.class);
+
 	/**
 	 * 构造函数（连接数据库）
 	 */
@@ -28,14 +35,14 @@ public class Database {
 			try {
 				// 连接数据库
 				connection = DriverManager.getConnection(DatabaseURL, DatabaseNAME, DatabasePWD);
-				System.out.println("连接数据库-成功");
+				//logger.info("连接数据库成功");
 			} catch (SQLException e) {
 				e.printStackTrace();
-				System.out.println("连接数据库-失败");
+				logger.error("连接数据库失败");
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("创建驱动失败");
+			logger.error("创建驱动失败");
 		}
 	}
 
@@ -46,11 +53,11 @@ public class Database {
 		try {
 			if (connection != null) {
 				connection.close();
-				System.out.println("关闭数据库-成功");
+				//logger.info("关闭数据库-成功");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("关闭数据库-失败");
+			logger.error("关闭数据库-失败");
 		}
 	}
 
@@ -65,7 +72,8 @@ public class Database {
 			sta = connection.createStatement();
 			// 创建实例成功
 		} catch (Exception e) {
-			System.out.println("创建实例-失败");
+			// System.out.println("创建实例-失败");
+			logger.error("创建实例-失败");
 		}
 		return sta;
 	}
@@ -83,7 +91,8 @@ public class Database {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("关闭实例-失败");
+			logger.error("关闭实例失败");
+			//System.out.println("关闭实例-失败");
 		}
 	}
 }

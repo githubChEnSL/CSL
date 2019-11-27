@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.alibaba.fastjson.JSONObject;
 
 import entity.regulator;
@@ -25,9 +28,10 @@ import service.impl.StoreServiceImpl;
  * @author chenshaolei 2019年11月27日 上午11:43:01
  */
 public class PersonalController extends HttpServlet {
-	/**
-	 * 
-	 */
+
+	// 定义Log4j日志
+	private static Logger logger = LogManager.getLogger(Class.class);
+
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -42,6 +46,7 @@ public class PersonalController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		logger.info("个人信息管理");
 		// 设置字符编码
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -67,7 +72,7 @@ public class PersonalController extends HttpServlet {
 		/** 封装修改的数据 */
 		regulator newRegulator = new regulator();
 		if ("updatename".equals(Type)) {
-			System.err.println("修改名称" + updateName);
+			// System.err.println("修改名称" + updateName);
 			if ("".equals(updateName)) {
 				msgString = "名称不能为空";
 			} else {
@@ -95,7 +100,6 @@ public class PersonalController extends HttpServlet {
 		} else {
 			msgString = "啥都没改";
 		}
-
 		regulator object = RegulatorService.GetRegulatorForId(loginid);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("LoginId", object.getRegulatorId());

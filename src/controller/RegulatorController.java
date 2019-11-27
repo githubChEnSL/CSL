@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.alibaba.fastjson.JSONObject;
 
 import entity.regulator;
@@ -27,6 +30,10 @@ import service.impl.StoreServiceImpl;
  * @author chenshaolei 2019年11月27日 上午11:41:52
  */
 public class RegulatorController extends HttpServlet {
+
+	// 定义Log4j日志
+	private static Logger logger = LogManager.getLogger(Class.class);
+
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -34,6 +41,7 @@ public class RegulatorController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		logger.info("管理员信息管理");
 		// 设置字符编码
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -69,8 +77,8 @@ public class RegulatorController extends HttpServlet {
 			loginRegulator = RegulatorService.GetRegulatorForId(session.getAttribute("id").toString());
 			String RoleId = loginRegulator.getRegulatorRoleId();
 			if ("add".equals(action)) {
-				System.out.println("RegulatorName:" + RegulatorName + " RegulatorRoleName:" + RegulatorRoleName
-						+ " StoreName:" + StoreName + "  action:" + action);
+				// System.out.println("RegulatorName:" + RegulatorName + " RegulatorRoleName:" +
+				// RegulatorRoleName + " StoreName:" + StoreName + " action:" + action);
 				/** 封装添加的对象 */
 				regulator addobject = new regulator();
 				try {
@@ -114,15 +122,17 @@ public class RegulatorController extends HttpServlet {
 					msgString = "添加失败";
 				}
 			} else if ("delete".equals(action)) {
-				System.out.println("RegulatorId:" + RegulatorId + "  action:" + action);
+				// System.out.println("RegulatorId:" + RegulatorId + " action:" + action);
 				if (RegulatorService.deleteRegulator(RegulatorId)) {
 					msgString = "删除成功";
 				} else {
 					msgString = "删除失败";
 				}
 			} else if ("update".equals(action)) {
-				System.out.println("RegulatorId:" + RegulatorId + " RegulatorName:" + RegulatorName
-						+ " RegulatorRoleName:" + RegulatorRoleName + " StoreName:" + StoreName + "  action:" + action);
+				// System.out.println("RegulatorId:" + RegulatorId + " RegulatorName:" +
+				// RegulatorName
+				// + " RegulatorRoleName:" + RegulatorRoleName + " StoreName:" + StoreName + "
+				// action:" + action);
 				// 有ID获取原来的门店信息
 				regulator oldRegulator = RegulatorService.GetRegulatorForId(RegulatorId);
 				// 封装修改信息
@@ -164,7 +174,7 @@ public class RegulatorController extends HttpServlet {
 			} else {
 				if ("search".equals(action)) {
 					// 超级管理员身份
-					System.err.println("action:" + action + " StoreName:" + StoreName);
+					// System.err.println("action:" + action + " StoreName:" + StoreName);
 					if (RoleId.equals("1")) {
 						if ("所有".equals(StoreName)) {
 							listregulator = RegulatorService.ListRegulator();
@@ -220,7 +230,7 @@ public class RegulatorController extends HttpServlet {
 					}
 				}
 			} else {
-				System.out.println("nullllllll..............");
+				// System.out.println("nullllllll..............");
 			}
 		} catch (Exception e) {
 			response.sendRedirect("Exit.jsp");
