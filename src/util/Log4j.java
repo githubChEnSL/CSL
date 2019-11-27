@@ -34,7 +34,7 @@ public class Log4j {
 	 */
 	public static void LoggerERROR(String error) {
 		Logger logger = LogManager.getLogger(Class.class);
-		logger.info(error);
+		logger.error(error);
 	}
 
 	/**
@@ -44,6 +44,6 @@ public class Log4j {
 	 */
 	public static void LoggerWARN(String warn) {
 		Logger logger = LogManager.getLogger(Class.class);
-		logger.info(warn);
+		logger.warn(warn);
 	}
 }
