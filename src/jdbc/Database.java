@@ -4,66 +4,86 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import com.mysql.cj.protocol.Resultset;
 
-
+/**
+ * Databaseç±» è¿æ¥æ•°æ®åº“,åˆ›å»ºå®ä¾‹
+ * 
+ * @author chenshaolei 2019å¹´11æœˆ27æ—¥ ä¸Šåˆ11:26:21
+ */
 public class Database {
-	private final String DatabaseURL="jdbc:mysql://localhost:3306/sso?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT";
-	private final String DatabaseNAME="root";
-	private final String DatabasePWD="123";
-	protected Connection connection=null;//Êı¾İ¿âÁ¬½ÓµÄ¶ÔÏó
-	protected Resultset resuset=null; //Êı¾İ¿â²éÑ¯µ½µÄ½á¹û
+	private final String DatabaseURL = "jdbc:mysql://localhost:3306/sso?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT";// æ•°æ®åº“åœ°å€
+	private final String DatabaseNAME = "root";// æ•°æ®åº“è´¦å·
+	private final String DatabasePWD = "123";// æ•°æ®åº“å¯†ç 
+	protected Connection connection = null;// æ•°æ®åº“è¿æ¥çš„å¯¹è±¡
+	protected Resultset resuset = null; // æ•°æ®åº“æŸ¥è¯¢åˆ°çš„ç»“æœ
+
+	/**
+	 * æ„é€ å‡½æ•°ï¼ˆè¿æ¥æ•°æ®åº“ï¼‰
+	 */
 	public Database() {
-	        try {
-	    		//´´½¨Çı¶¯
-				Class.forName("com.mysql.cj.jdbc.Driver");
-				try {
-					//Á¬½ÓÊı¾İ¿â
-					connection =  DriverManager.getConnection(DatabaseURL,DatabaseNAME,DatabasePWD);
-					System.out.println("Á¬½ÓÊı¾İ¿â-³É¹¦");
-				} catch (SQLException e) {
-					e.printStackTrace();
-					System.out.println("Á¬½ÓÊı¾İ¿â-Ê§°Ü");
-				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-				System.out.println("´´½¨Çı¶¯Ê§°Ü");
-			}
-	}
-	//¹Ø±ÕÊı¾İ¿â
-	public void CloseDatabase(){
-		//¹Ø±ÕÊı¾İ¿â
 		try {
-			if(connection!=null){
+			// åˆ›å»ºé©±åŠ¨
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			try {
+				// è¿æ¥æ•°æ®åº“
+				connection = DriverManager.getConnection(DatabaseURL, DatabaseNAME, DatabasePWD);
+				System.out.println("è¿æ¥æ•°æ®åº“-æˆåŠŸ");
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("è¿æ¥æ•°æ®åº“-å¤±è´¥");
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.out.println("åˆ›å»ºé©±åŠ¨å¤±è´¥");
+		}
+	}
+
+	/**
+	 * å…³é—­æ•°æ®åº“
+	 */
+	public void CloseDatabase() {
+		try {
+			if (connection != null) {
 				connection.close();
-				System.out.println("¹Ø±ÕÊı¾İ¿â-³É¹¦");
+				System.out.println("å…³é—­æ•°æ®åº“-æˆåŠŸ");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("¹Ø±ÕÊı¾İ¿â-Ê§°Ü");
+			System.out.println("å…³é—­æ•°æ®åº“-å¤±è´¥");
 		}
 	}
-	//¹Ø±ÕÊµÀı
-	public void CloseStatement(Statement sta) {
-		try {
-			if(sta!=null) {
-				sta.close();
-				//¹Ø±ÕÊµÀıÊ§°Ü
-			}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				System.out.println("¹Ø±ÕÊµÀı-Ê§°Ü");
-			}
-		}
-	//´´½¨ÊµÀı
+
+	/**
+	 * åˆ›å»ºå®ä¾‹
+	 * 
+	 * @param sta
+	 * @return è¿”å›ä¸€ä¸ªå®ä¾‹
+	 */
 	public Statement createSta(Statement sta) {
 		try {
-			sta=connection.createStatement();
-			//´´½¨ÊµÀı³É¹¦
+			sta = connection.createStatement();
+			// åˆ›å»ºå®ä¾‹æˆåŠŸ
 		} catch (Exception e) {
-			System.out.println("´´½¨ÊµÀı-Ê§°Ü");
+			System.out.println("åˆ›å»ºå®ä¾‹-å¤±è´¥");
 		}
 		return sta;
+	}
+
+	/**
+	 * å…³é—­å®ä¾‹
+	 * 
+	 * @param sta
+	 */
+	public void CloseStatement(Statement sta) {
+		try {
+			if (sta != null) {
+				sta.close();
+				// å…³é—­å®ä¾‹æˆåŠŸ
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("å…³é—­å®ä¾‹-å¤±è´¥");
+		}
 	}
 }

@@ -11,130 +11,164 @@ import com.mysql.cj.protocol.Resultset;
 import entity.user;
 import jdbc.Database;
 
-public class DaoUser extends Database{
-
-	public DaoUser(){
-		super();
-	}
-	/**¸ù¾İÓÃ»§Ô±½ÇÉ«±àºÅ»ñÈ¡ÓÃ»§½ÇÉ«Ãû³Æ*/
+/**
+ * DaoUserç±» ä¼šå‘˜ç±»çš„æ•°æ®è®¿é—®ç±»ï¼Œå®ç°ä¼šå‘˜ä¿¡æ¯çš„æ•°æ®è®¿é—®æ“ä½œ
+ * 
+ * @author chenshaolei 2019å¹´11æœˆ27æ—¥ ä¸Šåˆ11:31:34
+ */
+public class DaoUser extends Database {
+	/**
+	 * æ ¹æ®ç”¨æˆ·å‘˜è§’è‰²ç¼–å·è·å–ç”¨æˆ·è§’è‰²åç§°
+	 * 
+	 * @param UserRoleid
+	 * @return è¿”å›è§’è‰²åç§°
+	 */
 	public String GetUserRoleName(String UserRoleid) {
 		String RoleName = null;
-		String sql="select * from user_role where roleid="+UserRoleid;
+		String sql = "select * from user_role where roleid=" + UserRoleid;
 		try {
-			//´´½¨ÊµÀı
-			Statement GetUserRoleName=null;
-			GetUserRoleName=createSta(GetUserRoleName);
-			resuset=(Resultset) GetUserRoleName.executeQuery(sql);
-			while(((ResultSet) resuset).next()) {
-				RoleName=((ResultSet) resuset).getString("rolename");
+			// åˆ›å»ºå®ä¾‹
+			Statement GetUserRoleName = null;
+			GetUserRoleName = createSta(GetUserRoleName);
+			resuset = (Resultset) GetUserRoleName.executeQuery(sql);
+			while (((ResultSet) resuset).next()) {
+				RoleName = ((ResultSet) resuset).getString("rolename");
 			}
-			//¹Ø±ÕÊµÀı
-			 CloseStatement(GetUserRoleName);
+			// å…³é—­å®ä¾‹
+			CloseStatement(GetUserRoleName);
 		} catch (Exception e) {
-			System.out.println("»ñÈ¡ÓÃ»§½ÇÉ«Ãû³ÆÊ§°Ü");
+			System.out.println("è·å–ç”¨æˆ·è§’è‰²åç§°å¤±è´¥");
 		}
 		return RoleName;
 	}
-	/**¸ù¾İÓÃ»§Ô±½ÇÉ«Ãû³Æ»ñÈ¡ÓÃ»§½ÇÉ«±àºÅ*/
+
+	/**
+	 * æ ¹æ®ç”¨æˆ·å‘˜è§’è‰²åç§°è·å–ç”¨æˆ·è§’è‰²ç¼–å·
+	 * 
+	 * @param UserRoleName
+	 * @return è¿”å›è§’è‰²ç¼–å·
+	 */
 	public String GetUserRoleId(String UserRoleName) {
 		String RoleId = null;
-		String sql="select * from user_role where rolename='"+UserRoleName+"'";
+		String sql = "select * from user_role where rolename='" + UserRoleName + "'";
 		try {
-			//´´½¨ÊµÀı
-			Statement GetUserRoleName=null;
-			GetUserRoleName=createSta(GetUserRoleName);
-			resuset=(Resultset) GetUserRoleName.executeQuery(sql);
-			while(((ResultSet) resuset).next()) {
-				RoleId=((ResultSet) resuset).getString("roleid");
+			// åˆ›å»ºå®ä¾‹
+			Statement GetUserRoleName = null;
+			GetUserRoleName = createSta(GetUserRoleName);
+			resuset = (Resultset) GetUserRoleName.executeQuery(sql);
+			while (((ResultSet) resuset).next()) {
+				RoleId = ((ResultSet) resuset).getString("roleid");
 			}
-			//¹Ø±ÕÊµÀı
-			 CloseStatement(GetUserRoleName);
+			// å…³é—­å®ä¾‹
+			CloseStatement(GetUserRoleName);
 		} catch (Exception e) {
-			System.out.println("»ñÈ¡ÓÃ»§½ÇÉ«±àºÅÊ§°Ü");
+			System.out.println("è·å–ç”¨æˆ·è§’è‰²ç¼–å·å¤±è´¥");
 		}
 		return RoleId;
 	}
-	
-	/**»ñÈ¡ËùÓĞµÄÓÃ»§ĞÅÏ¢*/
-	public List<user> ListUser(){
-		List<user> listUser=new ArrayList<user>();
-		String sql="select * from user";
+
+	/**
+	 * è·å–æ‰€æœ‰çš„ç”¨æˆ·ä¿¡æ¯
+	 * 
+	 * @return è¿”å›æ‰€æœ‰çš„ç”¨æˆ·ä¿¡æ¯
+	 */
+	public List<user> ListUser() {
+		List<user> listUser = new ArrayList<user>();
+		String sql = "select * from user";
 		try {
-			//´´½¨ÊµÀı
-			Statement SelectStd=null;
-			SelectStd=createSta(SelectStd);
-			resuset= (Resultset) SelectStd.executeQuery(sql);
-			 while(((ResultSet) resuset).next()){
-		         String userid  = ((ResultSet) resuset).getString("userid");
-		         String username = ((ResultSet) resuset).getString("username");
-		         String password= ((ResultSet) resuset).getString("password");
-		         String roleid = ((ResultSet) resuset).getString("roleid");
-		         user object=new user();
-		         object.setUserId(userid);
-		         object.setUserName(username);
-		         object.setPassword(password);
-		         object.setRoleId(roleid);
-		         listUser.add(object);
-		      }
-			//¹Ø±ÕÊµÀı
-			 CloseStatement(SelectStd);
+			// åˆ›å»ºå®ä¾‹
+			Statement SelectStd = null;
+			SelectStd = createSta(SelectStd);
+			resuset = (Resultset) SelectStd.executeQuery(sql);
+			while (((ResultSet) resuset).next()) {
+				String userid = ((ResultSet) resuset).getString("userid");
+				String username = ((ResultSet) resuset).getString("username");
+				String password = ((ResultSet) resuset).getString("password");
+				String roleid = ((ResultSet) resuset).getString("roleid");
+				user object = new user();
+				object.setUserId(userid);
+				object.setUserName(username);
+				object.setPassword(password);
+				object.setRoleId(roleid);
+				listUser.add(object);
+			}
+			// å…³é—­å®ä¾‹
+			CloseStatement(SelectStd);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return listUser;
 	}
-	/**Í¨¹ıÓÃ»§±àºÅ»ñÈ¡ÓÃ»§ĞÅÏ¢*/
+
+	/**
+	 * é€šè¿‡ç”¨æˆ·ç¼–å·è·å–ç”¨æˆ·ä¿¡æ¯
+	 * 
+	 * @param userid
+	 * @return è¿”å›ç”¨æˆ·ä¿¡æ¯
+	 */
 	public user getUserForId(String userid) {
-		user getuser=new user();
-		String sql="select * from user where userid="+userid;
+		user getuser = new user();
+		String sql = "select * from user where userid=" + userid;
 		try {
-			//´´½¨ÊµÀı
-			Statement GetUser=null;
-			GetUser=createSta(GetUser);
-			resuset=(Resultset) GetUser.executeQuery(sql);
-			while(((ResultSet) resuset).next()) {
-				String ID=((ResultSet) resuset).getString("userid");
-				String username=((ResultSet) resuset).getString("username");
-				String password= ((ResultSet) resuset).getString("password");
+			// åˆ›å»ºå®ä¾‹
+			Statement GetUser = null;
+			GetUser = createSta(GetUser);
+			resuset = (Resultset) GetUser.executeQuery(sql);
+			while (((ResultSet) resuset).next()) {
+				String ID = ((ResultSet) resuset).getString("userid");
+				String username = ((ResultSet) resuset).getString("username");
+				String password = ((ResultSet) resuset).getString("password");
 				String roleid = ((ResultSet) resuset).getString("roleid");
 				getuser.setUserId(ID);
 				getuser.setUserName(username);
 				getuser.setPassword(password);
 				getuser.setRoleId(roleid);
 			}
-			System.out.println("»ñÈ¡ÓÃ»§ĞÅÏ¢³É¹¦");
-			//¹Ø±ÕÊµÀı
-			 CloseStatement(GetUser);
+			System.out.println("è·å–ç”¨æˆ·ä¿¡æ¯æˆåŠŸ");
+			// å…³é—­å®ä¾‹
+			CloseStatement(GetUser);
 		} catch (Exception e) {
-			System.out.println("»ñÈ¡ÓÃ»§ĞÅÏ¢Ê§°Ü");
+			System.out.println("è·å–ç”¨æˆ·ä¿¡æ¯å¤±è´¥");
 		}
 		return getuser;
 	}
-	/**Í¨¹ıÓÃ»§Ãû³Æ»ñÈ¡ÓÃ»§±àºÅ*/
+
+	/**
+	 * é€šè¿‡ç”¨æˆ·åç§°è·å–ç”¨æˆ·ç¼–å·
+	 * 
+	 * @param username
+	 * @return è¿”å›ç”¨æˆ·ç¼–å·
+	 */
 	public String getUserIdForName(String username) {
-		String getId="";
-		String sql="select * from user where username='"+username+"'";
+		String getId = "";
+		String sql = "select * from user where username='" + username + "'";
 		try {
-			//´´½¨ÊµÀı
-			Statement GetUser=null;
-			GetUser=createSta(GetUser);
-			resuset=(Resultset) GetUser.executeQuery(sql);
-			while(((ResultSet) resuset).next()) {
-				getId=((ResultSet) resuset).getString("userid");
+			// åˆ›å»ºå®ä¾‹
+			Statement GetUser = null;
+			GetUser = createSta(GetUser);
+			resuset = (Resultset) GetUser.executeQuery(sql);
+			while (((ResultSet) resuset).next()) {
+				getId = ((ResultSet) resuset).getString("userid");
 			}
-			System.out.println("»ñÈ¡ÓÃ»§ĞÅÏ¢³É¹¦");
-			//¹Ø±ÕÊµÀı
-			 CloseStatement(GetUser);
+			System.out.println("è·å–ç”¨æˆ·ä¿¡æ¯æˆåŠŸ");
+			// å…³é—­å®ä¾‹
+			CloseStatement(GetUser);
 		} catch (Exception e) {
-			System.out.println("»ñÈ¡ÓÃ»§ĞÅÏ¢Ê§°Ü");
+			System.out.println("è·å–ç”¨æˆ·ä¿¡æ¯å¤±è´¥");
 		}
 		return getId;
 	}
-	/**Ìí¼ÓÓÃ»§ĞÅÏ¢*/
+
+	/**
+	 * æ·»åŠ ç”¨æˆ·ä¿¡æ¯
+	 * 
+	 * @param addobject
+	 * @return æ·»åŠ æˆåŠŸè¿”å›true,å¤±è´¥è¿”å›false
+	 */
 	public boolean insertUser(user addobject) {
 		boolean flag = false;
 		String Number = "";
-		// ÅĞ¶Ï±íÖĞÊÇ·ñ´æÔÚ×î´óÖµ£¨±íÊÇ·ñÎª¿Õ£©
+		// åˆ¤æ–­è¡¨ä¸­æ˜¯å¦å­˜åœ¨æœ€å¤§å€¼ï¼ˆè¡¨æ˜¯å¦ä¸ºç©ºï¼‰
 		try {
 			if ("".equals(this.GetMaxId())) {
 				Number = "0";
@@ -144,86 +178,104 @@ public class DaoUser extends Database{
 		} catch (Exception e) {
 			Number = "0";
 		}
-		String ID = String.valueOf(Integer.parseInt(Number)+1);
-		String Name=addobject.getUserName();
-		//Ä¬ÈÏÃÜÂëÎª172056236
-		String Password="172056236";
-		String Roleid=addobject.getRoleId();
-		String sql="insert into user value("+ID+",'"+Name+"','"+Password+"','"+Roleid+"')";
+		String ID = String.valueOf(Integer.parseInt(Number) + 1);
+		String Name = addobject.getUserName();
+		// é»˜è®¤å¯†ç ä¸º172056236
+		String Password = "172056236";
+		String Roleid = addobject.getRoleId();
+		String sql = "insert into user value(" + ID + ",'" + Name + "','" + Password + "','" + Roleid + "')";
 		try {
-			//´´½¨ÊµÀı
-			Statement adduser=null;
-			adduser=createSta(adduser);
+			// åˆ›å»ºå®ä¾‹
+			Statement adduser = null;
+			adduser = createSta(adduser);
 			adduser.execute(sql);
 			flag = true;
-			System.out.println("Ìí¼ÓÓÃ»§ĞÅÏ¢³É¹¦");
-			//¹Ø±ÕÊµÀı
+			System.out.println("æ·»åŠ ç”¨æˆ·ä¿¡æ¯æˆåŠŸ");
+			// å…³é—­å®ä¾‹
 			CloseStatement(adduser);
 		} catch (Exception e) {
-			System.err.println("Ìí¼ÓÓÃ»§ĞÅÏ¢Ê§°Ü");
+			System.err.println("æ·»åŠ ç”¨æˆ·ä¿¡æ¯å¤±è´¥");
 			flag = false;
 		}
 		return flag;
 	}
-	/**É¾³ıÓÃ»§ĞÅÏ¢*/
+
+	/**
+	 * åˆ é™¤ç”¨æˆ·ä¿¡æ¯
+	 * 
+	 * @param userid
+	 * @return åˆ é™¤æˆåŠŸè¿”å›true,å¤±è´¥è¿”å›false
+	 */
 	public boolean deleteUser(String userid) {
 		boolean flag = false;
-		String sql="delete from user where userid="+userid;
+		String sql = "delete from user where userid=" + userid;
 		try {
-			//´´½¨ÊµÀı
-			Statement deluser=null;
-			deluser=createSta(deluser);
+			// åˆ›å»ºå®ä¾‹
+			Statement deluser = null;
+			deluser = createSta(deluser);
 			deluser.execute(sql);
-			System.out.println("É¾³ıÓÃ»§ĞÅÏ¢³É¹¦");
-			//¹Ø±ÕÊµÀı
+			System.out.println("åˆ é™¤ç”¨æˆ·ä¿¡æ¯æˆåŠŸ");
+			// å…³é—­å®ä¾‹
 			CloseStatement(deluser);
 			flag = true;
 		} catch (Exception e) {
-			System.err.println("É¾³ıÓÃ»§ĞÅÏ¢Ê§°Ü");
+			System.err.println("åˆ é™¤ç”¨æˆ·ä¿¡æ¯å¤±è´¥");
 			flag = false;
 		}
 		return flag;
 	}
-	/**ĞŞ¸ÄÓÃ»§ĞÅÏ¢*/
+
+	/**
+	 * ä¿®æ”¹ç”¨æˆ·ä¿¡æ¯
+	 * 
+	 * @param updateuser
+	 * @return ä¿®æ”¹æˆåŠŸè¿”å›true,å¤±è´¥è¿”å›false
+	 */
 	public boolean updateUser(user updateuser) {
 		boolean flag = false;
-		String ID=updateuser.getUserId();
-		String Name=updateuser.getUserName();
-		String Password=updateuser.getPassword();
-		String Roleid=updateuser.getRoleId();
-		String sql="update user set userid='"+ID+"',username='"+Name+"',password='"+Password+"',roleid='"+Roleid+"' where userid='"+ID+"'";
+		String ID = updateuser.getUserId();
+		String Name = updateuser.getUserName();
+		String Password = updateuser.getPassword();
+		String Roleid = updateuser.getRoleId();
+		String sql = "update user set userid='" + ID + "',username='" + Name + "',password='" + Password + "',roleid='"
+				+ Roleid + "' where userid='" + ID + "'";
 		try {
-			//´´½¨ÊµÀı
-			Statement Updateuser=null;
-			Updateuser=createSta(Updateuser);
+			// åˆ›å»ºå®ä¾‹
+			Statement Updateuser = null;
+			Updateuser = createSta(Updateuser);
 			Updateuser.execute(sql);
-			System.out.println("ĞŞ¸ÄÓÃ»§ĞÅÏ¢³É¹¦");
+			System.out.println("ä¿®æ”¹ç”¨æˆ·ä¿¡æ¯æˆåŠŸ");
 			flag = true;
-			//¹Ø±ÕÊµÀı
+			// å…³é—­å®ä¾‹
 			CloseStatement(Updateuser);
 		} catch (Exception e) {
 			flag = false;
-			System.err.println("ĞŞ¸ÄÓÃ»§ĞÅÏ¢Ê§°Ü");
+			System.err.println("ä¿®æ”¹ç”¨æˆ·ä¿¡æ¯å¤±è´¥");
 		}
 		return flag;
 	}
-	/** »ñÈ¡×î´óµÄ¿Í»§±àºÅ */
+
+	/**
+	 * è·å–æœ€å¤§çš„å®¢æˆ·ç¼–å·
+	 * 
+	 * @return è¿”å›å®¢æˆ·çš„æœ€å¤§ç¼–å·
+	 */
 	public String GetMaxId() {
 		List<Integer> listId = new ArrayList<Integer>();
 		String sql = "select * from user";
 		try {
-			// ´´½¨ÊµÀı
+			// åˆ›å»ºå®ä¾‹
 			Statement GetStore = null;
 			GetStore = createSta(GetStore);
 			resuset = (Resultset) GetStore.executeQuery(sql);
 			while (((ResultSet) resuset).next()) {
 				listId.add(Integer.parseInt(((ResultSet) resuset).getString("userid")));
 			}
-			System.out.println("»ñÈ¡ĞÅÏ¢³É¹¦");
-			// ¹Ø±ÕÊµÀı
+			System.out.println("è·å–ä¿¡æ¯æˆåŠŸ");
+			// å…³é—­å®ä¾‹
 			CloseStatement(GetStore);
 		} catch (Exception e) {
-			System.out.println("»ñÈ¡ĞÅÏ¢Ê§°Ü");
+			System.out.println("è·å–ä¿¡æ¯å¤±è´¥");
 		}
 		return Collections.max(listId).toString();
 	}

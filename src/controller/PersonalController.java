@@ -19,50 +19,57 @@ import service.StoreService;
 import service.impl.RegulatorServiceImpl;
 import service.impl.StoreServiceImpl;
 
+/**
+ * PersonalControllerç±» å®ç°ä¸ªäººä¿¡æ¯ç®¡ç†ç±»
+ * 
+ * @author chenshaolei 2019å¹´11æœˆ27æ—¥ ä¸Šåˆ11:43:01
+ */
 public class PersonalController extends HttpServlet {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 
+	 * PersonalControllerçš„æ„é€ å‡½æ•°
 	 */
 	public PersonalController() {
 		super();
 	}
 
+	/**
+	 * doGetå‡½æ•°ï¼Œä¸å‰ç«¯è¿›è¡Œæ•°æ®äº¤äº’
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ÉèÖÃ×Ö·û±àÂë
+		// è®¾ç½®å­—ç¬¦ç¼–ç 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		// ¶¨ÒåÓëserviceÊµÏÖÀàµÄ¶ÔÏó
+		// å®šä¹‰serviceå®ç°ç±»çš„å¯¹è±¡
 		RegulatorService RegulatorService = new RegulatorServiceImpl();
 		StoreService StoreService = new StoreServiceImpl();
-		// ·âÑb·µ»ØÌáÊ¾ĞÅÏ¢
+		// å°è£…è¿”å›çš„æç¤ºä¿¡æ¯
 		String msgString = "";
-		// »ñÈ¡sessionÓòÖĞµÃid(ÒòÎªĞŞ¸ÄµÄÊÇ¸öÈËĞÅÏ¢¼´µÇÂ¼ÕßµÄĞÅÏ¢)
+		// è·å–sessionåŸŸä¸­çš„id(å› ä¸ºä¿®æ”¹çš„ä¸ªäººä¿¡æ¯å°±æ˜¯ç™»å½•è€…çš„ä¿¡æ¯)
 		HttpSession session = request.getSession();
 		String loginid = (String) session.getAttribute("id");
-		// »ñÈ¡Ç°Ì¨µÄType
+		// è·å–å‰å°çš„Type
 		String Type = request.getParameter("Type");
-		// »ñÈ¡Ç°Ì¨µÄType
+		// è·å–å‰å°çš„updateName
 		String updateName = request.getParameter("updateName");
-		// »ñÈ¡Ç°Ì¨µÄoldpassword
+		// è·å–å‰å°çš„oldpassword
 		String oldpassword = request.getParameter("oldpassword");
-		// »ñÈ¡Ç°Ì¨µÄtruepassword
+		// è·å–å‰å°çš„truepassword
 		String truepassword = request.getParameter("truepassword");
-		// ÓÉid»ñÈ¡¾É¶ÔÏó
+		// ç”±idè·å–æ—§å¯¹è±¡
 		regulator oldRegulator = RegulatorService.GetRegulatorForId(loginid);
-		/** ·â×°ĞŞ¸ÄµÄÊı¾İ */
+		/** å°è£…ä¿®æ”¹çš„æ•°æ® */
 		regulator newRegulator = new regulator();
 		if ("updatename".equals(Type)) {
-			System.err.println("ĞŞ¸ÄÃû³Æ" + updateName);
+			System.err.println("ä¿®æ”¹åç§°" + updateName);
 			if ("".equals(updateName)) {
-				msgString = "Ãû³Æ²»ÄÜÎª¿Õ";
+				msgString = "åç§°ä¸èƒ½ä¸ºç©º";
 			} else {
 				newRegulator.setRegulatorId(oldRegulator.getRegulatorId());
 				newRegulator.setRegulatorName(updateName);
@@ -70,10 +77,10 @@ public class PersonalController extends HttpServlet {
 				newRegulator.setRegulatorRoleId(oldRegulator.getRegulatorRoleId());
 				newRegulator.setStoreId(oldRegulator.getStoreId());
 				RegulatorService.updateRegulator(newRegulator);
-				msgString = "ĞŞ¸ÄÃû³Æ³É¹¦";
+				msgString = "ä¿®æ”¹åç§°æˆåŠŸ";
 			}
 		} else if ("updatepass".equals(Type)) {
-			// ÅĞ¶Ï¾ÉÃÜÂëÊÇ·ñÕıÈ·
+			// åˆ¤æ–­æ—§å¯†ç æ˜¯å¦æ­£ç¡®
 			if (oldpassword.equals(RegulatorService.GetRegulatorForId(loginid).getPassword())) {
 				newRegulator.setRegulatorId(oldRegulator.getRegulatorId());
 				newRegulator.setRegulatorName(oldRegulator.getPassword());
@@ -81,12 +88,12 @@ public class PersonalController extends HttpServlet {
 				newRegulator.setRegulatorRoleId(oldRegulator.getRegulatorRoleId());
 				newRegulator.setStoreId(oldRegulator.getStoreId());
 				RegulatorService.updateRegulator(newRegulator);
-				msgString = "ĞŞ¸ÄÃÜÂë³É¹¦";
+				msgString = "ä¿®æ”¹å¯†ç æˆåŠŸ";
 			} else {
-				msgString = "¾ÉÃÜÂë²»ÕıÈ·£¬ĞŞ¸ÄÊ§°Ü";
+				msgString = "æ—§å¯†ç ä¸æ­£ç¡®ï¼Œä¿®æ”¹å¤±è´¥";
 			}
 		} else {
-			msgString = "É¶¶¼Ã»¸Ä";
+			msgString = "å•¥éƒ½æ²¡æ”¹";
 		}
 
 		regulator object = RegulatorService.GetRegulatorForId(loginid);
@@ -97,7 +104,7 @@ public class PersonalController extends HttpServlet {
 		map.put("LoginRoleName", RegulatorService.GetRegulatorRoleName(object.getRegulatorRoleId()));
 		map.put("msg", msgString);
 		PrintWriter out = response.getWriter();
-		// ½«map×ªÎªjson
+		// å°†mapè½¬ä¸ºjson
 		JSONObject data = new JSONObject(map);
 		out.print(data);
 		out.flush();

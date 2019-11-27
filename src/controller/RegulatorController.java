@@ -21,167 +21,169 @@ import service.StoreService;
 import service.impl.RegulatorServiceImpl;
 import service.impl.StoreServiceImpl;
 
+/**
+ * RegulatorControllerç±» å‘˜å·¥ä¿¡æ¯ç®¡ç†ç±»
+ * 
+ * @author chenshaolei 2019å¹´11æœˆ27æ—¥ ä¸Šåˆ11:41:52
+ */
 public class RegulatorController extends HttpServlet {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * doGetå‡½æ•°ï¼Œä¸å‰ç«¯è¿›è¡Œæ•°æ®äº¤äº’
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ÉèÖÃ×Ö·û±àÂë
+		// è®¾ç½®å­—ç¬¦ç¼–ç 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		// »ñÈ¡Ç°Ì¨µÄaction
+		// è·å–å‰å°ä¼ æ¥çš„action
 		String action = request.getParameter("action");
-		// »ñÈ¡Ç°Ì¨´«À´µÄregulatorName
+		// è·å–å‰å°ä¼ æ¥çš„regulatorName
 		String RegulatorName = request.getParameter("regulatorName");
-		// »ñÈ¡Ç°Ì¨´«À´µÄRegulatorRoleName
+		// è·å–å‰å°ä¼ æ¥çš„RegulatorRoleName
 		String RegulatorRoleName = request.getParameter("RegulatorRoleName");
-		// »ñÈ¡Ç°Ì¨´«À´µÄStoreName
+		// è·å–å‰å°ä¼ æ¥çš„StoreName
 		String StoreName = request.getParameter("StoreName");
-		// »ñÈ¡ËùÓĞµÄ¹ÜÀíÔ±ĞÅÏ¢
+		// è·å–æ‰€æœ‰çš„ç®¡ç†å‘˜ä¿¡æ¯
 		List<Map<String, Object>> RegulatorData = new ArrayList<Map<String, Object>>();
-		// »ñÈ¡Ç°Ì¨´«À´µÄRegulatorId
+		// è·å–å‰å°ä¼ æ¥çš„RegulatorId
 		String RegulatorId = request.getParameter("RegulatorId");
-		// ¶¨ÒåÓëserviceÊµÏÖÀàµÄ¶ÔÏó
+		// å®šä¹‰serviceå®ç°ç±»çš„å¯¹è±¡
 		RegulatorService RegulatorService = new RegulatorServiceImpl();
 		StoreService StoreService = new StoreServiceImpl();
-		// »ñÈ¡ËùÓĞµÄÃÅµêÃû³Æ
+		// è·å–æ‰€æœ‰çš„é—¨åº—åç§°
 		List<String> listStoreName = StoreService.ListStoresName();
-		// »ñÈ¡ËùÓĞµÄ¹ÜÀíÕß½ÇÉ«Ãû³Æ
+		// è·å–æ‰€æœ‰çš„ç®¡ç†è€…è§’è‰²åç§°
 		List<String> listRoleName = RegulatorService.ListRegulatorRoleName();
-		// ±£´æÌáÊ¾ĞÅÏ¢
+		// ä¿å­˜æç¤ºä¿¡æ¯
 		String msgString = "";
-		// ·â×°·µ»ØµÄÊı¾İ
+		// å°è£…è¿”å›çš„æ•°æ®
 		List<regulator> listregulator = new ArrayList<regulator>();
-		// ÅĞ¶ÏµÇÂ½ÕßµÄÉí·İ
+		// åˆ¤æ–­ç™»å½•è€…çš„èº«ä»½
 		HttpSession session = request.getSession();
 		regulator loginRegulator = new regulator();
-		// ÑéÖ¤ÓÃ»§ÊÇ·ñµÇÂ¼
+		// éªŒè¯ç”¨æˆ·æ˜¯å¦ç™»å½•
 		try {
-			// Èç¹û»ñÈ¡µ½null½øÈëcatch
 			loginRegulator = RegulatorService.GetRegulatorForId(session.getAttribute("id").toString());
 			String RoleId = loginRegulator.getRegulatorRoleId();
 			if ("add".equals(action)) {
 				System.out.println("RegulatorName:" + RegulatorName + " RegulatorRoleName:" + RegulatorRoleName
 						+ " StoreName:" + StoreName + "  action:" + action);
-				/** ·â×°Ìí¼ÓµÄ¶ÔÏó */
+				/** å°è£…æ·»åŠ çš„å¯¹è±¡ */
 				regulator addobject = new regulator();
 				try {
-					// ÅĞ¶ÏÌí¼ÓµÄÃû³ÆÊÇ·ñÓĞÖØ¸´
+					// åˆ¤æ–­æ·»åŠ çš„åç§°æ˜¯å¦æœ‰é‡å¤
 					if ("".equals(RegulatorService.GetIdForName(RegulatorName))) {
-						// Ã»ÓĞÖØ¸´£¨¿ÉÒÔÌí¼Ó£©
-						// ÅĞ¶ÏµÇÂ½ÕßµÄÈ¨ÏŞ
+						// æ²¡æœ‰é‡å¤
+						// åˆ¤æ–­ç™»å½•è€…çš„æƒé™
 						if (RoleId.equals("1")) {
-							// ³¬¼¶¹ÜÀíÔ±¿ÉÒÔËæÒâÌí¼Ó
+							// è¶…çº§ç®¡ç†å‘˜å¯ä»¥éšæ„æ·»åŠ 
 							addobject.setRegulatorName(RegulatorName);
 							addobject.setRegulatorRoleId(RegulatorService.GetRegulatorRoleId(RegulatorRoleName));
-							RegulatorService.insertRegulator(addobject);
 							addobject.setStoreId(StoreService.getIdForName(StoreName));
-							msgString = "Ìí¼Ó³É¹¦";
+							RegulatorService.insertRegulator(addobject);
+							msgString = "æ·»åŠ æˆåŠŸ";
 						} else if (RoleId.equals("2")) {
-							// ¹ÜÀíÔ±£¨µê³¤£©Ö»ÄÜÌí¼ÓÆÕÍ¨Ô±¹¤
+							// ç®¡ç†å‘˜ï¼ˆåº—é•¿ï¼‰åªèƒ½æ·»åŠ æ™®é€šå‘˜å·¥
 							if (RegulatorService.GetRegulatorRoleId(RegulatorRoleName).equals("3")) {
-								// ÊÇ·ñÎª±¾ÃÅµê
+								// æ˜¯å¦ä¸ºæœ¬é—¨åº—
 								if (StoreService.getIdForName(StoreName).equals(loginRegulator.getStoreId())) {
 									addobject.setRegulatorName(RegulatorName);
 									addobject
 											.setRegulatorRoleId(RegulatorService.GetRegulatorRoleId(RegulatorRoleName));
 									addobject.setStoreId(StoreService.getIdForName(StoreName));
 									RegulatorService.insertRegulator(addobject);
-									msgString = "Ìí¼Ó³É¹¦";
+									msgString = "æ·»åŠ æˆåŠŸ";
 								} else {
-									msgString = "Ìí¼ÓÊ§°Ü£¬ÄúÎŞ·¨Ìí¼ÓÆäËûÃÅµêµÄÔ±¹¤";
+									msgString = "æ·»åŠ å¤±è´¥ï¼Œæ‚¨æ— æ³•æ·»åŠ å…¶ä»–é—¨åº—çš„å‘˜å·¥";
 								}
 							} else {
-								msgString = "Ìí¼ÓÊ§°Ü£¬ÄúÃ»ÓĞÈ¨ÏŞÌí¼Ó";
+								msgString = "æ·»åŠ å¤±è´¥ï¼Œæ‚¨æ²¡æœ‰æƒé™æ·»åŠ ";
 							}
 						} else {
-							// ÆäËû¶¼²»ÔÊĞíÌí¼Ó
-							msgString = "Ìí¼ÓÊ§°Ü£¬ÄúÃ»ÓĞÈ¨ÏŞÌí¼Ó";
+							// å…¶ä»–éƒ½ä¸å…è®¸æ·»åŠ 
+							msgString = "æ·»åŠ å¤±è´¥ï¼Œæ‚¨æ²¡æœ‰æƒé™æ·»åŠ ";
 						}
 					} else {
-						// Ãû³ÆÖØ¸´
-						msgString = "Ãû³ÆÖØ¸´£¬Ìí¼ÓÊ§°Ü";
+						// åç§°é‡å¤
+						msgString = "åç§°é‡å¤ï¼Œæ·»åŠ å¤±è´¥";
 					}
 				} catch (Exception e) {
-					msgString = "Ìí¼ÓÊ§°Ü";
+					msgString = "æ·»åŠ å¤±è´¥";
 				}
 			} else if ("delete".equals(action)) {
 				System.out.println("RegulatorId:" + RegulatorId + "  action:" + action);
 				if (RegulatorService.deleteRegulator(RegulatorId)) {
-					msgString = "É¾³ı³É¹¦";
+					msgString = "åˆ é™¤æˆåŠŸ";
 				} else {
-					msgString = "É¾³ıÊ§°Ü";
+					msgString = "åˆ é™¤å¤±è´¥";
 				}
 			} else if ("update".equals(action)) {
 				System.out.println("RegulatorId:" + RegulatorId + " RegulatorName:" + RegulatorName
 						+ " RegulatorRoleName:" + RegulatorRoleName + " StoreName:" + StoreName + "  action:" + action);
-				// ÓÉID»ñÈ¡Ô­À´µÄÃÅµêĞÅÏ¢
+				// æœ‰IDè·å–åŸæ¥çš„é—¨åº—ä¿¡æ¯
 				regulator oldRegulator = RegulatorService.GetRegulatorForId(RegulatorId);
-				// ·â×°ĞŞ¸ÄĞÅÏ¢
+				// å°è£…ä¿®æ”¹ä¿¡æ¯
 				regulator newRegulator = new regulator();
-				// Ğ´ÈëID
+				// å†™å…¥ID
 				newRegulator.setRegulatorId(RegulatorId);
-				// ÅĞ¶ÏÄÜ·ñ¸ü¸Ä¹ÜÀíÔ±½ÇÉ«
+				// åˆ¤æ–­èƒ½å¦æ›´æ”¹ç®¡ç†å‘˜è§’è‰²
 				if (RoleId.equals("1")) {
-					// ÈÎÒâĞŞ¸Ä
-					// Ğ´ÈëÃû³Æ
+					// ä»»æ„ä¿®æ”¹
+					// å†™å…¥åç§°
 					newRegulator.setRegulatorName(RegulatorName);
-					// Ğ´Èë¾ÉÃÜÂë
+					// å†™å…¥æ—§å¯†ç 
 					newRegulator.setPassword(oldRegulator.getPassword());
-					// Ğ´Èë½ÇÉ«±àºÅ
+					// å†™å…¥è§’è‰²ç¼–å·
 					newRegulator.setRegulatorRoleId(RegulatorService.GetRegulatorRoleId(RegulatorRoleName));
-					// Ğ´ÈëÃÅµê±àºÅ
+					// å†™å…¥é—¨åº—ç¼–å·
 					newRegulator.setStoreId(StoreService.getIdForName(StoreName));
 					RegulatorService.updateRegulator(newRegulator);
-					msgString = "ĞŞ¸Ä³É¹¦";
+					msgString = "ä¿®æ”¹æˆåŠŸ";
 				} else if (RoleId.equals("2")) {
-					// Ö»ÄÜĞŞ¸ÄÔ±¹¤ĞÅÏ¢
+					// åªèƒ½ä¿®æ”¹å‘˜å·¥ä¿¡æ¯
 					if (RegulatorService.GetRegulatorRoleId(RegulatorRoleName).equals("3")) {
-						// Ğ´ÈëÃû³Æ
+						// å†™å…¥åç§°
 						newRegulator.setRegulatorName(RegulatorName);
-						// Ğ´Èë¾ÉÃÜÂë
+						// å†™å…¥æ—§å¯†ç 
 						newRegulator.setPassword(oldRegulator.getPassword());
-						// Ğ´Èë½ÇÉ«±àºÅ
+						// å†™å…¥è§’è‰²ç¼–å·
 						newRegulator.setRegulatorRoleId(RegulatorService.GetRegulatorRoleId(RegulatorRoleName));
-						// Ğ´ÈëÃÅµê±àºÅ
+						// å†™å…¥é—¨åº—ç¼–å·
 						newRegulator.setStoreId(StoreService.getIdForName(StoreName));
 						RegulatorService.updateRegulator(newRegulator);
-						msgString = "ĞŞ¸Ä³É¹¦";
+						msgString = "ä¿®æ”¹æˆåŠŸ";
 					} else {
-						msgString = "ĞŞ¸ÄÊ§°Ü£¬ÄúÃ»ÓĞÈ¨ÏŞ";
+						msgString = "ä¿®æ”¹å¤±è´¥ï¼Œæ‚¨æ²¡æœ‰æƒé™";
 					}
 				} else {
-					msgString = "ĞŞ¸ÄÊ§°Ü£¬ÄúÃ»ÓĞĞŞ¸ÄÈ¨ÏŞ";
+					msgString = "ä¿®æ”¹å¤±è´¥ï¼Œæ‚¨æ²¡æœ‰ä¿®æ”¹æƒé™";
 				}
 			} else {
 				if ("search".equals(action)) {
-					// ³¬¼¶¹ÜÀíÔ±Éí·İ
+					// è¶…çº§ç®¡ç†å‘˜èº«ä»½
 					System.err.println("action:" + action + " StoreName:" + StoreName);
 					if (RoleId.equals("1")) {
-						System.err.println("³¬¼¶");
-						if ("ËùÓĞ".equals(StoreName)) {
+						if ("æ‰€æœ‰".equals(StoreName)) {
 							listregulator = RegulatorService.ListRegulator();
 						} else {
-							// ¸ù¾İÃÅµêÃû³Æ»ñÈ¡ÃÅµê±àºÅ
+							// æ ¹æ®é—¨åº—åç§°è·å–é—¨åº—ç¼–å·
 							String StoreId = StoreService.getIdForName(StoreName);
 							listregulator = RegulatorService.listRegulatorByStoreId(StoreId);
 						}
 					} else if (RoleId.equals("2")) {
-						System.err.println("¹ÜÀíÔ±");
-						// ¹ÜÀíÔ±Éí·İ
-						// »ñÈ¡±¾ÃÅµêµÄËùÓĞÔ±¹¤ĞÅÏ¢
+						// ç®¡ç†å‘˜èº«ä»½
+						// è·å–æœ¬é—¨åº—çš„æ‰€æœ‰å‘˜å·¥ä¿¡æ¯
 						String StoreId = loginRegulator.getStoreId();
 						listregulator = RegulatorService.listRegulatorByStoreId(StoreId);
 					} else {
 						listregulator = null;
 					}
 				} else {
-					// ¹ÜÀíÔ±Éí·İ
-					// »ñÈ¡±¾ÃÅµêµÄËùÓĞÔ±¹¤ĞÅÏ¢
+					// ç®¡ç†å‘˜èº«ä»½
+					// è·å–æœ¬é—¨åº—çš„æ‰€æœ‰å‘˜å·¥ä¿¡æ¯
 					String StoreId = loginRegulator.getStoreId();
 					listregulator = RegulatorService.listRegulatorByStoreId(StoreId);
 				}
@@ -197,7 +199,7 @@ public class RegulatorController extends HttpServlet {
 							row.put("RegulatorRole",
 									RegulatorService.GetRegulatorRoleName(entity.getRegulatorRoleId()));
 							if ("".equals(entity.getStoreId())) {
-								row.put("StoreName", "¿Õ");
+								row.put("StoreName", "ç©º");
 							} else {
 								row.put("StoreName", StoreService.getStoreForId(entity.getStoreId()).getStoreName());
 							}
@@ -210,7 +212,7 @@ public class RegulatorController extends HttpServlet {
 						row.put("RegulatorName", entity.getRegulatorName());
 						row.put("RegulatorRole", RegulatorService.GetRegulatorRoleName(entity.getRegulatorRoleId()));
 						if ("".equals(entity.getStoreId())) {
-							row.put("StoreName", "¿Õ");
+							row.put("StoreName", "ç©º");
 						} else {
 							row.put("StoreName", StoreService.getStoreForId(entity.getStoreId()).getStoreName());
 						}
@@ -223,13 +225,13 @@ public class RegulatorController extends HttpServlet {
 		} catch (Exception e) {
 			response.sendRedirect("Exit.jsp");
 		}
-		/** ·â×°·µ»ØÇ°¶ËµÄMap */
+		/** å°è£…è¿”å›å‰ç«¯çš„Map */
 		Map<String, Object> preparedata = new HashMap<String, Object>();
-		preparedata.put("liststorename", listStoreName);// ÃÅµêĞÅÏ¢
-		preparedata.put("rows", RegulatorData);// Êı¾İ
-		preparedata.put("msg", msgString);// ÌáÊ¾ĞÅÏ¢
-		preparedata.put("listRoleName", listRoleName);// ½ÇÉ«Ãû³Æ
-		// ½«map×ªÎªjson
+		preparedata.put("liststorename", listStoreName);// é—¨åº—åç§°
+		preparedata.put("rows", RegulatorData);// å‘˜å·¥æ•°æ®
+		preparedata.put("msg", msgString);// æç¤ºä¿¡æ¯
+		preparedata.put("listRoleName", listRoleName);// è§’è‰²åç§°
+		// å°†map×ªè½¬ä¸ºjson
 		JSONObject data = new JSONObject(preparedata);
 		PrintWriter out = response.getWriter();
 		out.print(data);

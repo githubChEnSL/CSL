@@ -9,21 +9,26 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 /**
- * Servlet Filter implementation class CharacterEncodingFilter
+ * CharacterEncodingFilterè¿‡æ»¤å™¨ å®ç°å­—ç¬¦ç¼–ç çš„è®¾ç½®
+ * 
+ * @author chenshaolei 2019å¹´11æœˆ27æ—¥ ä¸Šåˆ11:50:49
  */
 public class CharacterEncodingFilter implements Filter {
 
-	private static String encoding; // ¶¨Òå±äÁ¿½ÓÊÕ³õÊ¼»¯µÄÖµ
+	private static String encoding; // å®šä¹‰å˜é‡æ¥å—åˆå§‹åŒ–çš„å€¼
 
+	/**
+	 * é‡å†™doFilterï¼Œå®Œæˆå­—ç¬¦ç¼–ç çš„è®¾ç½®
+	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		try {
 			request.setCharacterEncoding(encoding);
 			response.setCharacterEncoding(encoding);
-			// System.out.println("ÉèÖÃ×Ö·û±àÂë--³É¹¦");
+			// System.out.println("è®¾ç½®å­—ç¬¦ç¼–ç --æˆåŠŸ");
 		} catch (Exception e) {
-			System.out.println("ÉèÖÃ×Ö·û±àÂë--Ê§°Ü");
+			System.out.println("è®¾ç½®å­—ç¬¦ç¼–ç --å¤±è´¥");
 		}
 		chain.doFilter(request, response);
 	}

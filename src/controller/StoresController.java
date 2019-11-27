@@ -21,210 +21,220 @@ import service.StoreService;
 import service.impl.RegulatorServiceImpl;
 import service.impl.StoreServiceImpl;
 
+/**
+ * StoresControllerlç±» å®ç°é—¨åº—ä¿¡æ¯ç®¡ç†
+ * 
+ * @author chenshaolei 2019å¹´11æœˆ27æ—¥ ä¸Šåˆ11:45:39
+ */
 public class StoresController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 
+	 * StoresControllerçš„æ„é€ å‡½æ•°
 	 */
 	public StoresController() {
 		super();
 	}
 
+	/**
+	 * doGetå‡½æ•°ï¼Œä¸å‰ç«¯è¿›è¡Œæ•°æ®äº¤äº’
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ÉèÖÃ×Ö·û±àÂë
+		// è®¾ç½®å­—ç¬¦ç¼–å·
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		// »ñÈ¡Ç°Ì¨µÄaction
+		// æ¥æ”¶å‰å°ä¼ æ¥çš„action
 		String action = request.getParameter("action");
-		// »ñÈ¡Ç°Ì¨´«À´µÄStoreName
+		// æ¥æ”¶å‰å°ä¼ æ¥çš„StoreName
 		String StoreName = request.getParameter("StoreName");
-		// »ñÈ¡Ç°Ì¨´«À´µÄRegulatorName
+		// æ¥æ”¶RegulatorName
 		String RegulatorName = request.getParameter("RegulatorName");
-		// »ñÈ¡ËùÓĞµÄÃÅµêĞÅÏ¢
+		// è·å–æ‰€æœ‰çš„é—¨åº—ä¿¡æ¯
 		List<Map<String, Object>> storeData = new ArrayList<Map<String, Object>>();
-		// »ñÈ¡Ç°Ì¨´«À´µÄStoreId
+		// è·å–å‰å°ä¼ æ¥çš„StoreId
 		String StoreId = request.getParameter("StoreId");
-		// ¶¨ÒåÓëserviceÊµÏÖÀàµÄ¶ÔÏó
+		// å®šä¹‰serviceå®ç°ç±»çš„å¯¹è±¡
 		RegulatorService RegulatorService = new RegulatorServiceImpl();
 		StoreService StoreService = new StoreServiceImpl();
-		// ±£´æÌáÊ¾ĞÅÏ¢
+		// ä¿å­˜æç¤ºä¿¡æ¯
 		String msgString = "";
 		if ("add".equals(action)) {
 			System.out.println("StoreName:" + StoreName + " RegulatorName:" + RegulatorName + "  action:" + action);
-			/** ·â×°Ìí¼ÓµÄ¶ÔÏó */
+			/** å°è£…æ·»åŠ çš„å¯¹è±¡ */
 			store addobject = new store();
 			try {
-				// ÅĞ¶ÏÃÅµêÃû³ÆÊÇ·ñÓĞÖØ¸´
+				// åˆ¤æ–­é—¨åº—åç§°æ˜¯å¦æœ‰é‡å¤
 				if ("".equals(StoreService.getIdForName(StoreName))) {
-					// Ã»ÓĞÖØ¸´£¨¿ÉÒÔÌí¼Ó£©
-					// ÑéÖ¤¹ÜÀíÔ±ÊÇ·ñÒÑ¾­´æÔÚ
+					// æ²¡æœ‰é‡å¤
+					// éªŒè¯ç®¡ç†å‘˜æ˜¯å¦å·²ç»å­˜åœ¨
 					if ("".equals(RegulatorService.GetIdForName(RegulatorName))) {
-						/** ²»´æÔÚ¹ÜÀíÔ± */
-						// Ìí¼Ó¹ÜÀíÔ±
+						/** ä¸å­˜åœ¨ç®¡ç†å‘˜ */
+						// æ·»åŠ ç®¡ç†å‘˜
 						regulator addreglRegulator = new regulator();
 						addreglRegulator.setRegulatorName(RegulatorName);
 						addreglRegulator.setRegulatorRoleId("2");
+						// æ·»åŠ çš„ç®¡ç†å‘˜æ‰€å±éƒ¨é—¨é»˜è®¤ä¸ºæœ€æ–°æ·»åŠ çš„é—¨åº—ç¼–å·
+						Integer maxStoreId = Integer.parseInt(StoreService.GetMaxId()) + 1;
+						addreglRegulator.setStoreId(maxStoreId.toString());
 						RegulatorService.insertRegulator(addreglRegulator);
-						// Ìí¼ÓÃÅµêĞÅÏ¢
-						addobject.setStoreName(StoreName);
-						addobject.setRegulatorId(RegulatorService.GetRegulatorRoleId(RegulatorName));
-						StoreService.insertStore(addobject);
-						msgString = "Ìí¼Ó³É¹¦";
-					} else {
-						/** ´æÔÚ¹ÜÀíÔ± */
-						// Ìí¼ÓÃÅµêĞÅÏ¢
+						// æ·»åŠ é—¨åº—ä¿¡æ¯
 						addobject.setStoreName(StoreName);
 						addobject.setRegulatorId(RegulatorService.GetIdForName(RegulatorName));
 						StoreService.insertStore(addobject);
-						msgString = "Ìí¼Ó³É¹¦";
+						msgString = "æ·»åŠ æˆåŠŸ";
+					} else {
+						/** å­˜åœ¨ç®¡ç†å“¡ */
+						// æ·»åŠ é—¨åº—ä¿¡æ¯
+						addobject.setStoreName(StoreName);
+						addobject.setRegulatorId(RegulatorService.GetIdForName(RegulatorName));
+						StoreService.insertStore(addobject);
+						msgString = "æ·»åŠ æˆåŠŸ";
 					}
 				} else {
-					// Ãû³ÆÖØ¸´
-					msgString = "Ãû³ÆÖØ¸´£¬Ìí¼ÓÊ§°Ü";
+					// åç§°é‡å¤
+					msgString = "åç§°é‡å¤ï¼Œæ·»åŠ å¤±è´¥";
 				}
 			} catch (Exception e) {
-				msgString = "Ìí¼ÓÊ§°Ü";
+				msgString = "æ·»åŠ å¤±è´¥";
 			}
 		} else if ("delete".equals(action)) {
 			System.out.println("StoreId:" + StoreId + "  action:" + action);
 			if (StoreService.deleteStore(StoreId)) {
-				msgString = "É¾³ı³É¹¦";
+				msgString = "åˆ é™¤æˆåŠŸ";
 			} else {
-				msgString = "É¾³ıÊ§°Ü";
+				msgString = "åˆ é™¤å¤±è´¥";
 			}
 		} else if ("update".equals(action)) {
 			System.out.println("StoreId:" + StoreId + " StoreName:" + StoreName + " RegulatorName:" + RegulatorName
 					+ "  action:" + action);
-			// ÓÉID»ñÈ¡Ô­À´µÄÃÅµêĞÅÏ¢
+			// ç”±IDè·å–åŸæ¥çš„é—¨åº—ä¿¡æ¯
 			store oldStore = StoreService.getStoreForId(StoreId);
-			// ¶¨ÒåĞÂµÄÃÅµêĞÅÏ¢
+			// å®šä¹‰æ–°çš„é—¨åº—ä¿¡æ¯
 			store newStore = new store();
-			// Ğ´ÈëID
+			// å†™å…¥ID
 			newStore.setStoreId(StoreId);
-			// ÅĞ¶ÏÃû³ÆÊÇ·ñÓĞ±ä»¯
+			// åˆ¤æ–­åç§°æ˜¯å¦ç”±å˜åŒ–
 			if (StoreName.equals(oldStore.getStoreName())) {
-				// Ãû³ÆÃ»±ä
-				// Ğ´ÈëÃû³Æ
+				// åç§°æ²¡å˜
+				// å†™å…¥åç§°
 				newStore.setStoreName(oldStore.getStoreName());
-				// ÅĞ¶Ï¹ÜÀíÔ±Ãû³ÆÊÇ·ñÓĞ±ä»¯
-				// ÊäÈëµÄ¹ÜÀíÔ±Ãû³ÆÊÇ·ñÒÑ¾­´æÔÚ
+				// åˆ¤æ–­ç®¡ç†å‘˜åç§°æ˜¯å¦ç”±å˜åŒ–
+				// è¾“å…¥çš„ç®¡ç†å‘˜åç§°æ˜¯å¦å·²ç»å­˜åœ¨
 				if (RegulatorService.GetRegulatorRoleId(RegulatorName) != null) {
-					// ´æÔÚ
+					// å­˜åœ¨
 					if (RegulatorService.GetRegulatorRoleId(RegulatorName).equals(oldStore.getRegulatorId())) {
-						// ¹ÜÀíÔ±Ã»±ä£¨Ğ´Èë¹ÜÀíÔ±£©
+						// ç®¡ç†å‘˜æ²¡å˜ï¼ˆå†™å…¥ç®¡ç†å‘˜ï¼‰
 						newStore.setRegulatorId(oldStore.getRegulatorId());
-						msgString = "ĞŞ¸Ä³É¹¦";
+						msgString = "ä¿®æ”¹æˆåŠŸ";
 						StoreService.updateStore(newStore);
 					} else {
-						// ¹ÜÀíÔ±±äÁË£¨ÅĞ¶Ï¹ÜÀíÔ±ÊÇ·ñÒÑ´æÔÚ£©
+						// ç®¡ç†å‘˜å˜äº†ï¼ˆåˆ¤æ–­ç®¡ç†å‘˜æ˜¯å¦å·²ç»å­˜åœ¨ï¼‰
 						if ("".equals(RegulatorService.GetIdForName(RegulatorName))) {
-							// ¹ÜÀíÔ±²»´æÔÚ£¨Ìí¼Ó¹ÜÀíÔ±ĞÅÏ¢£©
+							// ç®¡ç†å‘˜ä¸å­˜åœ¨ï¼ˆæ·»åŠ ç®¡ç†å‘˜ï¼‰
 							regulator addreglRegulator = new regulator();
 							addreglRegulator.setRegulatorName(RegulatorName);
-							// ½ÇÉ«Ä¬ÈÏÎªµê³¤£¨¹ÜÀíÔ±£©
+							// è§’è‰²é»˜è®¤ä¸ºåº—é•¿ï¼ˆç®¡ç†å‘˜ï¼‰
 							addreglRegulator.setRegulatorRoleId("2");
 							RegulatorService.insertRegulator(addreglRegulator);
-							// Ğ´Èë¹ÜÀíÀíÔ±
+							// å†™å…¥ç®¡ç†å‘˜
 							newStore.setRegulatorId(RegulatorService.GetIdForName(RegulatorName));
 							StoreService.updateStore(newStore);
-							msgString = "ĞŞ¸Ä³É¹¦";
+							msgString = "ä¿®æ”¹æˆåŠŸ";
 						} else {
-							// ¹ÜÀíÔ±´æÔÚ£¨Ğ´Èë¹ÜÀíÔ±£©
+							// ç®¡ç†å‘˜å­˜åœ¨ï¼ˆå†™å…¥ç®¡ç†å‘˜ï¼‰
 							newStore.setRegulatorId(RegulatorService.GetIdForName(RegulatorName));
 							StoreService.updateStore(newStore);
-							msgString = "ĞŞ¸Ä³É¹¦";
+							msgString = "ä¿®æ”¹æˆåŠŸ";
 						}
 					}
 				} else {
-					// ²»´æÔÚ
+					// ä¸å­˜åœ¨
 					if ("".equals(RegulatorService.GetIdForName(RegulatorName))) {
-						// ¹ÜÀíÔ±²»´æÔÚ£¨Ìí¼Ó¹ÜÀíÔ±ĞÅÏ¢£©
+						// ç®¡ç†å‘˜ä¸å­˜åœ¨ï¼ˆæ·»åŠ ç®¡ç†å‘˜ï¼‰
 						regulator addreglRegulator = new regulator();
 						addreglRegulator.setRegulatorName(RegulatorName);
-						// ½ÇÉ«Ä¬ÈÏÎªµê³¤£¨¹ÜÀíÔ±£©
+						// è§’è‰²é»˜è®¤ä¸ºåº—é•¿ï¼ˆç®¡ç†å‘˜ï¼‰
 						addreglRegulator.setRegulatorRoleId("2");
 						RegulatorService.insertRegulator(addreglRegulator);
-						// Ğ´Èë¹ÜÀíÀíÔ±
+						// å†™å…¥ç®¡ç†å‘˜
 						newStore.setRegulatorId(RegulatorService.GetIdForName(RegulatorName));
 						StoreService.updateStore(newStore);
-						msgString = "ĞŞ¸Ä³É¹¦";
+						msgString = "ä¿®æ”¹æˆåŠŸ";
 					} else {
-						// ¹ÜÀíÔ±´æÔÚ£¨Ğ´Èë¹ÜÀíÔ±£©
+						// ç®¡ç†å‘˜å­˜åœ¨ï¼ˆå†™å…¥ç®¡ç†å‘˜ï¼‰
 						newStore.setRegulatorId(RegulatorService.GetIdForName(RegulatorName));
 						StoreService.updateStore(newStore);
-						msgString = "ĞŞ¸Ä³É¹¦";
+						msgString = "ä¿®æ”¹æˆåŠŸ";
 					}
 				}
 			} else {
-				// Ãû³Æ±äÁË£¨ÅĞ¶ÏÊÇ·ñºÍÆäËûµÄÃû³ÆÖØ¸´£©
-				// ÓÉÃû³Æ»ñÈ¡ĞÅÏ¢
+				// åç§°å˜äº†ï¼ˆåˆ¤æ–­æ˜¯å¦å’Œå…¶ä»–çš„åç§°é‡å¤ï¼‰
+				// ç”±åç§°è·å–ä¿¡æ¯
 				if ("".equals(StoreService.getIdForName(StoreName))) {
-					// Ãû³ÆÃ»ÖØ¸´
-					// Ğ´ÈëÃû³Æ
+					// åç§°æ²¡é‡å¤
+					// å†™å…¥åç§°
 					newStore.setStoreName(StoreName);
-					// ÅĞ¶Ï¹ÜÀíÔ±Ãû³ÆÊÇ·ñÓĞ±ä»¯
-					// ÊäÈëµÄ¹ÜÀíÔ±Ãû³ÆÊÇ·ñÒÑ¾­´æÔÚ
+					// åˆ¤æ–­ç®¡ç†å‘˜åç§°æ˜¯å¦æœ‰å˜åŒ–
+					// è¾“å…¥çš„ç®¡ç†å‘˜åç§°æ˜¯å¦å·²ç»å­˜åœ¨
 					if (RegulatorService.GetRegulatorRoleId(RegulatorName) != null) {
-						// ´æÔÚ
+						// å­˜åœ¨
 						if (RegulatorService.GetRegulatorRoleId(RegulatorName).equals(oldStore.getRegulatorId())) {
-							// ¹ÜÀíÔ±Ã»±ä£¨Ğ´Èë¹ÜÀíÔ±£©
+							// ç®¡ç†å‘˜æ²¡å˜ï¼ˆå†™å…¥ç®¡ç†å‘˜ï¼‰
 							newStore.setRegulatorId(oldStore.getRegulatorId());
-							msgString = "ĞŞ¸Ä³É¹¦";
+							msgString = "ä¿®æ”¹æˆåŠŸ";
 							StoreService.updateStore(newStore);
-							System.err.println("¹ÜÀíÔ±Ã»±ä");
+							System.err.println("ç®¡ç†å‘˜æ²¡å˜");
 						} else {
-							// ¹ÜÀíÔ±±äÁË£¨ÅĞ¶Ï¹ÜÀíÔ±ÊÇ·ñÒÑ´æÔÚ£©
-							System.err.println("¹ÜÀíÔ±±äÁË");
+							// ç®¡ç†å‘˜å˜äº†ï¼ˆåˆ¤æ–­ç®¡ç†å‘˜æ˜¯å¦å·²ç»å­˜åœ¨ï¼‰
+							System.err.println("ç®¡ç†å‘˜å˜äº†");
 							if ("".equals(RegulatorService.GetIdForName(RegulatorName))) {
-								// ¹ÜÀíÔ±²»´æÔÚ£¨Ìí¼Ó¹ÜÀíÔ±ĞÅÏ¢£©
+								// ç®¡ç†å‘˜ä¸å­˜åœ¨ï¼ˆæ·»åŠ ç®¡ç†å‘˜ä¿¡æ¯ï¼‰
 								regulator addreglRegulator = new regulator();
 								addreglRegulator.setRegulatorName(RegulatorName);
-								// ½ÇÉ«Ä¬ÈÏÎªµê³¤£¨¹ÜÀíÔ±£©
+								// è§’è‰²é»˜è®¤ä¸ºåº—é•¿ï¼ˆç®¡ç†å‘˜ï¼‰
 								addreglRegulator.setRegulatorRoleId("2");
 								RegulatorService.insertRegulator(addreglRegulator);
-								// Ğ´Èë¹ÜÀíÀíÔ±
+								// å†™å…¥ç®¡ç†å‘˜
 								newStore.setRegulatorId(RegulatorService.GetIdForName(RegulatorName));
 								StoreService.updateStore(newStore);
-								msgString = "ĞŞ¸Ä³É¹¦";
+								msgString = "ä¿®æ”¹æˆåŠŸ";
 							} else {
-								// ¹ÜÀíÔ±´æÔÚ£¨Ğ´Èë¹ÜÀíÔ±£©
+								// ç®¡ç†å‘˜å­˜åœ¨ï¼ˆå†™å…¥ç®¡ç†å‘˜ï¼‰
 								newStore.setRegulatorId(RegulatorService.GetIdForName(RegulatorName));
 								StoreService.updateStore(newStore);
-								msgString = "ĞŞ¸Ä³É¹¦";
+								msgString = "ä¿®æ”¹æˆåŠŸ";
 							}
 						}
 					} else {
-						// ²»´æÔÚ
+						// ä¸å­˜åœ¨
 						newStore.setStoreName(StoreName);
 						if ("".equals(RegulatorService.GetIdForName(RegulatorName))) {
-							// ¹ÜÀíÔ±²»´æÔÚ£¨Ìí¼Ó¹ÜÀíÔ±ĞÅÏ¢£©
+							// ç®¡ç†å‘˜ä¸å­˜åœ¨ï¼ˆæ·»åŠ ç®¡ç†å‘˜ä¿¡æ¯ï¼‰
 							regulator addreglRegulator = new regulator();
 							addreglRegulator.setRegulatorName(RegulatorName);
-							// ½ÇÉ«Ä¬ÈÏÎªµê³¤£¨¹ÜÀíÔ±£©
+							// è§’è‰²é»˜è®¤ä¸ºåº—é•¿ï¼ˆç®¡ç†å‘˜ï¼‰
 							addreglRegulator.setRegulatorRoleId("2");
 							RegulatorService.insertRegulator(addreglRegulator);
-							// Ğ´Èë¹ÜÀíÀíÔ±
+							// å†™å…¥ç®¡ç†å‘˜
 							newStore.setRegulatorId(RegulatorService.GetIdForName(RegulatorName));
 							StoreService.updateStore(newStore);
-							msgString = "ĞŞ¸Ä³É¹¦";
+							msgString = "ä¿®æ”¹æˆåŠŸ";
 						} else {
-							// ¹ÜÀíÔ±´æÔÚ£¨Ğ´Èë¹ÜÀíÔ±£©
+							// ç®¡ç†å‘˜å­˜åœ¨ï¼ˆå†™å…¥ç®¡ç†å‘˜ï¼‰
 							newStore.setRegulatorId(RegulatorService.GetIdForName(RegulatorName));
 							StoreService.updateStore(newStore);
-							msgString = "ĞŞ¸Ä³É¹¦";
+							msgString = "ä¿®æ”¹æˆåŠŸ";
 						}
 					}
 				} else {
-					// Ãû³ÆÖØ¸´
-					msgString = "Ãû³ÆÖØ¸´£¬ĞŞ¸ÄÊ§°Ü";
+					// åç§°é‡å¤
+					msgString = "åç§°é‡å¤ï¼Œä¿®æ”¹å¤±è´¥";
 				}
 			}
 		} else {
-			System.out.println();
-			System.out.println("²éÑ¯ËùÓĞµÄµêÆÌĞÅÏ¢");
+			System.out.println("æŸ¥è¯¢æ‰€æœ‰çš„é—¨åº—ä¿¡æ¯");
 			List<store> listStores = StoreService.ListStore();
 			for (int i = 0; i < listStores.size(); i++) {
 				Map<String, Object> row = new HashMap<>();
@@ -236,14 +246,13 @@ public class StoresController extends HttpServlet {
 				storeData.add(row);
 			}
 		}
-		/** ·â×°·µ»ØÇ°¶ËµÄMap */
+		/** å°è£…è¿”å›å‰ç«¯çš„Map */
 		Map<String, Object> preparedata = new HashMap<String, Object>();
-		preparedata.put("rows", storeData);
-		preparedata.put("msg", msgString);
-		// ½«map×ªÎªjson
+		preparedata.put("rows", storeData);// é—¨åº—æ•°æ®
+		preparedata.put("msg", msgString);// æç¤ºä¿¡æ¯
+		// å°†mapè½¬ä¸ºjson
 		JSONObject data = new JSONObject(preparedata);
 		PrintWriter out = response.getWriter();
-		/** ·â×°·µ»ØÌáÊ¾ĞÅÏ¢ */
 		out.print(data);
 		out.flush();
 		out.close();

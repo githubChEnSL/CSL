@@ -18,6 +18,11 @@ import entity.user;
 import service.UserService;
 import service.impl.UserServiceImpl;
 
+/**
+ * UserControllerç±» å®ç°ä¼šå‘˜ä¿¡æ¯ç®¡ç†
+ * 
+ * @author chenshaolei 2019å¹´11æœˆ27æ—¥ ä¸Šåˆ11:46:36
+ */
 public class UserController extends HttpServlet {
 
 	/**
@@ -25,112 +30,127 @@ public class UserController extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * UserControllerçš„æ„é€ å‡½æ•°
+	 */
 	public UserController() {
 		super();
 	}
 
+	/**
+	 * doGetå‡½æ•°ï¼Œä¸å‰ç«¯è¿›è¡Œæ•°æ®äº¤äº’
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ÉèÖÃ×Ö·û±àÂë
+		// è®¾ç½®å­—ç¬¦ç¼–ç 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		// »ñÈ¡Ç°Ì¨µÄaction
+		// è·å–å‰ç«¯ä¼ æ¥çš„action
 		String action = request.getParameter("action");
-		// »ñÈ¡Ç°Ì¨´«À´µÄUserName
+		// è·å–å‰ç«¯ä¼ æ¥çš„UserName
 		String UserName = request.getParameter("UserName");
-		// »ñÈ¡Ç°Ì¨´«À´µÄRoleName
+		// è·å–å‰ç«¯ä¼ æ¥çš„RoleName
 		String RoleName = request.getParameter("RoleName");
-		// »ñÈ¡ËùÓĞµÄÃÅµêĞÅÏ¢
+		// è·å–å‰ç«¯ä¼ æ¥çš„Userid
+		String Userid = request.getParameter("Userid");
+		// è·å–æ‰€æœ‰çš„é—¨åº—ä¿¡æ¯
 		List<Map<String, Object>> storeData = new ArrayList<Map<String, Object>>();
-		// »ñÈ¡Ç°Ì¨´«À´µÄUserNum
+		// è·å–å‰ç«¯ä¼ æ¥çš„UserNum
 		String UserNum = request.getParameter("UserNum");
-		// ¶¨ÒåÓëserviceÊµÏÖÀàµÄ¶ÔÏó
+		// å®šä¹‰serviceå®ç°ç±»çš„å¯¹è±¡
 		UserService UserService = new UserServiceImpl();
-		// ±£´æÌáÊ¾ĞÅÏ¢
+		// ä¿å­˜æç¤ºä¿¡æ¯
 		String msgString = "";
 		if ("add".equals(action)) {
 			System.out.println("UserName:" + UserName + " RoleName:" + RoleName + "  action:" + action);
-			/** ·â×°Ìí¼ÓµÄ¶ÔÏó */
+			/** å°è£…æ·»åŠ çš„å¯¹è±¡ */
 			user addobject = new user();
 			try {
-				// ÅĞ¶ÏÃû³ÆÊÇ·ñÓĞÖØ¸´
+				// åˆ¤æ–­åç§°æ˜¯å¦æœ‰é‡å¤
 				if ("".equals(UserService.getUserIdForName(UserName))) {
-					// Ã»ÓĞÖØ¸´£¨¿ÉÒÔÌí¼Ó£©
+					// æ²¡æœ‰é‡å¤ï¼ˆå¯ä»¥æ·»åŠ ï¼‰
 					addobject.setUserName(UserName);
 					addobject.setRoleId(UserService.GetUserRoleId(RoleName));
 					UserService.insertUser(addobject);
-					msgString = "Ìí¼Ó³É¹¦";
+					msgString = "æ·»åŠ æˆåŠŸ";
 				} else {
-					// Ãû³ÆÖØ¸´
-					msgString = "Ãû³ÆÖØ¸´£¬Ìí¼ÓÊ§°Ü";
+					// åç§°é‡å¤
+					msgString = "åç§°é‡å¤ï¼Œæ·»åŠ å¤±è´¥";
 				}
 			} catch (Exception e) {
-				msgString = "Ìí¼ÓÊ§°Ü";
+				msgString = "æ·»åŠ å¤±è´¥";
 			}
 		} else if ("delete".equals(action)) {
 			System.out.println("UserNum:" + UserNum + "  action:" + action);
 			if (UserService.deleteUser(UserNum)) {
-				msgString = "É¾³ı³É¹¦";
+				msgString = "åˆ é™¤æˆåŠŸ";
 			} else {
-				msgString = "É¾³ıÊ§°Ü";
+				msgString = "åˆ é™¤å¤±è´¥";
 			}
 		} else if ("update".equals(action)) {
 			System.out.println(
 					"UserNum:" + UserNum + " UserName:" + UserName + " RoleName:" + RoleName + "  action:" + action);
-			// ÓÉID»ñÈ¡Ô­À´µÄ»áÔ±ĞÅÏ¢
+			// ç”±IDè·å–åŸæ¥çš„ä¼šå‘˜ä¿¡æ¯
 			user oldUser = UserService.getUserForId(UserNum);
-			// ¶¨ÒåĞÂµÄ»áÔ±ĞÅÏ¢
+			// å®šä¹‰æ–°çš„ä¼šå‘˜ä¿¡æ¯
 			user newUser = new user();
-			// Ğ´ÈëID
+			// å†™å…¥ID
 			newUser.setUserId(UserNum);
-			// ÅĞ¶ÏÃû³ÆÊÇ·ñÓĞ±ä»¯
+			// åˆ¤æ–­åç§°æ˜¯å¦æœ‰å˜åŒ–
 			if (UserName.equals(oldUser.getUserName())) {
-				// Ãû³ÆÃ»±ä£¨Ğ´ÈëÃû³Æ£©
+				// åç§°æ²¡å˜ï¼ˆå†™å…¥åç§°ï¼‰
 				newUser.setUserName(oldUser.getUserName());
-				// Ğ´Èë»áÔ±½ÇÉ«
+				// å†™å…¥ä¼šå‘˜è§’è‰²
 				newUser.setRoleId(UserService.GetUserRoleId(RoleName));
-				// ĞŞ¸Ä»áÔ±ĞÅÏ¢
+				// ä¿®æ”¹ä¼šå‘˜ä¿¡æ¯
 				UserService.updateUser(newUser);
-				msgString = "ĞŞ¸Ä³É¹¦";
+				msgString = "ä¿®æ”¹æˆåŠŸ";
 			} else {
-				// Ãû³Æ±äÁË£¨ÅĞ¶ÏÊÇ·ñºÍÆäËûµÄÃû³ÆÖØ¸´£©
-				// ÓÉÃû³Æ»ñÈ¡ĞÅÏ¢
+				// åç§°å˜äº†ï¼ˆåˆ¤æ–­æ˜¯å¦å’Œå…¶ä»–çš„åç§°é‡å¤ï¼‰
+				// ç”±åç§°è·å–ä¿¡æ¯
 				if ("".equals(UserService.getUserIdForName(UserName))) {
-					// Ãû³ÆÃ»ÖØ¸´£¨Ğ´ÈëÃû³Æ£©
+					// åç§°æ²¡é‡å¤ï¼ˆå†™å…¥åç§°ï¼‰
 					newUser.setUserName(UserName);
-					// Ğ´Èë»áÔ±½ÇÉ«
+					// å†™å…¥ä¼šå‘˜è§’è‰²
 					newUser.setRoleId(UserService.GetUserRoleId(RoleName));
-					// ĞŞ¸Ä»áÔ±ĞÅÏ¢
+					// ä¿®æ”¹ä¼šå‘˜ä¿¡æ¯
 					UserService.updateUser(newUser);
-					msgString = "ĞŞ¸Ä³É¹¦";
+					msgString = "ä¿®æ”¹æˆåŠŸ";
 				} else {
-					// Ãû³ÆÖØ¸´
-					msgString = "Ãû³ÆÖØ¸´£¬ĞŞ¸ÄÊ§°Ü";
+					// åç§°é‡å¤
+					msgString = "åç§°é‡å¤ï¼Œæ·»åŠ å¤±è´¥";
 				}
 			}
 		} else {
-			System.out.println();
-			System.out.println("²éÑ¯ËùÓĞµÄ»áÔ±ĞÅÏ¢");
-			List<user> listStores = UserService.ListUser();
-			for (int i = 0; i < listStores.size(); i++) {
+			if ("".equals(Userid)) {
+				System.out.println("æŸ¥è¯¢æ‰€æœ‰çš„ä¼šå‘˜ä¿¡æ¯");
+				List<user> listStores = UserService.ListUser();
+				for (int i = 0; i < listStores.size(); i++) {
+					Map<String, Object> row = new HashMap<>();
+					user entity = listStores.get(i);
+					row.put("UserNum", entity.getUserId());
+					row.put("UserName", entity.getUserName());
+					row.put("UserRoleName", UserService.GetUserRoleName(entity.getRoleId()));
+					storeData.add(row);
+				}
+			} else {
+				user getUser = UserService.getUserForId(Userid);
 				Map<String, Object> row = new HashMap<>();
-				user entity = listStores.get(i);
-				row.put("UserNum", entity.getUserId());
-				row.put("UserName", entity.getUserName());
-				row.put("UserRoleName", UserService.GetUserRoleName(entity.getRoleId()));
+				row.put("UserNum", getUser.getUserId());
+				row.put("UserName", getUser.getUserName());
+				row.put("UserRoleName", UserService.GetUserRoleName(getUser.getRoleId()));
 				storeData.add(row);
 			}
 		}
-		/** ·â×°·µ»ØÇ°¶ËµÄMap */
+		/** å°è£…è¿”å›å‰ç«¯çš„Map */
 		Map<String, Object> preparedata = new HashMap<String, Object>();
 
 		preparedata.put("rows", storeData);
 		preparedata.put("msg", msgString);
-		// ½«map×ªÎªjson
+		// å°†Mapè½¬ä¸ºjson
 		JSONObject data = new JSONObject(preparedata);
 		PrintWriter out = response.getWriter();
-		/** ·â×°·µ»ØÌáÊ¾ĞÅÏ¢ */
 		out.print(data);
 		out.flush();
 		out.close();

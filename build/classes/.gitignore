@@ -1,7 +1,10 @@
 /dao/
+/log4j.properties
 /controller/
+/log4j2.xml
 /jdbc/
 /service/
-/serviceImpl/
-/serviceimpl/
 /Servlet/
+/Filter/
+/entity/
+/util/

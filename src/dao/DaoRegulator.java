@@ -11,74 +11,98 @@ import com.mysql.cj.protocol.Resultset;
 import entity.regulator;
 import jdbc.Database;
 
+/**
+ * DaoRegulatorç±» ç®¡ç†å‘˜ç±»çš„æ•°æ®è®¿é—®ç±»ï¼Œå®ç°ç®¡ç†å‘˜ä¿¡æ¯çš„æ•°æ®è®¿é—®æ“ä½œ
+ * 
+ * @author chenshaolei 2019å¹´11æœˆ27æ—¥ ä¸Šåˆ11:20:23
+ */
 public class DaoRegulator extends Database {
 
-	/**»ñÈ¡ËùÓĞµÄ¹ÜÀíÔ±½ÇÉ«Ãû³Æ*/
+	/**
+	 * è·å–æ‰€æœ‰çš„ç®¡ç†å‘˜è§’è‰²åç§°
+	 * 
+	 * @return è¿”å›æ‰€æœ‰çš„ç®¡ç†å‘˜è§’è‰²åç§°
+	 */
 	public List<String> ListRegulatorRoleName() {
 		List<String> ListRoleName = new ArrayList<String>();
 		String sql = "select * from regulator_role";
 		try {
-			// ´´½¨ÊµÀı
+			// åˆ›å»ºå®ä¾‹
 			Statement seleectReguRoleName = null;
 			seleectReguRoleName = createSta(seleectReguRoleName);
 			resuset = (Resultset) seleectReguRoleName.executeQuery(sql);
 			while (((ResultSet) resuset).next()) {
-				String name=((ResultSet) resuset).getString("regulator_role_name");
+				String name = ((ResultSet) resuset).getString("regulator_role_name");
 				ListRoleName.add(name);
 			}
-			// ¹Ø±ÕÊµÀı
+			// å…³é—­å®ä¾‹
 			CloseStatement(seleectReguRoleName);
 		} catch (Exception e) {
-			System.out.println("»ñÈ¡¹ÜÀíÔ±½ÇÉ«Ãû³ÆÊ§°Ü");
+			System.out.println("è·å–ç®¡ç†å‘˜è§’è‰²åç§°å¤±è´¥");
 		}
 		return ListRoleName;
 	}
-	
-	/** ¸ù¾İ¹ÜÀíÔ±½ÇÉ«±àºÅ»ñÈ¡¹ÜÀíÔ±½ÇÉ«Ãû³Æ */
+
+	/**
+	 * æ ¹æ®ç®¡ç†å‘˜è§’è‰²ç¼–å·è·å–ç®¡ç†å‘˜è§’è‰²åç§°
+	 * 
+	 * @param regulatorRoleid
+	 * @return è¿”å›ç®¡ç†å‘˜è§’è‰²åç§°
+	 */
 	public String GetRegulatorRoleName(String regulatorRoleid) {
 		String RoleName = null;
-		String sql = "select * from regulator_role where regulator_role_id='" + regulatorRoleid+"'";
+		String sql = "select * from regulator_role where regulator_role_id='" + regulatorRoleid + "'";
 		try {
-			// ´´½¨ÊµÀı
+			// åˆ›å»ºå®ä¾‹
 			Statement seleectReguRoleName = null;
 			seleectReguRoleName = createSta(seleectReguRoleName);
 			resuset = (Resultset) seleectReguRoleName.executeQuery(sql);
 			while (((ResultSet) resuset).next()) {
 				RoleName = ((ResultSet) resuset).getString("regulator_role_name");
 			}
-			// ¹Ø±ÕÊµÀı
+			// å…³é—­å®ä¾‹
 			CloseStatement(seleectReguRoleName);
 		} catch (Exception e) {
-			System.out.println("»ñÈ¡¹ÜÀíÔ±½ÇÉ«Ãû³ÆÊ§°Ü");
+			System.out.println("è·å–ç®¡ç†å‘˜è§’è‰²åç§°å¤±è´¥");
 		}
 		return RoleName;
 	}
-	/**¸ù¾İ¹ÜÀíÔ±½ÇÉ«Ãû³Æ»ñÈ¡¹ÜÀíÔ±½ÇÉ«±àºÅ*/
+
+	/**
+	 * æ ¹æ®ç®¡ç†å‘˜è§’è‰²åç§°è·å–ç®¡ç†å‘˜è§’è‰²ç¼–å·
+	 * 
+	 * @param regulatorRoleName
+	 * @return è¿”å›ç®¡ç†å‘˜è§’è‰²ç¼–å·
+	 */
 	public String GetRegulatorRoleId(String regulatorRoleName) {
 		String RoleId = null;
-		String sql = "select * from regulator_role where regulator_role_name='" + regulatorRoleName+"'";
+		String sql = "select * from regulator_role where regulator_role_name='" + regulatorRoleName + "'";
 		try {
-			// ´´½¨ÊµÀı
+			// åˆ›å»ºå®ä¾‹
 			Statement seleectReguRoleName = null;
 			seleectReguRoleName = createSta(seleectReguRoleName);
 			resuset = (Resultset) seleectReguRoleName.executeQuery(sql);
 			while (((ResultSet) resuset).next()) {
 				RoleId = ((ResultSet) resuset).getString("regulator_role_id");
 			}
-			// ¹Ø±ÕÊµÀı
+			// å…³é—­å®ä¾‹
 			CloseStatement(seleectReguRoleName);
 		} catch (Exception e) {
-			System.out.println("»ñÈ¡¹ÜÀíÔ±½ÇÉ«Ãû³ÆÊ§°Ü");
+			System.out.println("è·å–ç®¡ç†å‘˜è§’è‰²åç§°å¤±è´¥");
 		}
 		return RoleId;
 	}
 
-	/** »ñÈ¡ËùÓĞµÄ¹ÜÀíÔ±ĞÅÏ¢ */
+	/**
+	 * è·å–æ‰€æœ‰çš„ç®¡ç†å‘˜ä¿¡æ¯
+	 * 
+	 * @return è¿”å›æ‰€æœ‰çš„ç®¡ç†å‘˜ä¿¡æ¯
+	 */
 	public List<regulator> ListRegulator() {
 		List<regulator> listregulators = new ArrayList<regulator>();
 		String sql = "select * from regulator";
 		try {
-			// ´´½¨ÊµÀı
+			// åˆ›å»ºå®ä¾‹
 			Statement SelectStd = null;
 			SelectStd = createSta(SelectStd);
 			resuset = (Resultset) SelectStd.executeQuery(sql);
@@ -87,7 +111,7 @@ public class DaoRegulator extends Database {
 				String regulatorname = ((ResultSet) resuset).getString("regulatorname");
 				String password = ((ResultSet) resuset).getString("password");
 				String regulatorRoleId = ((ResultSet) resuset).getString("regulator_role_id");
-				String storeId= ((ResultSet) resuset).getString("storeid");
+				String storeId = ((ResultSet) resuset).getString("storeid");
 				regulator regu = new regulator();
 				regu.setRegulatorId(regulatorid);
 				regu.setRegulatorName(regulatorname);
@@ -96,19 +120,25 @@ public class DaoRegulator extends Database {
 				regu.setStoreId(storeId);
 				listregulators.add(regu);
 			}
-			// ¹Ø±ÕÊµÀı
+			// å…³é—­å®ä¾‹
 			CloseStatement(SelectStd);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return listregulators;
 	}
-	/**¸ù¾İÃÅµê±àºÅ»ñÈ¡Ô±¹¤ĞÅÏ¢*/
-	public List<regulator> listRegulatorByStoreId(String StoreId){
-		List<regulator> list=new ArrayList<regulator>();
-		String sql = "select * from regulator where storeid='"+StoreId+"'";
+
+	/**
+	 * æ ¹æ®é—¨åº—ç¼–å·è·å–å‘˜å·¥ä¿¡æ¯
+	 * 
+	 * @param StoreId
+	 * @return è¿”å›å‘˜å·¥ä¿¡æ¯
+	 */
+	public List<regulator> listRegulatorByStoreId(String StoreId) {
+		List<regulator> list = new ArrayList<regulator>();
+		String sql = "select * from regulator where storeid='" + StoreId + "'";
 		try {
-			// ´´½¨ÊµÀı
+			// åˆ›å»ºå®ä¾‹
 			Statement SelectStd = null;
 			SelectStd = createSta(SelectStd);
 			resuset = (Resultset) SelectStd.executeQuery(sql);
@@ -117,7 +147,7 @@ public class DaoRegulator extends Database {
 				String regulatorname = ((ResultSet) resuset).getString("regulatorname");
 				String password = ((ResultSet) resuset).getString("password");
 				String regulatorRoleId = ((ResultSet) resuset).getString("regulator_role_id");
-				String storeId= ((ResultSet) resuset).getString("storeid");
+				String storeId = ((ResultSet) resuset).getString("storeid");
 				regulator regu = new regulator();
 				regu.setRegulatorId(regulatorid);
 				regu.setRegulatorName(regulatorname);
@@ -126,20 +156,24 @@ public class DaoRegulator extends Database {
 				regu.setStoreId(storeId);
 				list.add(regu);
 			}
-			// ¹Ø±ÕÊµÀı
+			// å…³é—­å®ä¾‹
 			CloseStatement(SelectStd);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
-	
-	/**»ñÈ¡ËùÓĞµÄÆÕÍ¨Ô±¹¤µÄĞÅÏ¢*/
-	public List<regulator> listOrdinaryRegulators(){
-		List<regulator> list=new ArrayList<regulator>();
+
+	/**
+	 * è·å–æ‰€æœ‰çš„æ™®é€šå‘˜å·¥çš„ä¿¡æ¯
+	 * 
+	 * @return è¿”å›æ‰€æœ‰çš„å‘˜å·¥ä¿¡æ¯
+	 */
+	public List<regulator> listOrdinaryRegulators() {
+		List<regulator> list = new ArrayList<regulator>();
 		String sql = "select * from regulator where regulator_role_id='3'";
 		try {
-			// ´´½¨ÊµÀı
+			// åˆ›å»ºå®ä¾‹
 			Statement SelectStd = null;
 			SelectStd = createSta(SelectStd);
 			resuset = (Resultset) SelectStd.executeQuery(sql);
@@ -148,7 +182,7 @@ public class DaoRegulator extends Database {
 				String regulatorname = ((ResultSet) resuset).getString("regulatorname");
 				String password = ((ResultSet) resuset).getString("password");
 				String regulatorRoleId = ((ResultSet) resuset).getString("regulator_role_id");
-				String storeId= ((ResultSet) resuset).getString("storeid");
+				String storeId = ((ResultSet) resuset).getString("storeid");
 				regulator regu = new regulator();
 				regu.setRegulatorId(regulatorid);
 				regu.setRegulatorName(regulatorname);
@@ -157,19 +191,25 @@ public class DaoRegulator extends Database {
 				regu.setStoreId(storeId);
 				list.add(regu);
 			}
-			// ¹Ø±ÕÊµÀı
+			// å…³é—­å®ä¾‹
 			CloseStatement(SelectStd);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
-	/** Í¨¹ı¹ÜÀíÔ±±àºÅ»ñÈ¡¹ÜÀíÔ±ĞÅÏ¢ */
+
+	/**
+	 * é€šè¿‡ç®¡ç†å‘˜ç¼–å·è·å–ç®¡ç†å‘˜ä¿¡æ¯
+	 * 
+	 * @param regulatorId
+	 * @return è¿”å›ç®¡ç†å‘˜ä¿¡æ¯
+	 */
 	public regulator GetRegulatorForId(String regulatorId) {
 		regulator regu = new regulator();
 		String sql = "select * from regulator where regulatorid='" + regulatorId + "'";
 		try {
-			// ´´½¨ÊµÀı
+			// åˆ›å»ºå®ä¾‹
 			Statement GetRegulator = null;
 			GetRegulator = createSta(GetRegulator);
 			resuset = (Resultset) GetRegulator.executeQuery(sql);
@@ -178,48 +218,58 @@ public class DaoRegulator extends Database {
 				String Name = ((ResultSet) resuset).getString("regulatorname");
 				String password = ((ResultSet) resuset).getString("password");
 				String regulatorRoleId = ((ResultSet) resuset).getString("regulator_role_id");
-				String storeId= ((ResultSet) resuset).getString("storeid");
+				String storeId = ((ResultSet) resuset).getString("storeid");
 				regu.setRegulatorId(ID);
 				regu.setRegulatorName(Name);
 				regu.setPassword(password);
 				regu.setRegulatorRoleId(regulatorRoleId);
 				regu.setStoreId(storeId);
 			}
-			System.out.println("»ñÈ¡¹ÜÀíÔ±ĞÅÏ¢³É¹¦");
-			// ¹Ø±ÕÊµÀı
+			System.out.println("è·å–ç®¡ç†å‘˜ä¿¡æ¯æˆåŠŸ");
+			// å…³é—­å®ä¾‹
 			CloseStatement(GetRegulator);
 		} catch (Exception e) {
-			System.out.println("»ñÈ¡¹ÜÀíÔ±ĞÅÏ¢Ê§°Ü");
+			System.out.println("è·å–ç®¡ç†å‘˜ä¿¡æ¯å¤±è´¥");
 		}
 		return regu;
 	}
 
-	/** Í¨¹ı¹ÜÀíÔ±Ãû³Æ»ñÈ¡¹ÜÀíÔ±±àºÅ */
+	/**
+	 * é€šè¿‡ç®¡ç†å‘˜åç§°è·å–ç®¡ç†å‘˜ç¼–å·
+	 * 
+	 * @param regulatorName
+	 * @return è¿”å›ç®¡ç†å‘˜ç¼–å·
+	 */
 	public String GetIdForName(String regulatorName) {
 		String regulatorId = "";
 		String sql = "select *  from regulator where regulatorname='" + regulatorName + "'";
 		try {
-			// ´´½¨ÊµÀı
+			// åˆ›å»ºå®ä¾‹
 			Statement GetRegulator = null;
 			GetRegulator = createSta(GetRegulator);
 			resuset = (Resultset) GetRegulator.executeQuery(sql);
 			while (((ResultSet) resuset).next()) {
 				regulatorId = ((ResultSet) resuset).getString("regulatorid");
 			}
-			System.out.println("»ñÈ¡¹ÜÀíÔ±ĞÅÏ¢³É¹¦");
-			// ¹Ø±ÕÊµÀı
+			System.out.println("è·å–ç®¡ç†å‘˜ä¿¡æ¯æˆåŠŸ");
+			// å…³é—­å®ä¾‹
 			CloseStatement(GetRegulator);
 		} catch (Exception e) {
-			System.out.println("»ñÈ¡¹ÜÀíÔ±ĞÅÏ¢Ê§°Ü");
+			System.out.println("è·å–ç®¡ç†å‘˜ä¿¡æ¯å¤±è´¥");
 		}
 		return regulatorId;
 	}
 
-	/** Ìí¼Ó¹ÜÀíÔ±ĞÅÏ¢ */
+	/**
+	 * æ·»åŠ ç®¡ç†å‘˜ä¿¡æ¯
+	 * 
+	 * @param regulator
+	 * @return æ·»åŠ æˆåŠŸè¿”å›true,å¤±è´¥è¿”å›false
+	 */
 	public boolean insertRegulator(regulator regulator) {
 		boolean flag = false;
 		String Number = "";
-		// ÅĞ¶Ï±íÖĞÊÇ·ñ´æÔÚ×î´óÖµ£¨±íÊÇ·ñÎª¿Õ£©
+		// åˆ¤æ–­è¡¨ä¸­æ˜¯å¦å­˜åœ¨æœ€å¤§å€¼ï¼ˆè¡¨æ˜¯å¦ä¸ºç©ºï¼‰
 		try {
 			if ("".equals(this.GetMaxId())) {
 				Number = "0";
@@ -229,93 +279,108 @@ public class DaoRegulator extends Database {
 		} catch (Exception e) {
 			Number = "0";
 		}
-		String ID = String.valueOf(Integer.parseInt(Number)+1);
+		String ID = String.valueOf(Integer.parseInt(Number) + 1);
 		String Name = regulator.getRegulatorName();
-		// Ä¬ÈÏÃÜÂëÎª172056236
+		// é»˜è®¤å¯†ç ä¸º172056236
 		String Password = "172056236";
 		String Roleid = regulator.getRegulatorRoleId();
-		String Storeid=regulator.getStoreId();
-		String sql = "insert into regulator value('" + ID + "','" + Name + "','" + Password + "','" + Roleid +",'"+Storeid+"')";
+		String Storeid = regulator.getStoreId();
+		String sql = "insert into regulator value('" + ID + "','" + Name + "','" + Password + "','" + Roleid + "','"
+				+ Storeid + "')";
 		try {
-			// ´´½¨ÊµÀı
+			// åˆ›å»ºå®ä¾‹
 			Statement AddRegu = null;
 			AddRegu = createSta(AddRegu);
 			AddRegu.execute(sql);
 			flag = true;
-			System.out.println("Ìí¼Ó¹ÜÀíÔ±ĞÅÏ¢³É¹¦");
-			// ¹Ø±ÕÊµÀı
+			System.out.println("æ·»åŠ ç®¡ç†å‘˜ä¿¡æ¯æˆåŠŸ");
+			// å…³é—­å®ä¾‹
 			CloseStatement(AddRegu);
 		} catch (Exception e) {
-			System.out.println("Ìí¼Ó¹ÜÀíÔ±ĞÅÏ¢Ê§°Ü");
+			System.out.println("æ·»åŠ ç®¡ç†å‘˜ä¿¡æ¯å¤±è´¥");
 			flag = false;
 		}
 		return flag;
 	}
 
-	/** É¾³ı¹ÜÀíÔ±ĞÅÏ¢ */
+	/**
+	 * åˆ é™¤ç®¡ç†å‘˜ä¿¡æ¯
+	 * 
+	 * @param regulatorId
+	 * @return åˆ é™¤æˆåŠŸè¿”å›true,å¤±è´¥è¿”å›false
+	 */
 	public boolean deleteRegulator(String regulatorId) {
 		boolean flag = false;
 		String sql = "delete from regulator where regulatorid=" + regulatorId;
 		try {
-			// ´´½¨ÊµÀı
+			// åˆ›å»ºå®ä¾‹
 			Statement delStatement = null;
 			delStatement = createSta(delStatement);
 			delStatement.execute(sql);
-			// ¹Ø±ÕÊµÀı
+			// å…³é—­å®ä¾‹
 			CloseStatement(delStatement);
 			flag = true;
-			System.out.println("É¾³ı¹ÜÀíÔ±ĞÅÏ¢³É¹¦");
+			System.out.println("åˆ é™¤ç®¡ç†å‘˜ä¿¡æ¯æˆåŠŸ");
 		} catch (Exception e) {
 			flag = false;
-			System.out.println("É¾³ı¹ÜÀíÔ±ĞÅÏ¢Ê§°Ü");
+			System.out.println("åˆ é™¤ç®¡ç†å‘˜ä¿¡æ¯å¤±è´¥");
 		}
 		return flag;
 	}
 
-	/** ĞŞ¸Ä¹ÜÀíÔ±ĞÅÏ¢ */
+	/**
+	 * ä¿®æ”¹ç®¡ç†å‘˜ä¿¡æ¯
+	 * 
+	 * @param regulator
+	 * @return ä¿®æ”¹æˆåŠŸè¿”å›true,å¤±è´¥è¿”å›false
+	 */
 	public boolean updateRegulator(regulator regulator) {
 		boolean flag = false;
 		String ID = regulator.getRegulatorId();
 		String Name = regulator.getRegulatorName();
 		String Password = regulator.getPassword();
 		String Roleid = regulator.getRegulatorRoleId();
-		String Storeid=regulator.getStoreId();
-		
+		String Storeid = regulator.getStoreId();
+
 		String sql = "update regulator set regulatorid='" + ID + "',regulatorname='" + Name + "',password='" + Password
-				+ "',regulator_role_id='" + Roleid + "',storeid='"+Storeid+"' where regulatorid='" + ID + "'";
+				+ "',regulator_role_id='" + Roleid + "',storeid='" + Storeid + "' where regulatorid='" + ID + "'";
 		try {
-			// ´´½¨ÊµÀı
+			// åˆ›å»ºå®ä¾‹
 			Statement UpdateRegu = null;
 			UpdateRegu = createSta(UpdateRegu);
 			UpdateRegu.execute(sql);
 			flag = true;
-			System.out.println("ĞŞ¸Ä¹ÜÀíÔ±ĞÅÏ¢³É¹¦");
-			// ¹Ø±ÕÊµÀı
+			System.out.println("ä¿®æ”¹ç®¡ç†å‘˜ä¿¡æ¯æˆåŠŸ");
+			// å…³é—­å®ä¾‹
 			CloseStatement(UpdateRegu);
 		} catch (Exception e) {
 			flag = false;
-			System.out.println("ĞŞ¸Ä¹ÜÀíÔ±ĞÅÏ¢Ê§°Ü");
+			System.out.println("ä¿®æ”¹ç®¡ç†å‘˜ä¿¡æ¯å¤±è´¥");
 		}
 		return flag;
 	}
 
-	/** »ñÈ¡¹ÜÀíÔ±±àºÅµÄ×î´óÖµ */
+	/**
+	 * è·å–ç®¡ç†å‘˜ç¼–å·çš„æœ€å¤§å€¼
+	 * 
+	 * @return è¿”å›ç®¡ç†å‘˜çš„æœ€å¤§ç¼–å·
+	 */
 	public String GetMaxId() {
 		List<Integer> listId = new ArrayList<Integer>();
 		String sql = "select * from regulator";
 		try {
-			// ´´½¨ÊµÀı
+			// åˆ›å»ºå®ä¾‹
 			Statement GetRegulator = null;
 			GetRegulator = createSta(GetRegulator);
 			resuset = (Resultset) GetRegulator.executeQuery(sql);
 			while (((ResultSet) resuset).next()) {
 				listId.add(Integer.parseInt(((ResultSet) resuset).getString("regulatorid")));
 			}
-			System.out.println("»ñÈ¡ĞÅÏ¢³É¹¦");
-			// ¹Ø±ÕÊµÀı
+			System.out.println("è·å–ä¿¡æ¯æˆåŠŸ");
+			// å…³é—­å®ä¾‹
 			CloseStatement(GetRegulator);
 		} catch (Exception e) {
-			System.out.println("»ñÈ¡ĞÅÏ¢Ê§°Ü");
+			System.out.println("è·å–ä¿¡æ¯å¤±è´¥");
 		}
 		return Collections.max(listId).toString();
 	}

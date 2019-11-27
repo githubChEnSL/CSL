@@ -255,7 +255,7 @@
 		</c:if>
 			<div class="row" style="margin-top: 25px">
 				<div class="col-md-5">
-					<button class="btn btn-sm btn-default" id="add_regulator">
+					<button class="btn btn-sm btn-info" id="add_regulator">
 						<span>添加员工</span>
 					</button>
 				</div>

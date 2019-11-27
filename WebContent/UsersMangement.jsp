@@ -15,22 +15,36 @@
 		Delete();//删除会员信息
 		Update();//修改会员信息
 		refresh();//刷新列表
+		
+		//监控查询条件
+		$('#select_type').change(function(){
+			var type=$('#select_type').val();
+			if(type=="所有"){
+				$('#select_Userid').attr("disabled","disabled");
+				$('#select_Userid').val("");
+			}else if(type=="编号"){
+				$('#select_Userid').removeAttr("disabled");
+				$('#select_Userid').val("");
+			}
+		})
 	})
 	//刷新操作
 	function refresh() {
 		$("#userList").html("");
 		var data = {
-			action : "all"
+			action : "all",
+			Userid : $('#select_Userid').val()
 		}
-		$.ajax({
+		$
+				.ajax({
 					url : "UsersMangement",
 					type : "post",
 					data : data,
 					dataType : "json",
-					contentType : "application/json",
 					success : function(data) {
 						//获取后台商店信息 
 						var users = data.rows;
+						$('#number').html("共"+users.length+"条数据");
 						$("#userList")
 								.append(
 										"<tr><td>会员编号</td><td>会员名称</td><td>会员等级</td><td>操作</td></tr>");
@@ -190,10 +204,17 @@
 		</ol>
 		<div class="panel-body">
 			<div class="row">
-				<div class="col-md-3 col-sm-3">
-					<select name="" id="Store_select" class="form-control ">
-						<option value="">所有</option>
+				<div class="col-md-1 col-sm-2">
+					<span>查询条件:</span>
+				</div>
+				<div class="col-md-1 col-sm-3">
+					<select name="" id="select_type" class="form-control ">
+						<option value="所有">所有</option>
+						<option value="编号">编号</option>
 					</select>
+				</div>
+				<div class="col-md-3 col-sm-3">
+					<input type="text" id="select_Userid" disabled="disabled" class="form-control"/>
 				</div>
 				<div class="col-md-6 col-sm-6">
 					<div>
@@ -207,13 +228,15 @@
 			</div>
 			<div class="row" style="margin-top: 25px">
 				<div class="col-md-5">
-					<button class="btn btn-sm btn-default" id="add_users">
+					<button class="btn btn-sm btn-info" id="add_users">
 						<span>添加会员</span>
 					</button>
 				</div>
-				<div class="col-md-5"></div>
+				
 			</div>
-
+			<div class="col-md-5" style="margin-top: 25px">
+						<span id="number"></span>
+				</div>
 			<div class="row" style="margin-top: 15px">
 				<div class="col-md-12" align="center">
 					<table id="userList" style="text-align: center;"
@@ -251,8 +274,7 @@
 										<span>会员等级：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<select name="" id="addRoleName"
-											class="form-control ">
+										<select name="" id="addRoleName" class="form-control ">
 											<option value="至尊会员">至尊会员</option>
 											<option value="超级会员">超级会员</option>
 											<option value="普通会员">普通会员</option>
@@ -309,14 +331,13 @@
 										<span>门店店主：</span>
 									</label>
 									<div class="col-md-8 col-sm-8">
-										<select name="" id="updateRoleName"
-											class="form-control ">
+										<select name="" id="updateRoleName" class="form-control ">
 											<option value="至尊会员">至尊会员</option>
 											<option value="超级会员">超级会员</option>
 											<option value="普通会员">普通会员</option>
 										</select>
 									</div>
-									
+
 								</div>
 
 							</div>

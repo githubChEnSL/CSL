@@ -210,7 +210,7 @@
 			</div>
 			<div class="row" style="margin-top: 25px">
 				<div class="col-md-5">
-					<button class="btn btn-sm btn-default" id="add_stores">
+					<button class="btn btn-sm btn-info" id="add_stores">
 						<span>添加门店</span>
 					</button>
 				</div>

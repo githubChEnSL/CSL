@@ -6,12 +6,22 @@ import dao.DaoUser;
 import entity.user;
 import service.UserService;
 
-public class UserServiceImpl implements UserService{
+/**
+ * UserServiceImpl类 实现UserService接口
+ * 
+ * @author chenshaolei 2019年11月27日 下午12:17:53
+ */
+public class UserServiceImpl implements UserService {
 
 	DaoUser dao;
+
+	/**
+	 * 初始化dao
+	 */
 	public UserServiceImpl() {
-		dao=new DaoUser();
+		dao = new DaoUser();
 	}
+
 	@Override
 	public String GetUserRoleName(String UserRoleid) {
 		return dao.GetUserRoleName(UserRoleid);
@@ -59,7 +69,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void CloseService() {
-		 dao.CloseDatabase();
+		dao.CloseDatabase();
 	}
 
 }

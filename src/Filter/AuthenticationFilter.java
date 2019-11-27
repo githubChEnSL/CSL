@@ -12,29 +12,34 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet Filter implementation class AuthenticationFilter
+ * AuthenticationFilterè¿‡æ»¤å™¨ å®ç°ç”¨æˆ·èº«ä»½éªŒè¯
+ * 
+ * @author chenshaolei 2019å¹´11æœˆ27æ—¥ ä¸Šåˆ11:48:13
  */
 public class AuthenticationFilter implements Filter {
 
+	/**
+	 * é‡å†™doFilterï¼Œå®Œæˆèº«ä»½éªŒè¯
+	 */
 	@Override
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2)
 			throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest) arg0;// »ñÈ¡request¶ÔÏó
+		HttpServletRequest request = (HttpServletRequest) arg0;// è·å–requestå¯¹è±¡
 		HttpServletResponse response = (HttpServletResponse) arg1;
 		try {
-			HttpSession session = request.getSession();// »ñÈ¡session¶ÔÏó
+			HttpSession session = request.getSession();// è·å–sessionå¯¹è±¡
 			if (session.getAttribute("id") != null) {
-				System.out.println("Éí·İÑéÖ¤-----ÔÚÏßÖĞ,ÓÃ»§Îª:" + session.getAttribute("id"));
+				System.out.println("èº«ä»½éªŒè¯-----åœ¨çº¿ä¸­,ç”¨æˆ·ä¸º:" + session.getAttribute("id"));
 				arg2.doFilter(arg0, arg1);
 			} else {
-				request.getSession().setAttribute("LoginMsg", "µÇÂ½×´Ì¬Òì³£,ÇëÖØĞÂµÇÂ½");
+				request.getSession().setAttribute("LoginMsg", "ç™»é™†çŠ¶æ€å¼‚å¸¸,è¯·é‡æ–°ç™»é™†");
 				response.sendRedirect("login.jsp");
-				System.out.println("Éí·İÑéÖ¤-----ÀëÏßÖĞ,ÇëÖØĞÂµÇÂ½");
+				System.out.println("èº«ä»½éªŒè¯-----ç¦»çº¿ä¸­,è¯·é‡æ–°ç™»é™†");
 			}
 		} catch (Exception e) {
-			request.getSession().setAttribute("LoginMsg", "µÇÂ½×´Ì¬Òì³£,ÇëÖØĞÂµÇÂ½");
+			request.getSession().setAttribute("LoginMsg", "ç™»é™†çŠ¶æ€å¼‚å¸¸,è¯·é‡æ–°ç™»é™†");
 			response.sendRedirect("login.jsp");
-			System.out.println("Éí·İÑéÖ¤-----ÀëÏßÖĞ,ÇëÖØĞÂµÇÂ½");
+			System.out.println("èº«ä»½éªŒè¯-----ç¦»çº¿ä¸­,è¯·é‡æ–°ç™»é™†");
 		}
 	}
 

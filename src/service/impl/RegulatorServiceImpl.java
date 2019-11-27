@@ -6,10 +6,18 @@ import dao.DaoRegulator;
 import entity.regulator;
 import service.RegulatorService;
 
+/**
+ * RegulatorServiceImpl类 实现RegulatorService
+ * 
+ * @author chenshaolei 2019年11月27日 下午12:08:20
+ */
 public class RegulatorServiceImpl implements RegulatorService {
 
 	DaoRegulator dao;
 
+	/**
+	 * 初始化dao对象
+	 */
 	public RegulatorServiceImpl() {
 		dao = new DaoRegulator();
 	}

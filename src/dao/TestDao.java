@@ -8,31 +8,40 @@ import entity.regulator;
 import entity.store;
 import entity.user;
 
+/**
+ * TestDaoç±» æµ‹è¯•Daoçš„æ•°æ®è®¿é—®æ“ä½œ
+ * 
+ * @author chenshaolei 2019å¹´11æœˆ27æ—¥ ä¸Šåˆ11:38:40
+ */
 public class TestDao {
-	/****************************************************** DatabaseRegulator */
+
+	/**
+	 * æµ‹è¯•TestRegulator
+	 */
 	@Test
 	public void TestRegulator() {
 		try {
 			DaoRegulator Database = new DaoRegulator();
 //			System.out.println();
-//			/**¸ù¾İ¹ÜÀíÔ±½ÇÉ«±àºÅ»ñÈ¡¹ÜÀíÔ±½ÇÉ«Ãû³Æ*/
-//			System.out.println("¸ù¾İ¹ÜÀíÔ±½ÇÉ«±àºÅ»ñÈ¡¹ÜÀíÔ±½ÇÉ«Ãû³Æ");
+//			/**æ ¹æ®ç®¡ç†å‘˜è§’è‰²ç¼–å·è·å–ç®¡ç†å‘˜è§’è‰²åç§°*/
+//			System.out.println("æ ¹æ®ç®¡ç†å‘˜è§’è‰²ç¼–å·è·å–ç®¡ç†å‘˜è§’è‰²åç§°");
 //			System.out.println(Database.GetRegulatorRoleName("2"));
 //			System.out.println();
-//			/**¸ù¾İ¹ÜÀíÔ±½ÇÉ«Ãû³Æ»ñÈ¡¹ÜÀíÔ±½ÇÉ«±àºÅ*/
-//			System.out.println("¸ù¾İ¹ÜÀíÔ±½ÇÉ«Ãû³Æ»ñÈ¡¹ÜÀíÔ±½ÇÉ«±àºÅ");
-//			System.out.println(Database.GetRegulatorRoleId("³¬¼¶¹ÜÀíÔ±"));
+//			/**æ ¹æ®ç®¡ç†å‘˜è§’è‰²åç§°è·å–ç®¡ç†å‘˜è§’è‰²ç¼–å·*/
+//			System.out.println("æ ¹æ®ç®¡ç†å‘˜è§’è‰²åç§°è·å–ç®¡ç†å‘˜è§’è‰²ç¼–å·");
+//			System.out.println(Database.GetRegulatorRoleId("è¶…çº§ç®¡ç†å‘˜"));
 //			System.out.println();
-//			/**Ìí¼Ó¹ÜÀíÔ±ĞÅÏ¢*/
-//			System.out.println("Ìí¼Ó¹ÜÀíÔ±ĞÅÏ¢");
-//			regulator addobject=new regulator();
-//			addobject.setRegulatorId("10003");
-//			addobject.setRegulatorName("Î÷¹Ï¶ù");
-//			addobject.setRegulatorRoleId("1");
-//			Database.insertRegulator(addobject);
-//			System.out.println();
-			/** »ñÈ¡ËùÓĞµÄ¹ÜÀíÔ±ĞÅÏ¢ */
-			System.out.println("»ñÈ¡ËùÓĞµÄ¹ÜÀíÔ±ĞÅÏ¢");
+//			/**æ·»åŠ ç®¡ç†å‘˜ä¿¡æ¯*/
+			System.out.println("æ·»åŠ ç®¡ç†å‘˜ä¿¡æ¯");
+			regulator addobject = new regulator();
+			addobject.setRegulatorId("10003");
+			addobject.setRegulatorName("è¥¿ç“œå„¿");
+			addobject.setRegulatorRoleId("1");
+			addobject.setStoreId("1");
+			Database.insertRegulator(addobject);
+			System.out.println();
+			/** è·å–æ‰€æœ‰çš„ç®¡ç†å‘˜ä¿¡æ¯ */
+			System.out.println("è·å–æ‰€æœ‰çš„ç®¡ç†å‘˜ä¿¡æ¯");
 			List<regulator> list = Database.ListRegulator();
 			for (int i = 0; i < list.size(); i++) {
 				regulator object = list.get(i);
@@ -41,7 +50,7 @@ public class TestDao {
 						+ " StoreId:" + object.getStoreId());
 			}
 			System.out.println();
-//			/** ¸ù¾İÃÅµê±àºÅ»ñÈ¡¹ÜÀíÔ±ĞÅÏ¢ */
+//			/** æ ¹æ®é—¨åº—ç¼–å·è·å–ç®¡ç†å‘˜ä¿¡æ¯ */
 //			List<regulator> list2=Database.listRegulatorByStoreId("2");
 //			for (int i = 0; i < list2.size(); i++) {
 //				regulator object = list2.get(i);
@@ -50,61 +59,63 @@ public class TestDao {
 //						+ " StoreId:" + object.getStoreId());
 //			}
 //			System.out.println();
-//			/**ĞŞ¸Ä¹ÜÀíÔ±ĞÅÏ¢*/
-//			System.out.println("ĞŞ¸Ä¹ÜÀíÔ±ĞÅÏ¢");
+//			/**ä¿®æ”¹ç®¡ç†å‘˜ä¿¡æ¯*/
+//			System.out.println("ä¿®æ”¹ç®¡ç†å‘˜ä¿¡æ¯");
 //			regulator updateRegulator=new regulator();
 //			updateRegulator.setRegulatorId("10003");
-//			updateRegulator.setRegulatorName("Î÷¹ÏºÙ");
+//			updateRegulator.setRegulatorName("è¥¿ç“œå˜¿");
 //			updateRegulator.setPassword("520-96");
 //			updateRegulator.setRegulatorRoleId("1");
 //			Database.updateRegulator(updateRegulator);
 //			System.out.println();
-//			/**Í¨¹ı¹ÜÀíÔ±±àºÅ»ñÈ¡¹ÜÀíÔ±ĞÅÏ¢*/
-//			System.out.println("Í¨¹ı¹ÜÀíÔ±±àºÅ»ñÈ¡¹ÜÀíÔ±ĞÅÏ¢");
+//			/**é€šè¿‡ç®¡ç†å‘˜ç¼–å·è·å–ç®¡ç†å‘˜ä¿¡æ¯*/
+//			System.out.println("é€šè¿‡ç®¡ç†å‘˜ç¼–å·è·å–ç®¡ç†å‘˜ä¿¡æ¯");
 //			regulator getRegu=Database.GetRegulatorForId("10003");
 //			System.out.println(" ID:"+getRegu.getRegulatorId()+" Name:"+getRegu.getRegulatorName()+" Password:"+getRegu.getPassword()+" RegulatorRoleId:"+getRegu.getRegulatorRoleId());
 //			System.out.println();
-//			/**Í¨¹ı¹ÜÀíÔ±Ãû³Æ»ñÈ¡¹ÜÀíÔ±ĞÅÏ¢*/
-//			System.out.println("Í¨¹ı¹ÜÀíÔ±Ãû³Æ»ñÈ¡¹ÜÀíÔ±ĞÅÏ¢");
-//			System.out.println(Database.GetIdForName("³ÂÉÙÀÚ"));
+//			/**é€šè¿‡ç®¡ç†å‘˜åç§°è·å–ç®¡ç†å‘˜ä¿¡æ¯*/
+//			System.out.println("é€šè¿‡ç®¡ç†å‘˜åç§°è·å–ç®¡ç†å‘˜ä¿¡æ¯");
+//			System.out.println(Database.GetIdForName("é™ˆå°‘ç£Š"));
 //			System.out.println();
-//			/**É¾³ı¹ÜÀíÔ±ĞÅÏ¢*/
-//			System.out.println("É¾³ı¹ÜÀíÔ±ĞÅÏ¢");
+//			/**åˆ é™¤ç®¡ç†å‘˜ä¿¡æ¯*/
+//			System.out.println("åˆ é™¤ç®¡ç†å‘˜ä¿¡æ¯");
 //			Database.deleteRegulator("10003");
 //			System.out.println();
-//			/**»ñÈ¡×î´ó¹ÜÀíÔ±±àºÅ*/
-//			System.out.println("»ñÈ¡×î´ó¹ÜÀíÔ±±àºÅ");
+//			/**è·å–æœ€å¤§ç®¡ç†å‘˜ç¼–å·*/
+//			System.out.println("è·å–æœ€å¤§ç®¡ç†å‘˜ç¼–å·");
 //			System.out.println(Database.GetMaxId());
 //			System.out.println();
 //			Database.CloseDatabase();
 		} catch (Exception e) {
-			System.out.println("²âÊÔ·¢ÉúÒì³£");
+			System.out.println("æµ‹è¯•å‘ç”Ÿå¼‚å¸¸");
 		}
 	}
 
-	/****************************************************** DatabaseUser */
+	/**
+	 * æµ‹è¯•TestUser
+	 */
 	@Test
 	public void TestUser() {
 		try {
 			DaoUser Database = new DaoUser();
 			System.out.println();
-			/** ¸ù¾İÓÃ»§Ô±½ÇÉ«±àºÅ»ñÈ¡ÓÃ»§½ÇÉ«Ãû³Æ */
-			System.out.println("¸ù¾İÓÃ»§Ô±½ÇÉ«±àºÅ»ñÈ¡ÓÃ»§½ÇÉ«Ãû³Æ");
+			/** æ ¹æ®ç”¨æˆ·å‘˜è§’è‰²ç¼–å·è·å–ç”¨æˆ·è§’è‰²åç§° */
+			System.out.println("æ ¹æ®ç”¨æˆ·å‘˜è§’è‰²ç¼–å·è·å–ç”¨æˆ·è§’è‰²åç§°");
 			System.out.println(Database.GetUserRoleName("1"));
 			System.out.println();
-			/** ¸ù¾İÓÃ»§Ô±½ÇÉ«Ãû³Æ»ñÈ¡ÓÃ»§½ÇÉ«±àºÅ */
-			System.out.println("¸ù¾İÓÃ»§Ô±½ÇÉ«Ãû³Æ»ñÈ¡ÓÃ»§½ÇÉ«±àºÅ");
-			System.out.println(Database.GetUserRoleId("¸ß¼¶»áÔ±"));
+			/** æ ¹æ®ç”¨æˆ·å‘˜è§’è‰²åç§°è·å–ç”¨æˆ·è§’è‰²ç¼–å· */
+			System.out.println("æ ¹æ®ç”¨æˆ·å‘˜è§’è‰²åç§°è·å–ç”¨æˆ·è§’è‰²ç¼–å·");
+			System.out.println(Database.GetUserRoleId("é«˜çº§ä¼šå‘˜"));
 			System.out.println();
-			/** Ìí¼ÓÓÃ»§ĞÅÏ¢ */
-			System.out.println("Ìí¼ÓÓÃ»§ĞÅÏ¢");
+			/** æ·»åŠ ç”¨æˆ·ä¿¡æ¯ */
+			System.out.println("æ·»åŠ ç”¨æˆ·ä¿¡æ¯");
 			user addobject = new user();
-			addobject.setUserName("Ç§Íí");
+			addobject.setUserName("åƒæ™š");
 			addobject.setRoleId("1");
 			Database.insertUser(addobject);
 			System.out.println();
-			/** »ñÈ¡ËùÓĞµÄÓÃ»§ĞÅÏ¢ */
-			System.out.println("»ñÈ¡ËùÓĞµÄÓÃ»§ĞÅÏ¢");
+			/** è·å–æ‰€æœ‰çš„ç”¨æˆ·ä¿¡æ¯ */
+			System.out.println("è·å–æ‰€æœ‰çš„ç”¨æˆ·ä¿¡æ¯");
 			List<user> list = Database.ListUser();
 			for (int i = 0; i < list.size(); i++) {
 				user object = list.get(i);
@@ -112,54 +123,56 @@ public class TestDao {
 						+ object.getPassword() + " RoleId:" + object.getRoleId());
 			}
 			System.out.println();
-			/** ĞŞ¸ÄÓÃ»§ĞÅÏ¢ */
-			System.out.println("ĞŞ¸ÄÓÃ»§ĞÅÏ¢");
+			/** ä¿®æ”¹ç”¨æˆ·ä¿¡æ¯ */
+			System.out.println("ä¿®æ”¹ç”¨æˆ·ä¿¡æ¯");
 			user updateUser = new user();
 			updateUser.setUserId("172056237");
-			updateUser.setUserName("Ç§Íí");
+			updateUser.setUserName("åƒæ™š");
 			updateUser.setPassword("520-96");
 			updateUser.setRoleId("1");
 			Database.updateUser(updateUser);
 			System.out.println();
-			/** Í¨¹ıÓÃ»§±àºÅ»ñÈ¡ÓÃ»§ĞÅÏ¢ */
-			System.out.println("Í¨¹ıÓÃ»§±àºÅ»ñÈ¡ÓÃ»§ĞÅÏ¢");
+			/** é€šè¿‡ç”¨æˆ·ç¼–å·è·å–ç”¨æˆ·ä¿¡æ¯ */
+			System.out.println("é€šè¿‡ç”¨æˆ·ç¼–å·è·å–ç”¨æˆ·ä¿¡æ¯");
 			user getuser = Database.getUserForId("172056236");
 			System.out.println(" ID:" + getuser.getUserId() + " Name:" + getuser.getUserName() + " Password:"
 					+ getuser.getPassword() + " RegulatorRoleId:" + getuser.getRoleId());
 			System.out.println();
-			/** Í¨¹ıÓÃ»§Ãû³Æ»ñÈ¡ÓÃ»§id */
-			System.out.println("Í¨¹ıÓÃ»§±àºÅ»ñÈ¡ÓÃ»§ĞÅÏ¢");
-			System.out.println(Database.getUserIdForName("Ğ¡Ñî"));
+			/** é€šè¿‡ç”¨æˆ·åç§°è·å–ç”¨æˆ·id */
+			System.out.println("é€šè¿‡ç”¨æˆ·ç¼–å·è·å–ç”¨æˆ·ä¿¡æ¯");
+			System.out.println(Database.getUserIdForName("å°æ¨"));
 			System.out.println();
-			/** É¾³ıÓÃ»§ĞÅÏ¢ */
-			System.out.println("É¾³ıÓÃ»§ĞÅÏ¢");
+			/** åˆ é™¤ç”¨æˆ·ä¿¡æ¯ */
+			System.out.println("åˆ é™¤ç”¨æˆ·ä¿¡æ¯");
 			Database.deleteUser("1720562005");
 			System.out.println();
-			/** »ñÈ¡×î´ó¿Í»§±àºÅ */
-			System.out.println("»ñÈ¡×î´ó¿Í»§±àºÅ");
+			/** è·å–æœ€å¤§å®¢æˆ·ç¼–å· */
+			System.out.println("è·å–æœ€å¤§å®¢æˆ·ç¼–å·");
 			System.out.println(Database.GetMaxId());
 			System.out.println();
 			Database.CloseDatabase();
 		} catch (Exception e) {
-			System.out.println("²âÊÔ·¢ÉúÒì³£");
+			System.out.println("æµ‹è¯•å‘ç”Ÿå¼‚å¸¸");
 		}
 	}
 
-	/****************************************************** DatabaseStore */
+	/**
+	 * æµ‹è¯•TestStore
+	 */
 	@Test
 	public void TestStore() {
 		try {
 			DaoStore Database = new DaoStore();
 			System.out.println();
-			/** »ñÈ¡ËùÓĞµÄÉÌµêÃû³Æ */
-			System.out.println("»ñÈ¡ËùÓĞµÄÉÌµêÃû³Æ");
+			/** è·å–æ‰€æœ‰çš„å•†åº—åç§° */
+			System.out.println("è·å–æ‰€æœ‰çš„å•†åº—åç§°");
 			List<String> listname = Database.ListStoresName();
 			for (int i = 0; i < listname.size(); i++) {
 				System.out.println(listname.get(i));
 			}
 			System.out.println();
-			/** ¸ù¾İ¹ÜÀíÔ±±àºÅ»ñÈ¡ËùÓĞÉÌµêµÄĞÅÏ¢ */
-			System.out.println("¸ù¾İ¹ÜÀíÔ±±àºÅ»ñÈ¡ËùÓĞÉÌµêµÄĞÅÏ¢");
+			/** æ ¹æ®ç®¡ç†å‘˜ç¼–å·è·å–æ‰€æœ‰å•†åº—çš„ä¿¡æ¯ */
+			System.out.println("æ ¹æ®ç®¡ç†å‘˜ç¼–å·è·å–æ‰€æœ‰å•†åº—çš„ä¿¡æ¯");
 			List<store> allstore = Database.GetAllStoreByRegulatorId("10001");
 			for (int i = 0; i < allstore.size(); i++) {
 				store entity = allstore.get(i);
@@ -167,16 +180,16 @@ public class TestDao {
 						+ " RegulatorId:" + entity.getRegulatorId());
 			}
 			System.out.println();
-			/** Ìí¼ÓÉÌµêĞÅÏ¢ */
-//			System.out.println("Ìí¼ÓÉÌµêĞÅÏ¢");
+			/** æ·»åŠ å•†åº—ä¿¡æ¯ */
+//			System.out.println("æ·»åŠ å•†åº—ä¿¡æ¯");
 //			store addobject = new store();
 //			addobject.setStoreId("4");
-//			addobject.setStoreName("°ËËùºó°²·Ûµê");
+//			addobject.setStoreName("å…«æ‰€åå®‰ç²‰åº—");
 //			addobject.setRegulatorId("10001");
 //			Database.insertStore(addobject);
 			System.out.println();
-			/** »ñÈ¡ËùÓĞµÄÉÌµêĞÅÏ¢ */
-			System.out.println("»ñÈ¡ËùÓĞµÄÉÌµêĞÅÏ¢");
+			/** è·å–æ‰€æœ‰çš„å•†åº—ä¿¡æ¯ */
+			System.out.println("è·å–æ‰€æœ‰çš„å•†åº—ä¿¡æ¯");
 			List<store> list = Database.ListStore();
 			for (int i = 0; i < list.size(); i++) {
 				store object = list.get(i);
@@ -184,31 +197,31 @@ public class TestDao {
 						+ " RegulatorId:" + object.getRegulatorId());
 			}
 			System.out.println();
-			/** ĞŞ¸ÄÉÌµêĞÅÏ¢ */
-			System.out.println("ĞŞ¸ÄÉÌµêĞÅÏ¢");
+			/** ä¿®æ”¹å•†åº—ä¿¡æ¯ */
+			System.out.println("ä¿®æ”¹å•†åº—ä¿¡æ¯");
 			store updateStore = new store();
 			updateStore.setStoreId("4");
-			updateStore.setStoreName("ÌúÖĞ´óÌúÃÅµê");
+			updateStore.setStoreName("é“ä¸­å¤§é“é—¨åº—");
 			updateStore.setRegulatorId("10001");
 			Database.updateStore(updateStore);
 			System.out.println();
-			/** Í¨¹ıÉÌµê±àºÅ»ñÈ¡ÉÌµêĞÅÏ¢ */
-			System.out.println("Í¨¹ıÉÌµê±àºÅ»ñÈ¡ÉÌµêĞÅÏ¢");
+			/** é€šè¿‡å•†åº—ç¼–å·è·å–å•†åº—ä¿¡æ¯ */
+			System.out.println("é€šè¿‡å•†åº—ç¼–å·è·å–å•†åº—ä¿¡æ¯");
 			store getstore = Database.getStoreForId("4");
 			System.out.println("StoreID:" + getstore.getStoreId() + " StoreName:" + getstore.getStoreName()
 					+ " RegulatorId:" + getstore.getRegulatorId());
 			System.out.println();
-			/** É¾³ıÉÌµêĞÅÏ¢ */
-			System.out.println("É¾³ıÉÌµêĞÅÏ¢");
+			/** åˆ é™¤å•†åº—ä¿¡æ¯ */
+			System.out.println("åˆ é™¤å•†åº—ä¿¡æ¯");
 			Database.deleteStore("4");
 			System.out.println();
-			/** »ñÈ¡×î´óÉÌµê±àºÅ */
-			System.out.println("»ñÈ¡×î´óÉÌµê±àºÅ");
+			/** è·å–æœ€å¤§å•†åº—ç¼–å· */
+			System.out.println("è·å–æœ€å¤§å•†åº—ç¼–å·");
 			System.out.println(Database.GetMaxId());
 			System.out.println();
 			Database.CloseDatabase();
 		} catch (Exception e) {
-			System.out.println("²âÊÔ·¢ÉúÒì³£");
+			System.out.println("æµ‹è¯•å‘ç”Ÿå¼‚å¸¸");
 		}
 	}
 }

@@ -12,11 +12,20 @@ import com.mysql.cj.protocol.Resultset;
 import entity.store;
 import jdbc.Database;
 
+/**
+ * DaoStore类 门店类的数据访问类，实现门店信息的数据访问操作
+ * 
+ * @author chenshaolei 2019年11月27日 上午11:28:09
+ */
 public class DaoStore extends Database {
 
-	/**获取所有的门店名称*/
-	public List<String> ListStoresName(){
-		List<String> listname=new ArrayList<String>();
+	/**
+	 * 获取所有的门店名称
+	 * 
+	 * @return 返回商店名称
+	 */
+	public List<String> ListStoresName() {
+		List<String> listname = new ArrayList<String>();
 		String sql = "select * from store";
 		try {
 			// 创建实例
@@ -34,8 +43,13 @@ public class DaoStore extends Database {
 		}
 		return listname;
 	}
-	
-	/** 根据管理员编号获取所有商店的信息 */
+
+	/**
+	 * 根据管理员编号获取所有商店的信息
+	 * 
+	 * @param regulatorId
+	 * @return 返回商店信息
+	 */
 	public List<store> GetAllStoreByRegulatorId(String regulatorId) {
 		List<store> AllStore = new ArrayList<store>();
 		String sql = "select * from store where regulatorid=" + regulatorId;
@@ -62,7 +76,11 @@ public class DaoStore extends Database {
 		return AllStore;
 	}
 
-	/** 获取所有的商店信息 */
+	/**
+	 * 获取所有的商店信息
+	 * 
+	 * @return 返回所有的商店信息
+	 */
 	public List<store> ListStore() {
 		List<store> listStore = new ArrayList<store>();
 		String sql = "select * from store";
@@ -89,7 +107,12 @@ public class DaoStore extends Database {
 		return listStore;
 	}
 
-	/** 通过商店编号获取商店信息 */
+	/**
+	 * 通过商店编号获取商店信息
+	 * 
+	 * @param storeId
+	 * @return 返回商店信息
+	 */
 	public store getStoreForId(String storeId) {
 		store getstore = new store();
 		String sql = "select * from store where storeid='" + storeId + "'";
@@ -115,7 +138,12 @@ public class DaoStore extends Database {
 		return getstore;
 	}
 
-	/** 通过门店名称获取商店编号 */
+	/**
+	 * 通过门店名称获取商店编号
+	 * 
+	 * @param storeName
+	 * @return 返回商店编号
+	 */
 	public String getIdForName(String storeName) {
 		String Id = "";
 		String sql = "select * from store where storename='" + storeName + "'";
@@ -135,7 +163,12 @@ public class DaoStore extends Database {
 		return Id;
 	}
 
-	/** 添加商店信息 */
+	/**
+	 * 添加商店信息
+	 * 
+	 * @param addobject
+	 * @return 添加成功返回true,失败返回false
+	 */
 	public boolean insertStore(store addobject) {
 		boolean flag = false;
 		String Number = "";
@@ -149,7 +182,7 @@ public class DaoStore extends Database {
 		} catch (Exception e) {
 			Number = "0";
 		}
-		String ID = String.valueOf(Integer.parseInt(Number)+1);
+		String ID = String.valueOf(Integer.parseInt(Number) + 1);
 		String Name = addobject.getStoreName();
 		String RegulatorId = addobject.getRegulatorId();
 		String sql = "insert into store value('" + ID + "','" + Name + "','" + RegulatorId + "')";
@@ -169,7 +202,12 @@ public class DaoStore extends Database {
 		return flag;
 	}
 
-	/** 删除商店信息 */
+	/**
+	 * 删除商店信息
+	 * 
+	 * @param StoreId
+	 * @return 删除成功返回true,失败返回false
+	 */
 	public boolean deleteStore(String StoreId) {
 		boolean flag = false;
 		String sql = "delete from store where storeid=" + StoreId;
@@ -189,7 +227,12 @@ public class DaoStore extends Database {
 		return flag;
 	}
 
-	/** 修改用户信息 */
+	/**
+	 * 修改用户信息
+	 * 
+	 * @param updatestore
+	 * @return 修改成功返回true,失败返回false
+	 */
 	public boolean updateStore(store updatestore) {
 		boolean flag = false;
 		String ID = updatestore.getStoreId();
@@ -213,7 +256,11 @@ public class DaoStore extends Database {
 		return flag;
 	}
 
-	/** 获取最大的商店编号 */
+	/**
+	 * 获取最大的商店编号
+	 * 
+	 * @return 返回商店的最大编号
+	 */
 	public String GetMaxId() {
 		List<Integer> listId = new ArrayList<Integer>();
 		String sql = "select * from store";

@@ -2,15 +2,23 @@ package jdbc;
 
 import org.junit.Test;
 
+/**
+ * TestDataBase类 测试DataBase
+ * 
+ * @author chenshaolei 2019年11月27日 上午11:53:42
+ */
 public class TestDataBase {
-	/****************************************************** Database */
+
+	/**
+	 * 测试TestDatabase
+	 */
 	@Test
 	public void TestDatabase() {
 		try {
-			Database database=new Database();
+			Database database = new Database();
 			database.CloseDatabase();
 		} catch (Exception e) {
-			System.err.println("�������ݿ��쳣");
+			System.err.println("连接数据库异常");
 		}
 	}
 }

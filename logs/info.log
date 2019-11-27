@@ -1,0 +1,3 @@
+[17:02:38:343] [ERROR] - dao.TestLog4j.main(TestLog4j.java:11) - error
+[17:02:38:343] [INFO] - dao.TestLog4j.main(TestLog4j.java:12) - info
+[17:02:38:343] [WARN] - dao.TestLog4j.main(TestLog4j.java:14) - warn

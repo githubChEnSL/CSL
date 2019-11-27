@@ -6,10 +6,18 @@ import dao.DaoStore;
 import entity.store;
 import service.StoreService;
 
+/**
+ * StoreServiceImpl类 实现StoreService接口
+ * 
+ * @author chenshaolei 2019年11月27日 下午12:18:42
+ */
 public class StoreServiceImpl implements StoreService {
 
 	DaoStore dao;
 
+	/**
+	 * 初始化dao
+	 */
 	public StoreServiceImpl() {
 		dao = new DaoStore();
 	}

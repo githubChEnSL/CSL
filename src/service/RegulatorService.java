@@ -4,44 +4,107 @@ import java.util.List;
 
 import entity.regulator;
 
+/**
+ * RegulatorService接口 为系统提供RegulatorService接口
+ * 
+ * @author chenshaolei 2019年11月27日 上午11:54:50
+ */
 public interface RegulatorService {
 
-	/** ��ȡ���еĹ���Ա��ɫ���� */
+	/**
+	 * 获取所有的管理员角色名称
+	 * 
+	 * @return 返回所有的管理员角色名称
+	 */
 	public List<String> ListRegulatorRoleName();
 
-	/** ���ݹ���Ա��ɫ��Ż�ȡ����Ա��ɫ���� */
+	/**
+	 * 根据管理员角色编号获取管理员角色名称
+	 * 
+	 * @param regulatorRoleid
+	 * @return 返回管理员角色名称
+	 */
 	public String GetRegulatorRoleName(String regulatorRoleid);
 
-	/** ���ݹ���Ա��ɫ���ƻ�ȡ����Ա��ɫ��� */
+	/**
+	 * 根据管理员角色名称获取管理员角色编号
+	 * 
+	 * @param regulatorRoleName
+	 * @return 返回管理员角色编号
+	 */
 	public String GetRegulatorRoleId(String regulatorRoleName);
 
-	/** ��ȡ���еĹ���Ա��Ϣ */
+	/**
+	 * 获取所有的管理员信息
+	 * 
+	 * @return 返回所有的管理员信息
+	 */
 	public List<regulator> ListRegulator();
 
-	/** �����ŵ��Ż�ȡԱ����Ϣ */
+	/**
+	 * 根据门店编号获取员工信息
+	 * 
+	 * @param StoreId
+	 * @return 返回员工信息
+	 */
 	public List<regulator> listRegulatorByStoreId(String StoreId);
 
-	/** ��ȡ���е���ͨԱ������Ϣ */
+	/**
+	 * 获取所有的普通员工的信息
+	 * 
+	 * @return 返回普通员工的信息
+	 */
 	public List<regulator> listOrdinaryRegulators();
 
-	/** ͨ������Ա��Ż�ȡ����Ա��Ϣ */
+	/**
+	 * 通过管理员编号获取管理员信息
+	 * 
+	 * @param regulatorId
+	 * @return 返回管理员信息
+	 */
 	public regulator GetRegulatorForId(String regulatorId);
 
-	/** ͨ������Ա���ƻ�ȡ����Ա��� */
+	/**
+	 * 通过管理员名称获取管理员编号
+	 * 
+	 * @param regulatorName
+	 * @return 返回管理员编号
+	 */
 	public String GetIdForName(String regulatorName);
 
-	/** ���ӹ���Ա��Ϣ */
+	/**
+	 * 添加管理员信息
+	 * 
+	 * @param regulator
+	 * @return 添加成功返回true,失败返回false
+	 */
 	public boolean insertRegulator(regulator regulator);
 
-	/** ɾ������Ա��Ϣ */
+	/**
+	 * 删除管理员信息
+	 * 
+	 * @param regulatorId
+	 * @return 删除成功返回true,失败返回false
+	 */
 	public boolean deleteRegulator(String regulatorId);
 
-	/** �޸Ĺ���Ա��Ϣ */
+	/**
+	 * 修改管理员信息
+	 * 
+	 * @param regulator
+	 * @return 修改成功返回true,失败返回false
+	 */
 	public boolean updateRegulator(regulator regulator);
 
-	/** ��ȡ����Ա��ŵ����ֵ */
+	/**
+	 * 获取管理员编号的最大值
+	 * 
+	 * @return 返回管理员的最大编号
+	 */
 	public String GetMaxId();
 
-	/** �ر�ҵ���߼� */
+	/**
+	 * 关闭RegulatorService
+	 */
 	public void CloseRegulatorService();
 }
