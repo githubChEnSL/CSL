@@ -1,4 +1,4 @@
-package jdbc;
+package dao;
 
 import org.junit.Test;
 

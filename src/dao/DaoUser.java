@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.mysql.cj.protocol.Resultset;
 import entity.user;
-import jdbc.Database;
 
 /**
  * DaoUser类 会员类的数据访问类，实现会员信息的数据访问操作

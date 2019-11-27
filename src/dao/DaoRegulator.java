@@ -9,7 +9,6 @@ import java.util.List;
 import com.mysql.cj.protocol.Resultset;
 
 import entity.regulator;
-import jdbc.Database;
 
 /**
  * DaoRegulator类 管理员类的数据访问类，实现管理员信息的数据访问操作

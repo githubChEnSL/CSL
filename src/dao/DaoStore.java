@@ -10,7 +10,6 @@ import java.util.List;
 import com.mysql.cj.protocol.Resultset;
 
 import entity.store;
-import jdbc.Database;
 
 /**
  * DaoStore类 门店类的数据访问类，实现门店信息的数据访问操作

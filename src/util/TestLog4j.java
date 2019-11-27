@@ -1,4 +1,4 @@
-package dao;
+package util;
 
 import org.junit.Test;
 import org.apache.logging.log4j.LogManager;

@@ -46,7 +46,7 @@
    <!-- 用户登陆-->
    <servlet>
       <servlet-name>LoginServlet</servlet-name>
-      <servlet-class>Servlet.LoginServlet</servlet-class>
+      <servlet-class>controller.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
       <servlet-name>LoginServlet</servlet-name>
