@@ -4,23 +4,23 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Log4jÀà
+ * Log4jç±»
  * 
- * @author chenshaolei 2019Äê11ÔÂ27ÈÕ ÏÂÎç2:48:17
+ * @author chenshaolei 2019å¹´11æœˆ27æ—¥ ä¸‹åˆ2:48:17
  */
 public class Log4j {
 
 	/**
-	 * ³õÊ¼»¯Logger
+	 * åˆå§‹åŒ–Logger
 	 */
 	Log4j() {
-		// ¶¨ÒåLog4jÈÕÖ¾
+		// å®šä¹‰Log4jæ—¥å¿—
 	}
 
 	/**
-	 * Ğ´ÈëINFO¼¶±ğµÄÈÕÖ¾
+	 * å†™å…¥INFOçº§åˆ«çš„æ—¥å¿—
 	 * 
-	 * @param info
+	 * @param info infoçº§åˆ«
 	 */
 	public static void LoggerINFO(String info) {
 		Logger logger = LogManager.getLogger(Class.class);
@@ -28,9 +28,9 @@ public class Log4j {
 	}
 
 	/**
-	 * Ğ´ÈëERROE¼¶±ğµÄÈÕÖ¾
+	 * å†™å…¥ERROEçº§åˆ«çš„æ—¥å¿—
 	 * 
-	 * @param error
+	 * @param error errorçº§åˆ«
 	 */
 	public static void LoggerERROR(String error) {
 		Logger logger = LogManager.getLogger(Class.class);
@@ -38,9 +38,9 @@ public class Log4j {
 	}
 
 	/**
-	 * Ğ´ÈëWARN¼¶±ğµÄÈÕÖ¾
+	 * å†™å…¥WARNçº§åˆ«çš„æ—¥å¿—
 	 * 
-	 * @param warn
+	 * @param warn warnçº§åˆ«
 	 */
 	public static void LoggerWARN(String warn) {
 		Logger logger = LogManager.getLogger(Class.class);

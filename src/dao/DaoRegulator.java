@@ -54,7 +54,7 @@ public class DaoRegulator extends Database {
 	/**
 	 * 根据管理员角色编号获取管理员角色名称
 	 * 
-	 * @param regulatorRoleid
+	 * @param regulatorRoleid 管理员角色编号
 	 * @return 返回管理员角色名称
 	 */
 	public String GetRegulatorRoleName(String regulatorRoleid) {
@@ -81,7 +81,7 @@ public class DaoRegulator extends Database {
 	/**
 	 * 根据管理员角色名称获取管理员角色编号
 	 * 
-	 * @param regulatorRoleName
+	 * @param regulatorRoleName 管理员角色名称
 	 * @return 返回管理员角色编号
 	 */
 	public String GetRegulatorRoleId(String regulatorRoleName) {
@@ -145,7 +145,7 @@ public class DaoRegulator extends Database {
 	/**
 	 * 根据门店编号获取员工信息
 	 * 
-	 * @param StoreId
+	 * @param StoreId 门店编号
 	 * @return 返回员工信息
 	 */
 	public List<regulator> listRegulatorByStoreId(String StoreId) {
@@ -220,7 +220,7 @@ public class DaoRegulator extends Database {
 	/**
 	 * 通过管理员编号获取管理员信息
 	 * 
-	 * @param regulatorId
+	 * @param regulatorId 管理员编号
 	 * @return 返回管理员信息
 	 */
 	public regulator GetRegulatorForId(String regulatorId) {
@@ -257,7 +257,7 @@ public class DaoRegulator extends Database {
 	/**
 	 * 通过管理员名称获取管理员编号
 	 * 
-	 * @param regulatorName
+	 * @param regulatorName 管理员名称
 	 * @return 返回管理员编号
 	 */
 	public String GetIdForName(String regulatorName) {
@@ -285,7 +285,7 @@ public class DaoRegulator extends Database {
 	/**
 	 * 添加管理员信息
 	 * 
-	 * @param regulator
+	 * @param regulator 管理员对象
 	 * @return 添加成功返回true,失败返回false
 	 */
 	public boolean insertRegulator(regulator regulator) {
@@ -330,7 +330,7 @@ public class DaoRegulator extends Database {
 	/**
 	 * 删除管理员信息
 	 * 
-	 * @param regulatorId
+	 * @param regulatorId 管理员编号
 	 * @return 删除成功返回true,失败返回false
 	 */
 	public boolean deleteRegulator(String regulatorId) {
@@ -357,7 +357,7 @@ public class DaoRegulator extends Database {
 	/**
 	 * 修改管理员信息
 	 * 
-	 * @param regulator
+	 * @param regulator 管理员对象
 	 * @return 修改成功返回true,失败返回false
 	 */
 	public boolean updateRegulator(regulator regulator) {

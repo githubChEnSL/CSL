@@ -26,7 +26,7 @@ public class DaoUser extends Database {
 	/**
 	 * 根据用户员角色编号获取用户角色名称
 	 * 
-	 * @param UserRoleid
+	 * @param UserRoleid 角色编号
 	 * @return 返回角色名称
 	 */
 	public String GetUserRoleName(String UserRoleid) {
@@ -53,7 +53,7 @@ public class DaoUser extends Database {
 	/**
 	 * 根据用户员角色名称获取用户角色编号
 	 * 
-	 * @param UserRoleName
+	 * @param UserRoleName 角色名称
 	 * @return 返回角色编号
 	 */
 	public String GetUserRoleId(String UserRoleName) {
@@ -115,7 +115,7 @@ public class DaoUser extends Database {
 	/**
 	 * 通过用户编号获取用户信息
 	 * 
-	 * @param userid
+	 * @param userid 用户编号
 	 * @return 返回用户信息
 	 */
 	public user getUserForId(String userid) {
@@ -150,7 +150,7 @@ public class DaoUser extends Database {
 	/**
 	 * 通过用户名称获取用户编号
 	 * 
-	 * @param username
+	 * @param username 用户名称
 	 * @return 返回用户编号
 	 */
 	public String getUserIdForName(String username) {
@@ -178,7 +178,7 @@ public class DaoUser extends Database {
 	/**
 	 * 添加用户信息
 	 * 
-	 * @param addobject
+	 * @param addobject 用户对象
 	 * @return 添加成功返回true,失败返回false
 	 */
 	public boolean insertUser(user addobject) {
@@ -221,7 +221,7 @@ public class DaoUser extends Database {
 	/**
 	 * 删除用户信息
 	 * 
-	 * @param userid
+	 * @param userid 用户ID
 	 * @return 删除成功返回true,失败返回false
 	 */
 	public boolean deleteUser(String userid) {
@@ -248,7 +248,7 @@ public class DaoUser extends Database {
 	/**
 	 * 修改用户信息
 	 * 
-	 * @param updateuser
+	 * @param updateuser 用户对象
 	 * @return 修改成功返回true,失败返回false
 	 */
 	public boolean updateUser(user updateuser) {

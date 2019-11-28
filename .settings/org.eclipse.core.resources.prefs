@@ -26,4 +26,5 @@ encoding//src/service/UserService.java=UTF-8
 encoding//src/service/impl/RegulatorServiceImpl.java=UTF-8
 encoding//src/service/impl/StoreServiceImpl.java=UTF-8
 encoding//src/service/impl/UserServiceImpl.java=UTF-8
+encoding//src/util/Log4j.java=UTF-8
 encoding//src/util/TestLog4j.java=UTF-8

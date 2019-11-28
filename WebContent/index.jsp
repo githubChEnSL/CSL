@@ -163,9 +163,6 @@
 						<div id="collapse5" class="panel-collapse collapse collapseBody">
 							<div class="panel-body" style="background-color: #fff">
 								<ul class="list-group">
-									<a href="javascript:void(0)" id="" class="menu_item" name="">
-										<li class="list-group-item">登陆日志</li>
-									</a>
 									<a href="javascript:void(0)" class="menu_item" name="Exit.jsp">
 										<li class="list-group-item">注销登陆</li>
 									</a>

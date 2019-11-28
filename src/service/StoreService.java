@@ -21,7 +21,7 @@ public interface StoreService {
 	/**
 	 * 根据管理员编号获取所有商店的信息
 	 * 
-	 * @param regulatorId
+	 * @param regulatorId 管理员编号
 	 * @return 返回按条件查询到的所有商店信息
 	 */
 	public List<store> GetAllStoreByRegulatorId(String regulatorId);
@@ -36,7 +36,7 @@ public interface StoreService {
 	/**
 	 * 通过商店编号获取商店信息
 	 * 
-	 * @param storeId
+	 * @param storeId 门店编号
 	 * @return 返回按条件查询到的商店信息
 	 */
 	public store getStoreForId(String storeId);
@@ -44,7 +44,7 @@ public interface StoreService {
 	/**
 	 * 通过门店名称获取商店编号
 	 * 
-	 * @param storeName
+	 * @param storeName 门店名称
 	 * @return 返回按条件（名称）查询到的商店编号
 	 */
 	public String getIdForName(String storeName);
@@ -52,7 +52,7 @@ public interface StoreService {
 	/**
 	 * 添加商店信息
 	 * 
-	 * @param addobject
+	 * @param addobject 门店对象
 	 * @return 添加成功返回true,失败返回false
 	 */
 	public boolean insertStore(store addobject);
@@ -60,15 +60,15 @@ public interface StoreService {
 	/**
 	 * 删除商店信息
 	 * 
-	 * @param StoreId
+	 * @param StoreId 门店编号
 	 * @return 删除成功返回true,失败返回false
 	 */
 	public boolean deleteStore(String StoreId);
 
 	/**
-	 * 修改用户信息
+	 * 修改商店信息
 	 * 
-	 * @param updatestore
+	 * @param updatestore 门店对象
 	 * @return 修改成功返回true,失败返回false
 	 */
 	public boolean updateStore(store updatestore);

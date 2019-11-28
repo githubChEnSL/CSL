@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,9 @@ import service.RegulatorService;
 import service.impl.RegulatorServiceImpl;
 
 /**
- * Servlet implementation class LoginServlet
+ * 用用户登录Servlet implementation class LoginServlet
+ * 
+ * @author chenshaolei 2019年11月28日 下午4:43:26
  */
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -79,20 +82,30 @@ public class LoginServlet extends HttpServlet {
 		String error = "";
 		Map<String, Object> loginMap = RegulatorLogin(id, password);
 		boolean flag = (boolean) loginMap.get("flag");
-		//System.err.println(flag);
+		// System.err.println(flag);
 		Integer roleid = (Integer) loginMap.get("roleid");
 		String loginName = (String) loginMap.get("loginName");
 		if (flag) {
-			//System.out.println("登陆请求----登陆成功");
-			//System.err.println(roleid);
+			// System.out.println("登陆请求----登陆成功");
+			// System.err.println(roleid);
 			logger.info("登陆请求----登陆成功");
 			request.getSession().setAttribute("roleId", roleid);
 			request.getSession().setAttribute("id", id);
 			request.getSession().setAttribute("loginName", loginName);
 			request.getSession().setAttribute("error", "");
 			response.sendRedirect("index.jsp");
+
+			// 将账号密码写进cookie
+			Cookie nameCookie = new Cookie("username", "");
+			Cookie passwordCookie = new Cookie("password", "");
+			nameCookie.setValue(id);
+			passwordCookie.setValue(password);
+			nameCookie.setMaxAge(60 * 60 * 24 * 7);
+			passwordCookie.setMaxAge(60 * 60 * 24 * 7);
+			response.addCookie(nameCookie);
+			response.addCookie(passwordCookie);
 		} else {
-			//System.out.println("登陆请求----登陆失败");
+			// System.out.println("登陆请求----登陆失败");
 			logger.error("登陆请求----登陆失败");
 			error = "账号或密码错误,您无权登陆系统";
 			request.getSession().setAttribute("error", error);

@@ -64,7 +64,7 @@ public class Database {
 	/**
 	 * 创建实例
 	 * 
-	 * @param sta
+	 * @param sta 实例对象
 	 * @return 返回一个实例
 	 */
 	public Statement createSta(Statement sta) {
@@ -81,7 +81,7 @@ public class Database {
 	/**
 	 * 关闭实例
 	 * 
-	 * @param sta
+	 * @param sta 实例对象
 	 */
 	public void CloseStatement(Statement sta) {
 		try {

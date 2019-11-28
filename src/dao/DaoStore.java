@@ -54,7 +54,7 @@ public class DaoStore extends Database {
 	/**
 	 * 根据管理员编号获取所有商店的信息
 	 * 
-	 * @param regulatorId
+	 * @param regulatorId 管理员编号
 	 * @return 返回商店信息
 	 */
 	public List<store> GetAllStoreByRegulatorId(String regulatorId) {
@@ -121,7 +121,7 @@ public class DaoStore extends Database {
 	/**
 	 * 通过商店编号获取商店信息
 	 * 
-	 * @param storeId
+	 * @param storeId 门店编号
 	 * @return 返回商店信息
 	 */
 	public store getStoreForId(String storeId) {
@@ -154,7 +154,7 @@ public class DaoStore extends Database {
 	/**
 	 * 通过门店名称获取商店编号
 	 * 
-	 * @param storeName
+	 * @param storeName 门店名称
 	 * @return 返回商店编号
 	 */
 	public String getIdForName(String storeName) {
@@ -181,7 +181,7 @@ public class DaoStore extends Database {
 	/**
 	 * 添加商店信息
 	 * 
-	 * @param addobject
+	 * @param addobject 门店对象
 	 * @return 添加成功返回true,失败返回false
 	 */
 	public boolean insertStore(store addobject) {
@@ -222,7 +222,7 @@ public class DaoStore extends Database {
 	/**
 	 * 删除商店信息
 	 * 
-	 * @param StoreId
+	 * @param StoreId 门店编号
 	 * @return 删除成功返回true,失败返回false
 	 */
 	public boolean deleteStore(String StoreId) {
@@ -247,9 +247,9 @@ public class DaoStore extends Database {
 	}
 
 	/**
-	 * 修改用户信息
+	 * 修改门店信息
 	 * 
-	 * @param updatestore
+	 * @param updatestore 门店对象
 	 * @return 修改成功返回true,失败返回false
 	 */
 	public boolean updateStore(store updatestore) {

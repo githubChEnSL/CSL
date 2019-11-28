@@ -16,7 +16,7 @@ public class TestLog4j {
 	/**
 	 * 测试Logger
 	 * 
-	 * @param args
+	 * @param args 主函数
 	 */
 	public static void main(String[] args) {
 		logger.error("error");
