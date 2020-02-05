@@ -31,7 +31,7 @@
 		<aspectjrt.version>1.8.0</aspectjrt.version>
 		<mybatis-generator.version>1.3.5</mybatis-generator.version>
 		<poi.version>3.16</poi.version>
-		<shiro.version>1.2.4</shiro.version>
+		<shiro.version>1.5.0</shiro.version>
 	</properties>
 
 	<dependencies>
