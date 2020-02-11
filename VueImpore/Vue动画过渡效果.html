@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Vue动画过渡效果</title>
+  <style>
+    /* v-enter : 这个是时间点，是进入之前，元素的其实状态，此时还没有进入 */
+    /* v-leave-to : 这是个时间点，是动画离开之后元素的终止状态  此时元素动画已经结束了*/
+    .div1-enter,
+    .div1-leave-to {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    /* v-enter-active : 入场动画的时间段 */
+    /* v-leave-active : 离场动画的时间段 */
+    .div1-enter-active,
+    .div1-leave-active {
+      transition: all 0.8s ease;
+    }
+    .div2-enter,
+    .div2-leave-to {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    /* v-enter-active : 入场动画的时间段 */
+    /* v-leave-active : 离场动画的时间段 */
+    .div2-enter-active,
+    .div2-leave-active {
+      transition: all 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <button @click="flag=!flag">出场1</button>
+    <transition name="div1">
+      <div v-show="flag">div1</div>
+    </transition>
+    <button @click="flag=!flag">出场2</button>
+    <transition name="div2">
+      <div v-show="flag">div2</div>
+    </transition>
+
+  </div>
+</body>
+<script>
+  var vue = new Vue({
+    el:"#app",
+    data:{
+      flag:false,
+      flag2:false
+    },
+    methods:{
+
+    },
+    filters:{
+
+    }
+  })
+</script>
+</html>

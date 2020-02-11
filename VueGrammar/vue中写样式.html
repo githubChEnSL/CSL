@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    .red{
+      color: red;
+    }
+    .size{
+      font-size: 20px;
+    }
+    .green{
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+  <div id="app2">
+    <div v-text="name">
+
+    </div>
+  </div>
+  <div id="app">
+    <!-- 行内样式，直接调用style的属性，Vue不建议使用,打破mvvm思想，耦合性变高 -->
+    <div style="color:red;">我是1</div>
+    <!-- 类选择器，推荐 (用的较多)-->
+    <div class="red">我是2</div>
+    <!-- 使用class数组，相当于多个类的属性 -->
+    <div :class="['red','size']">我是3</div>
+    <!-- 三元运算符 -->
+    <div :class="flag?'size':'red'">我是4</div>
+    <!-- 使用对象来替代三元运算符，提高代码可读性 -->
+    <div :class="{'red':true}">我是5</div>
+    <!-- 通过绑定data中的数据控制style（用的较多） -->
+    <div :class="clasObj">我是6</div>
+
+    <button @click="changeStyle()">改变样式</button>
+  </div>
+  <script>
+    // app的事件
+  var app=new Vue({
+    el:"#app",
+    data:{
+      flag:true,
+      clasObj:{ 'red':true,'size':true,'green':true}
+    },
+    methods:{
+        changeStyle(){
+          this.clasObj.red=false
+          console.log("点击成功");
+        }
+    }
+  })
+  // app2的事件
+  var app2=new Vue({
+    el:"#app2",
+    data:{
+      name:"hahahha"
+    }
+  })
+  </script>
+</body>
+</html>

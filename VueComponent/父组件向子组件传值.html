@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>父组件向子组件传值</title>
+</head>
+<body>
+  <div id="app">
+   <!-- 父组件向子组件传值 属性名称也需要使用 - -->
+    <my-component :parent-msg="msg"></my-component>
+  </div>
+
+  <template id="temp1">
+    <div>
+      <div>{{title}}</div>
+      <!-- <div>{{msg}}</div> //子组件无法直接使用父组件的data -->
+      <div>{{parentMsg}}</div>
+      <button @click="changeMsg()">修改</button>
+    </div>
+  </template>
+
+  <script>
+    var vue=new Vue({
+      el:'#app',
+      data:{
+        msg:"我是父组件中的msg"
+      },
+      components:{
+        'my-component':{
+          template:'#temp1',
+          data(){
+            return {
+              title:'我是标题'
+            }
+          },
+          methods:{
+            changeMsg(){
+              this.parentMsg='我被修改了'
+            }
+          },
+          //props:中的数据都是通过父组件传递给子组件的。
+          //props中的数据都是只读的（无法赋值）
+        props:{
+          parentMsg: {
+            // 最标准的写法，建议不要使用数组；声明类型和默认值
+            type:String,
+            default:null
+          }
+        }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

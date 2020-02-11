@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>创建组件</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <my-component></my-component>
+    <my-component2></my-component2>
+    <my-component3></my-component3>
+    <my-component4></my-component4>
+  </div>
+<!-- 开发中使用得最多的标签组件方式 -->
+  <template id="temp1">
+    <div>
+      <div>hahahha</div>
+      <p>我是P标签</p>
+      <h1>我是大大的h1</h1>
+    </div>
+  </template>
+
+  <script>
+    var num="嗯哼"
+    //  1.使用vue，extend来创建组件
+    //按照java的开发思想，变量明往往是驼峰规则
+    // vue定义的组件时可以使用驼峰规则，但是，使用组件时如果存在驼峰，应当全部改位小写，并将每个变量词用 - 连接
+    Vue.component('myComponent',Vue.extend({
+      // template就是组件要展示的内容，可以是html标签
+      template:'<h3>这是使用extend创建的组件</h3>'
+    }))
+    // 2.不使用extent创建组件
+    Vue.component('myComponent2',{
+      template:'<h4>不使用extent创建组件</h4>'
+    })
+
+    // 不论用哪一种方式创建组件，组件的template属性只能有一个,并且有且只能有一个根节点
+    // ES6语法，反引号:省去了拼接字符串；在反引号中间如果有变量就用${*}拼接
+    Vue.component('myComponent3',{
+      template:`
+              <div>
+                <h4>不使用extent创建组件</h4>
+                <a id='hh' href="">${num}</a>
+              </div>
+      
+      `
+    })
+    // 3.使用templates
+    Vue.component('myComponent4',{
+      template:'#temp1'
+    })
+
+     var vue=new Vue({
+       el:'#app',
+       data:{
+
+       },
+       methons:{
+
+       }
+     })
+     var dd = document.getElementById('hh')
+      // dd.innerHTML="sd"
+  </script>
+</body>
+</html>

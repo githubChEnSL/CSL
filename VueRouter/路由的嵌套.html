@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>路由的嵌套</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- 路由 -->
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <style>
+    .component-enter,
+    .component-leave-to {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    .component-enter-active,
+    .component-leave-active {
+      transition: all 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <!-- 以往的非前后端分离项目:
+      如果需要根据id获取某条数据，在另一个页面去展示->页面A点击，传递id给后端，后端查出，转发到页面B,B页面展示。
+    前后端分离项目:
+      页面A点击，传递id给页面B，页面B在created中根据id将数据查出，接着，在页面B喂示。
+ -->
+  <div id="app">
+    <router-link to="/login?id=123&name=张三" tag='button'>登录</router-link>
+    <router-link to="/register/123123/李四" tag='button'>注册</router-link>
+    <transition name="component" mode="out-in">
+      <router-view></router-view>
+    </transition>
+  </div>
+
+  <template id="login">
+    <div>
+      <p>我是登录组件</p>
+      <!-- 建议把父级路由也加上 -->
+      <router-link to="/login/loginByPassword" tag='button'>密码登录</router-link>
+      <router-link to="/login/LoginBySms" tag='button'>验证码登录</router-link>
+      <transition name="component" mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </div>
+  </template>
+
+  <script>
+    var login={
+      template:'#login',
+    }
+
+   var register={
+      template:'<p>用户注册</p>',
+    }
+
+    var passwordLogin={
+      template:'<p>密码登录</p>',
+    }
+
+    var smsLogin={
+      template: '<p>验证码登录</p>'
+    }
+
+    //定义路由
+     let routerObj=new VueRouter({
+      routes:[
+        {path:'/',redirect:'login'},
+        { path:'/login',
+          component:login,
+          children:[
+            // children用于指定子路由，通过子路可以实现路由的嵌套
+            // children里的属性和路由是一模一样的，path和component
+            {path:'/',redirect:'loginByPassword'},
+            {path:'loginByPassword',component:passwordLogin},
+            {path:'LoginBySms',component:smsLogin}
+          ]
+        },
+        { path:'/register/:id/:name',
+          component:register
+        }
+      ]
+     })
+
+     var vue=new Vue({
+       el:'#app',
+       data:{
+       },
+      // 绑定路由 
+       router : routerObj
+     })
+  </script>
+</body>
+</html>

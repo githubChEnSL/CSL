@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue基本语法</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    {{msg}}
+    {{name}}
+  </div>
+  <script>
+  var vue=new Vue({
+    el:"#app",
+    data:{
+      msg:"嘿嘿",
+      name:"你是猪吗"
+    }
+  })
+  </script>
+</body>
+</html>

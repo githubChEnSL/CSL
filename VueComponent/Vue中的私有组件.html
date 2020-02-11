@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件中的data和methods</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <my-component></my-component>
+  </div>
+  <!-- 私有组件 -->
+  <div id="app2">
+    <!-- <my-component></my-component> -->
+    <my-component2></my-component2>
+
+  </div>
+<!-- 开发中使用得最多的标签组件方式 -->
+  <template id="temp1">
+    <div>
+      <div>开发中使用得最多的标签组件方式{{count}}</div>
+      <button @click="add()">temp组件</button>
+    </div>
+  </template>
+
+  <template id="temp2">
+    <div>
+      <div>temp2的私有组件{{vv}}</div>
+      <button @click="add1()">temp2组件</button>
+    </div>
+  </template>
+
+  <script>
+    // 全局的component
+    Vue.component('myComponent',{
+      template:'#temp1',
+      // Vue组件中的data必须是一个方法，并且返回一个对象  
+      data() {
+      // 组件的存在是为了复用性，定义了一个组件后可能会多个地方会用到，
+      // 如果按照data:{}的写法，多个组件或复用同一个data，降低组件的复用性，而定义了function则不会。
+          return {
+              count:0
+          }
+        },
+        methods:{
+          add(){
+            this.count++
+          }
+        }
+    })
+     var vue=new Vue({
+       el:'#app',
+       data:{}
+     })
+     var vue2=new Vue({
+       el:"#app2",
+       data:{
+
+       },
+      //  私有的components
+       components:{
+         // 定义私有组件的方式（组件名称建议用''包起来在严格语法情况下会报错，需要改成-表示（而方法变量中是不允许有-的：就会报错））
+         'myComponent2':{
+           template:"#temp2",
+           data(){
+             return {
+               vv:2
+             }
+           },
+           methods:{
+             add1(){
+               this.vv++
+             }
+           }
+         }
+       }
+     })
+  </script>
+</body>
+</html>

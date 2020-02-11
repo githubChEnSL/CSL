@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue常用指令：v-text,v-html，v-clock</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<style>
+  [v-clock]{
+    display: none;
+  }
+</style>
+<body>
+  <div id="app">
+    <div>{{msg}}你好</div>
+    <!-- v-text指令，会覆盖标签中原来的文本内容，而占位符（插值表达式）只会替换自己这个占位符，不会把整个元素清空 -->
+    <div v-text="msg2">你好</div>
+    <!-- v-html可以添加标签进行渲染 -->
+    <div v-html="msg3"></div>
+    <!-- 当直接用占位符时，会出现占位符一闪而过的现象 -->
+    <div v-clock="msg3"></div>
+
+  </div>
+  <script>
+    var vue=new Vue({
+      el:"#app",
+      data:{
+       msg:"陈少磊",
+       msg2:"我是V-TEXT",
+       msg3:"<h1>我是V-HTMl</h1>"
+      }
+    })
+  </script>
+</body>
+</html>

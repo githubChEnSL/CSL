@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="layui/css/layui.css">
+  <title>用户列表</title>
+</head>
+<body>
+  <div id="app">
+    <table class="layui-table">
+      <colgroup>
+        <col width="150">
+        <col width="200">
+        <col>
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Sex</th>
+          <th>comment</th>
+        </tr>
+      </thead>
+      <tr v-for="(item,index) in userlist" :key="item.id">
+        <td v-text="item.id"></td>
+        <td v-text="item.name"></td>
+        <!-- <td>{{item.sex=="1"?'男':'女'}}</td> -->
+
+        <!-- 过滤器的使用 -->
+        <td>{{item.sex | handlerSex}}</td>
+        <td>{{item.comment | handlerComment}}</td>
+      </tr>
+    </table>
+  </div>
+  </body>
+<script>
+  var vue=new Vue({
+    // 控制的ID
+    el:"#app",
+    // 参数
+    data:{
+      id:'',
+      name:'',
+      sex:'',
+      comment:'',
+      userlist:[
+        {id:1,name:"陈一",sex:"3",comment:'地表最帅'},
+        {id:2,name:"陈二",sex:"2",comment:'最帅的人'},
+        {id:3,name:"陈三",sex:"1",comment:'最帅的猪'},
+        {id:4,name:"陈四",sex:"2",comment:'最美的狗'},
+        {id:5,name:"陈五",sex:"1",comment:'最喜欢的人'},
+        {id:6,name:"陈六",sex:"2",comment:'最最的人'}
+
+      ]
+    },
+    // 方法
+    methods:{
+      
+    },
+    // 过滤器
+    filters:{
+      handlerSex(sex){
+        if(sex=="1"){
+          return "男";
+        }else if(sex=="2"){
+          return "女";
+        }else{
+          return "未知";
+        }
+      },
+      handlerComment(comment){
+        return comment.replace(/帅/,'最帅')
+      }
+    }
+  })
+</script>
+</html>

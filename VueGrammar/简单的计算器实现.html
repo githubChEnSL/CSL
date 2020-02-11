@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>简单的计算器实现</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input type="number" v-model="number1">
+    <select v-model="opt">
+      <option value="+">+</option>
+      <option value="-">-</option>
+      <option value="*">*</option>
+      <option value="/">/</option>
+    </select>
+    <input type="number" v-model="number2">
+    <button @click="handleSum">=</button>
+    <input type="number" v-model="sumnumber">
+  </div>
+  <script>
+    var vue=new Vue({
+      el:"#app",
+      data:{
+        number1:0,
+        number2:0,
+        sumnumber:0,
+        opt:"+"
+      },
+      methods:{
+        handleSum(){
+          switch(this.opt){
+            case '+':this.sumnumber=parseInt(this.number1)+parseInt(this.number2)
+            break;
+            case '-':this.sumnumber=parseInt(this.number1)-parseInt(this.number2)
+             break;
+            case '*':this.sumnumber=parseInt(this.number1)*parseInt(this.number2)
+            break;
+            case '/':this.sumnumber=parseInt(this.number1)/parseInt(this.number2)
+            break;
+            default:
+              break;
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

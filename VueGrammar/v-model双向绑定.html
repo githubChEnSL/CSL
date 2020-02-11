@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+
+      <h1>{{msg}}</h1>
+      <!-- v-model:可以实现表单元素和model中数据的双向绑定，其中一方被修改时，另一方会同步展示 -->
+      <input type="text" name="" id="hah" v-model="msg">
+      
+      <button @click="changeMsg">duck不必点我</button>
+  </div>
+  <script>
+    var vue=new Vue({
+      el:"#app",
+      data:{
+        msg:"我是一个按钮",
+        name:"name"
+      },
+      methods:{
+        changeMsg(){
+          this.msg='哎哟我去'
+        }
+      }
+    })
+  </script>
+</body>
+</html>

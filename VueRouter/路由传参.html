@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>路由传参</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- 路由 -->
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <style>
+    .component-enter,
+    .component-leave-to {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    .component-enter-active,
+    .component-leave-active {
+      transition: all 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <!-- 以往的非前后端分离项目:
+      如果需要根据id获取某条数据，在另一个页面去展示->页面A点击，传递id给后端，后端查出，转发到页面B,B页面展示。
+    前后端分离项目:
+      页面A点击，传递id给页面B，页面B在created中根据id将数据查出，接着，在页面B喂示。
+ -->
+  <div id="app">
+    <router-link to="/login?id=123&name=张三" tag='button'>登录</router-link>
+    <router-link to="/register/123123/李四" tag='button'>注册</router-link>
+
+    <transition name="component" mode="out-in">
+      <router-view></router-view>
+    </transition>
+  </div>
+  <script>
+    // 登录组件
+    var login={
+      template:'<p>我是登录组件{{$route.query.id}}{{$route.query.name}}</p>',
+      created(){
+        //this.$router获取路由对象
+        // $route.query只适用于问号？
+        console.log(this.$route.query.id,this.$route.query.name)
+      }
+    }
+    // 注册组件
+   var register={
+      template:'<p>我是注册组件{{$route.params.id}}{{$route.params.name}}</p>',
+      created(){
+        //this.$router获取路由对象
+        // this.$route.params才是参数
+        console.log(this.$route.params)
+      }
+    }
+     let routerObj=new VueRouter({
+      routes:[
+        // 访问根路径时
+        {path:'/',redirect:'login'},
+        { path:'/login',component:login},
+        { path:'/register/:id/:name',component:register}
+      ]
+     })
+
+     var vue=new Vue({
+       el:'#app',
+       data:{
+       },
+      // 绑定路由 
+       router : routerObj
+     })
+  </script>
+</body>
+</html>

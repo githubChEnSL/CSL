@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>for的使用</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+  <div id="app">
+<!-- for的使用 (item,index) in List---index是索引值，item是数据-->
+    <!-- <p v-for="(item,index) in simpleList">索引值:{{index}}---- 数据:{{item}}</p> -->
+    <!-- <p v-for="(obj,i) in objectList">索引值：{{i}} ---- id:{{obj.id}} name:{{obj.name}}</p> -->
+    <!-- <p  v-for="(count,index) in 10">循环{{count}}次，索引值为:{{index}}</p> -->
+    <div id="">
+      <input type="text" v-model="id">
+      <input type="text" v-model="name">
+      <button @click="add">添加</button>
+    </div>
+    <!-- key是在v-for表示唯一标识，在任何中的v-for中建议都加上key->key一定要保证唯一性  -->
+    <p v-for="item in objectList" :key="item.id">
+      <input type="checkbox" name="" id="">{{item.id}} ---- {{item.name}}
+    </p>
+  </div>
+  <script>
+    var vue=new Vue({
+      el:"#app",
+      data:{
+        simpleList:["我","爱","你","V","u","e"],
+        objectList:[
+          {id:1,name:"张三"},
+          {id:2,name:"李四"},
+          {id:3,name:"王五"},
+          {id:4,name:"赵六"}
+          ],
+          id:'',
+          name:''
+      },
+      methods:{
+        add() {
+          // let是局部变量
+          let obj={id:this.id,name:this.name}
+          // push:添加在后边
+          // this.objectList.push(obj)
+          // unshift：添加在前边
+          this.objectList.unshift(obj)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

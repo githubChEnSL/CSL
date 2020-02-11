@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-bind,v-on</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- v-bind:用于绑定属性的指令
+    可以缩写成:
+    可以出现任何一个地方。
+    每个HTMl标签都有一个属性，直接写属性时，传入的是文本
+    加上v-bind时，传入的是vue实例中的data -->
+    <button :title="msg">这是一个按钮</button>
+    <!-- v-on为事件的绑定 
+    可以简写成@-->
+    <button @click="show()">点我</button>
+  </div>
+  <script>
+  var vue=new Vue({
+    el:"#app",
+    data:{
+      msg:"我是一个按钮"
+    },
+    methods:{//用于定义当前Vue实例中可以调用的方法
+      show(){
+        alert('点一下晚一年，装备不要一分钱')
+      }
+    }
+  })
+  </script>
+</body>
+</html>

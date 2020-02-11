@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="layui/css/layui.css">
+  <title>用户列表</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 行内表单 -->
+    <div class="layui-inline">
+      <div class="layui-input-inline" style="width: 100px;">
+        <input type="text" name="title" required lay-ver-ify="required" placeholder="Id" class="layui-input" v-model="id">
+      </div>
+      <div class="layui-input-inline" style="width: 100px;">
+        <input type="text" name="title" required lay-ver-ify="required" placeholder="姓名" class="layui-input" v-model="name">
+      </div>
+      <div class="layui-input-inline" style="width: 100px;">
+        <input type="text" name="title" required lay-ver-ify="required" placeholder="性别" class="layui-input" v-model="sex">
+      </div>
+      <div class="layui-input-inline" style="width: 100px;">
+        <input type="text" name="title" required lay-ver-ify="required" placeholder="备注" class="layui-input" v-model="comment">
+      </div>
+    </div>
+
+    <button type="button" class="layui-btn layui-btn-norma" @click="Add">添加</button>
+    <table class="layui-table">
+      <colgroup>
+        <col width="150">
+        <col width="200">
+        <col>
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Sex</th>
+          <th>Comment</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tr v-for="(item,index) in userlist" :key="item.id">
+        <td v-text="item.id"></td>
+        <td v-text="item.name"></td>
+        <td v-text="item.sex"></td>
+        <td v-html="item.Comment"></td>
+        <td><button type="button" class="layui-btn layui-btn-danger" @click="DeleteById(item.id)">删除</button></td>
+      </tr>
+    </table>
+  </div>
+  </body>
+<script>
+  var vue=new Vue({
+    el:"#app",
+    data:{
+      id:'',
+      name:'',
+      sex:'',
+      comment:'',
+      userlist:[
+        {id:1,name:"陈一",sex:"男",Comment:'地表最帅'},
+        {id:2,name:"陈二",sex:"女",Comment:'最帅的人'},
+        {id:3,name:"陈三",sex:"女",Comment:'最帅的猪'},
+        {id:4,name:"陈四",sex:"女",Comment:'最美的狗'},
+        {id:5,name:"陈五",sex:"男",Comment:'最喜欢的人'},
+        {id:6,name:"陈六",sex:"女",Comment:'最最的人'}
+
+      ]
+    },
+    methods:{
+      //删除方法
+      DeleteById(id){
+        ////////////////////////////////////////////////////////
+        // for(let i=0;i<this.userlist.length;i++){
+        //   let userId=this.userlist[i].id
+        //   if(userId == id){
+        //     this.userlist.splice(i,1)
+        //   }
+        // }
+///////////////////////////////////////////////////////////////
+        // es6语法添加了强大的数组操作
+        // =>:function(item)
+        let index=this.userlist.findIndex(item => {
+          if(item.id === id){
+            return true;
+          }
+        })
+        console.log(index)
+        this.userlist.splice(index,1)
+      },
+      //添加函数
+      Add(){
+        console.log(this.id,this.name,this.sex,this.comment);
+        let user={
+          id:this.id,
+          name:this.name,
+          sex:this.sex,
+          Comment:this.comment
+        }
+        console.log(user)
+        this.userlist.push(user)
+      }
+    }
+  })
+</script>
+</html>

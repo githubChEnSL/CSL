@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>父组件调用子组件的方法</title>
+</head>
+<body>
+  <div id="app">
+    <button @click="getElement">获取元素</button>
+    <button @click="handlerChildFunction">调用子组件的方法</button>
+    <div ref="div1">我是内容</div>
+    <my-component ref="com1"></my-component>
+  </div>
+
+  <template id="temp1">
+    <div> 
+    </div>
+  </template>
+
+  <script>
+    var vue=new Vue({
+      el:'#app',
+      methods:{
+        getElement(){
+          // 1.获取dom元素就用传统的js获取，但是Vue不推荐这种用法
+          // let text = document.getElementById('div1').innerText
+          // 2.获取dom元素，使用ref(reference)。这是Vue提供的方法，建议使用这个
+          let text = this.$refs.div1.innerText
+          console.log(text)
+        },
+        handlerChildFunction(){
+          //父组件调用子组件的方法（直接使用$refs.com1.方法名）
+          this.$refs.com1.childFunction()
+        }
+      },
+      components:{
+        'my-component':{
+          template:'#temp1',
+          methods:{
+            childFunction(){
+              console.log('子组件方法被调用了')
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

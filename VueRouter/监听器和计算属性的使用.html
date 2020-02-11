@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>监听器和计算器属性的使用</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+      <!-- 1.键盘抬起事件 -->
+      <input type="text" v-model="firstName1" @keyup="handlerFullName">+
+      <input type="text" v-model="lastName1" @keyup="handlerFullName">=
+      <input type="text" v-model="fullName1"><br>
+      <!-- 2.监听器 -->
+      <input type="text" v-model="firstName2">+
+      <input type="text" v-model="lastName2">=
+      <input type="text" v-model="fullName2"><br>
+      <!-- 3.计算属性 -->
+      <input type="text" v-model="firstName3">+
+      <input type="text" v-model="lastName3">=
+      <input type="text" v-model="sumName">
+      <button @click="handlerSumName">点击按钮</button><br>
+      <!--  -->
+      <input type="text" v-model="num1">*0.8+
+      <input type="text" v-model="num2">*0.2=
+      <input type="text" v-model="sumNumber">
+  </div>
+  <script>
+  var vue=new Vue({
+    el:"#app",
+    data:{
+      firstName1:'',
+      lastName1:'',
+      fullName1:'',
+
+      firstName2:'',
+      lastName2:'',
+      fullName2:'',
+
+      firstName3:'',
+      lastName3:'',
+      fullName3:'',
+
+      num1:0,
+      num2:0
+    },
+    methods:{
+      // 1.给前两个表单添加键盘抬起事件（旧）
+      handlerFullName(){
+        this.fullName1=this.firstName1+this.lastName1
+      },
+      handlerSumName(){
+        console.log(this.sumName)
+      }
+    },
+    // 2.监听器，可以监听某属性,不需要关注用户的操作
+    watch:{
+        //监听器---->  '要监听的属性':function(newVal,oldVal){}
+        'firstName2':function(newVal,oldVal){
+           this.fullName2=newVal+this.lastName2
+        },
+        'lastName2':function(newVal,oldVal){
+           this.fullName2=this.firstName2+newVal
+        }
+      },
+    // 3.计算属性：可以定义一些属性，这些属性叫做计算属性，计算属性的本质就是一个方法，可将其做为属性使用（按照methods写，按照data用）
+    // 注意:
+    // ①.计算属性的时候一定不要添加括号，它就是一个属性，用法和data一样；
+    // ②.只要计算属性中使用到的所有data中的属性发生了变化，就会立即去重新计算属性值
+    // ③.计算属性的结果会被缓存起来，方便下次直接使用，如果计算属性中用到的所有的data都没有发生变化，就不会对计算属性进行重新求值
+    computed:{
+      'sumName':function(){
+        console.log("计算属性执行了")
+        //计算属性的get和set方法
+        return this.firstName3+this.lastName3
+       
+      },
+      sumNumber:{
+        // 获取计算属性值，调用get方法
+        get(){
+          return parseInt(this.num1)*0.8 + parseInt(this.num2)*0.2
+        },
+        // 当修改计算属性时调用set方法
+        set(val){
+          this.num1=parseInt(val)*0.8
+          this.num2=parseInt(val)*0.2
+        }
+      }
+     }
+  })
+  </script>
+</body>
+</html>

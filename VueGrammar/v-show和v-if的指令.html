@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-show和v-if指令</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <!-- 
+    结论:v-show和v-if都可以动态地控制元素地显示和隐藏
+    区别:v-show->display:none;
+         v-if:重新对元素进行删除和创建，有较高地切换性能消耗(不会主动渲染，降低浏览器地压力)
+         v-show：有较高地渲染性能消耗（会主动渲染）
+
+         -----如果涉及到元素地频繁切换最好不要使用v-if；如果元素可能永远也不会显示出来给用户看到，最好用v-if
+   -->
+  <div id="app">
+    <div v-show="content1">我是内容1</div v-show="">
+    <button @click="handlerContent1">控制内容1</button>
+    <div v-if="content2">我是内容2</div>
+    <button @click="handlerContent2">控制内容2</button>
+  </div>
+  <script>
+    var vue=new Vue({
+      el:"#app",
+      data:{
+        content1:true,
+        content2:true
+      },
+      methods:{
+        handlerContent1(){
+          this.content1=!this.content1;
+        },
+        handlerContent2(){
+          this.content2=!this.content2;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

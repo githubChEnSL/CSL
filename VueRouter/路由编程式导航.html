@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>监听路由</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- 路由 -->
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <style>
+    .component-enter,
+    .component-leave-to {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    .component-enter-active,
+    .component-leave-active {
+      transition: all 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <router-link to="/login" tag='button'>登录</router-link>
+    <router-link to="/register" tag='button'>注册</router-link>
+
+    <button @click="toLogin">跳转至登录</button>
+
+    <transition name="component" mode="out-in">
+      <router-view></router-view>
+    </transition>
+  </div>
+  <script>
+    var login={
+      template:'<p>我是登录组件</p>',
+      created(){
+        console.log(this.$route)
+      }
+    }
+   var register={
+      template:'<p>我是注册组件</p>',
+      created(){
+        console.log(this.$route)
+      }
+    }
+
+     let routerObj=new VueRouter({
+      routes:[
+        {path:'/',redirect:'login'},
+        { path:'/login',component:login},
+        { path:'/register',component:register}
+      ]
+     })
+
+     var vue=new Vue({
+       el:'#app',
+       methods:{
+        toLogin(){
+          //编程式导航，通过代码去操作路由
+          this.$router.push({
+            path:'/login',
+            query:{id:"212312",name:"嘿嘿"}
+          })
+        }
+       },
+       data:{
+       },
+       router : routerObj,
+       watch:{
+         '$route.fullPath':function(newVal,oldVal){
+          console.log('用户路由跳转url为：',newVal)
+         }
+       }
+     })
+  </script>
+</body>
+</html>
