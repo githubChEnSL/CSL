@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mvueproject.mvueproject.mapper.UserMapper">
+    <!--  通用查询映射结果  -->
+    <resultMap id="BaseResultMap" type="com.mvueproject.mvueproject.pojo.User">
+        <id property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userSex" column="user_sex"/>
+        <result property="userAge" column="user_age"/>
+        <result property="userBirthday" column="user_birthday"/>
+        <result property="userDepartment" column="user_department"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="version" column="version"/>
+        <result property="deleted" column="deleted"/>
+<!--        连表查询-->
+        <association property="department" resultMap="com.mvueproject.mvueproject.mapper.DepartmentMapper.BaseResultMap"/>
+    </resultMap>
+<!--    保存用户信息（添加用户）-->
+    <insert id="save">
+        insert into user (
+        user_id,user_name, user_age,user_sex,
+        user_birthday, user_department, created_time
+        )
+        values
+        (
+        #{userId},#{userName},#{userAge},#{userSex},
+        #{userBirthday},#{userDepartment},#{createdTime}
+        )
+    </insert>
+<!--    通过ID伪删除（修改状态码）-->
+    <update id="deleteById">
+        update user set
+        deleted = 1
+        where user_id = #{userId}
+    </update>
+<!--    通过Id修改信息-->
+    <update id="updateById" parameterType="com.mvueproject.mvueproject.pojo.User">
+        update user set
+        version = version + 1
+        <if test="userName!=null and userName!=''">
+        ,user_name = #{userName}
+        </if>
+        <if test="userAge!=null and userAge!=''">
+        ,user_age = #{userAge}
+        </if>
+        <if test="userBirthday!=null and userBirthday!=''">
+        ,user_birthday = #{userBirthday}
+        </if>
+        <if test="userDepartment!=null and userDepartment!=''">
+        ,user_department = #{userDepartment}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        ,update_time = #{updateTime}
+        </if>
+        where user_id = #{userId}
+        and version = #{version}
+    </update>
+<!--    获取所有的用户-->
+    <select id="userList" resultMap="BaseResultMap">
+        select user_id,user_name,user_sex,user_age,user_birthday,user_department,created_time,created_by,update_time,update_by,version,deleted
+        from user
+    </select>
+<!--    通过ID获取用户-->
+    <select id="getById" resultMap="BaseResultMap">
+        select user_id,user_name,user_sex,user_age,user_birthday,user_department,depart_name,version
+        from user
+        left join department on user_department = depart_id
+        where user_id = #{UserId} and deleted = 0
+    </select>
+<!-- 分页查询信息 -->
+    <select id="getListByPage" parameterType="com.mvueproject.mvueproject.util.Page" resultMap="BaseResultMap">
+        select
+            user_id,user_name,user_sex,user_age,user_birthday,user_department,depart_name,created_time,update_time
+        from user
+        left join department on user_department = depart_id
+        where deleted = 0
+        <if test="params.userName!=null and params.userName!=''">
+            and user_name like concat('%',#{params.userName},'%')
+        </if>
+        <if test="params.userBirthdayStart!=null and params.userBirthdayStart!=''">
+            and user_birthday between #{params.userBirthdayStart} and #{params.userBirthdayEnd}
+        </if>
+        <if test="params.userDepartment!=null and params.userDepartment!=''">
+            and user_department = #{params.userDepartment}
+        </if>
+        <if test="params.userSex!=null and params.userSex!=''">
+            and user_sex = #{params.userSex}
+        </if>
+        <if test="params.userCreatedStart!=null and params.userCreatedStart!=''">
+            and created_time between #{params.userCreatedStart} and #{params.userCreatedEnd}
+        </if>
+        <if test="sortColumn!=null and sortColumn!=''">
+            order by ${sortColumn} ${sortMethod}
+        </if>
+        limit #{index},#{pageSize}
+    </select>
+<!--    查询未删除总数-->
+    <select id="getCountByPage" parameterType="com.mvueproject.mvueproject.util.Page" resultType="java.lang.Integer">
+        select
+        count(*)
+        from user
+        where deleted = 0
+    </select>
+<!--    查询所有的总数-->
+    <select id="getCount" resultType="java.lang.Integer">
+        select
+        count(*)
+        from user
+    </select>
+</mapper>
