@@ -6,8 +6,7 @@
         <el-submenu index="2">
           <template slot="title">用户管理</template>
           <el-menu-item index="2-1" :route="'/userList'">用户列表</el-menu-item>
-          <el-menu-item index="2-2">添加用户</el-menu-item>
-          <el-menu-item index="2-3">修改用户</el-menu-item>
+          <el-menu-item index="2-2" :route="'/userAdd'">添加用户</el-menu-item>
         </el-submenu>
       </el-menu>
     </div>

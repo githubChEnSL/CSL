@@ -93,7 +93,31 @@
           <span>{{scope.row.updateTime | handlerNullTime}}</span>
         </template>
       </el-table-column>
+      <!-- 操作 -->
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="primary"
+            icon="el-icon-edit"
+            circle
+            @click="toUpdate(scope.row.userId)"
+          ></el-button>
+          <el-button
+            size="mini"
+            icon="el-icon-delete"
+            type="danger"
+            circle
+            @click="toDelete(scope.row.userId)"
+          ></el-button>
+        </template>
+      </el-table-column>
     </el-table>
+    <!-- 修改会话框 -->
+    <el-dialog title="修改用户" :visible.sync="dialogTableVisible">
+      
+    </el-dialog>
+    <!-- 删除会话框 -->
     <!-- 表格模块结束 -->
     <!-- 分页模块 -->
     <div class="page-component">
@@ -113,6 +137,7 @@
 <script>
 import userApi from "../../api/user.js";
 import departmentApi from "../../api/department.js";
+import user from "../../api/user.js";
 export default {
   data() {
     return {
@@ -129,7 +154,11 @@ export default {
       },
       createdTime: null,
       birthdayTime: null,
-      departmentList: []
+      departmentList: [],
+      // 会话框属性
+      dialogTableVisible: false,
+      dialogFormVisible: false,
+      user: {}
     };
   },
   methods: {
@@ -175,11 +204,29 @@ export default {
         this.departmentList = res.data;
       });
     },
-    sortChange(column,prop,order){
+    sortChange(column, prop, order) {
       // console.log(column,prop,order)
-      this.page.sortColumn = column.prop
-      this.page.sortMethod = column.order
-      this.getUserList()
+      this.page.sortColumn = column.prop;
+      this.page.sortMethod = column.order;
+      this.getUserList();
+    },
+    // 会话框
+    toUpdate(userId) {
+      userApi.getbyId(userId).then(res => {
+        this.user = res.data;
+        console.log(this.user);
+        this.dialogTableVisible = true;
+      });
+    },
+    toDelete(userId) {
+      console.log(userId);
+    },
+    // 操作
+    updateUser() {
+      userApi.update(this.user).then(res => {
+        this.dialogTableVisible = false;
+        this.getUserList();
+      });
     }
   },
   filters: {
