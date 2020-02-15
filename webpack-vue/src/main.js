@@ -59,10 +59,47 @@ import { Grid, GridItem} from 'vant'
 Vue.use(Grid).use(GridItem)
 
 
+/**
+ * Vuex是一个专门为vue应用程序开发的状态管理（数据管理），模式。它采用了集中式存储管理应用的状态，并以相应的规则保证状态一种可预测的方式发生变化
+ * VUEX就是配套的公用数据管理工具，它可以把一些共享的数据，保存到Vuex中，方便整个程序中的任何组件直接获取或者修改我们的公共数据
+ * Vuex就是为了保存组件之间共享数据而诞生的，如果组件之间有要共享的数据，可以挂载载vuex中，而不必父组件之间传值了
+ * 如果组件的数据不需要共享，此时应该放到的每个组件的data中，不要放到vuex中
+ * 只有需要共享的数据，才有权力放到xuex中，组件中私有的数据，只需要放到data中即可
+ * 
+ * data:存放组件私有的数据
+ * props:存放父组件的数据
+ * vuex:存放共享数据
+ * 使用场景:存放全局变量，存放登陆信息，存放三方结果的一些固定参数
+ * （页面页面数据会丢失：解决->使用vuex-persistedstate）
+ */
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
+  // 使用方式：this.$store.state.count(不建议)
+const store = new Vuex.Store({
+  // 相当于data
+  state:{
+    count:0
+  },
+   // 推荐使用：获取vuex里的数据 this.$store.getters.getCount
+  getters:{
+    getCount(){
+      return store.state.count
+    }
+  },
+  // 推荐使用:操作vuex里的数据 this.$store.commit('方法名,参数1，参数2')
+  mutations:{
+    setCount(state,val){
+      state.count=val
+    }
+  }
+})
+
 var vue = new Vue({
   el : '#app',
   // 渲染页面   render:createElements =>createElements(login)
   render :c => c(app),
-  router
+  router,
+  store
 })
 

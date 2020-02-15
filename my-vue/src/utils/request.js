@@ -22,10 +22,10 @@ service.interceptors.response.use(
     const res=response.data
     if(res.code === 200){
       // code为200表示接口是通的，直接返回res
-      Message({
-        type:'success',
-        message:res.msg
-      })
+      // Message({
+      //   type:'success',
+      //   message:res.msg
+      // })
       return res
     }else{
       // else:非200的情况表示接口异常

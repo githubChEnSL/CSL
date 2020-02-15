@@ -108,16 +108,15 @@
             icon="el-icon-delete"
             type="danger"
             circle
-            @click="toDelete(scope.row.userId)"
+            @click="deleteById(scope.row.userId)"
           ></el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 修改会话框 -->
-    <el-dialog title="修改用户" :visible.sync="dialogTableVisible">
-      
+    <el-dialog title="修改用户" :visible.sync="dialogFormVisible">
+      <user-edit :user="user" @closeDialog="closeDialog" @getUserList="getUserList"></user-edit>
     </el-dialog>
-    <!-- 删除会话框 -->
     <!-- 表格模块结束 -->
     <!-- 分页模块 -->
     <div class="page-component">
@@ -133,11 +132,12 @@
       <!-- 分页模块结束 -->
     </div>
   </div>
+
 </template>
 <script>
-import userApi from "../../api/user.js";
-import departmentApi from "../../api/department.js";
-import user from "../../api/user.js";
+import userApi from "@/api/user";
+// import departmentApi from "../../api/department.js";
+import UserEdit from "./user-edit";
 export default {
   data() {
     return {
@@ -154,12 +154,14 @@ export default {
       },
       createdTime: null,
       birthdayTime: null,
-      departmentList: [],
-      // 会话框属性
-      dialogTableVisible: false,
-      dialogFormVisible: false,
+      // departmentList: [],
+      departmentList:this.$store.getters.getDepartmentList,
+      dialogFormVisible:false,
       user: {}
     };
+  },
+  components: {
+    UserEdit
   },
   methods: {
     getUserList() {
@@ -199,11 +201,11 @@ export default {
       this.page.pageNumber = val;
       this.getUserList();
     },
-    getDepartmentList() {
-      departmentApi.departmentList().then(res => {
-        this.departmentList = res.data;
-      });
-    },
+    // getDepartmentList() {
+    //   departmentApi.departmentList().then(res => {
+    //     this.departmentList = res.data;
+    //   });
+    // },
     sortChange(column, prop, order) {
       // console.log(column,prop,order)
       this.page.sortColumn = column.prop;
@@ -214,19 +216,30 @@ export default {
     toUpdate(userId) {
       userApi.getbyId(userId).then(res => {
         this.user = res.data;
-        console.log(this.user);
-        this.dialogTableVisible = true;
+        this.dialogFormVisible = true;
       });
     },
-    toDelete(userId) {
-      console.log(userId);
+    deleteById(userId) {
+      this.$confirm("是否删除?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          userApi.deleteById(userId).then(res=>{
+            this.getUserList()
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     },
-    // 操作
-    updateUser() {
-      userApi.update(this.user).then(res => {
-        this.dialogTableVisible = false;
-        this.getUserList();
-      });
+    // 关闭会话框
+    closeDialog() {
+      this.dialogFormVisible = false;
     }
   },
   filters: {
@@ -239,7 +252,7 @@ export default {
     }
   },
   created() {
-    this.getDepartmentList();
+    // this.getDepartmentList();
     this.getUserList();
   }
 };

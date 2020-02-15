@@ -26,6 +26,6 @@ module.exports = {
       '/foo':{
         target: '<other_url>'
       }
-    }//配置多个代理
+    }
   }
 }

@@ -17,7 +17,7 @@ export default {
   },
   deleteById(id){
     return request({
-      url: `${group_name}/update/${id}`,
+      url: `${group_name}/delete/${id}`,
       method : 'delete',
     })
   },

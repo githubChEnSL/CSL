@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>我是登录组件,在.vue文件中  {{msg}}</h1>
+    <h1>我是登录组件,在.vue文件中  {{msg}} </h1>
   </div>
 </template>
 

@@ -10,15 +10,15 @@ const routes = [
   },
    {
     path: '/departmentList',
-    component: () => import('../views/department/department-list.vue')
+    component: () => import('@/views/department/department-list')
   },
   {
     path: '/userList',
-    component: () => import('../views/user/user-list.vue')
+    component: () => import('@/views/user/user-list')
   },
   {
     path:'/userAdd',
-    component:()=>import('../views/user/user-add.vue')
+    component:()=>import('@/views/user/user-add')
   }
 ]
 

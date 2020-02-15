@@ -16,11 +16,22 @@
   </div>
 </template> 
 <script>
+import departmentApi from '@/api/department'
 export default {
   data() {
     return {
       activeIndex: "1"
     };
+  },
+  methods:{
+    getDepartmentList(){
+      departmentApi.departmentList().then(res=>{
+        this.$store.commit('SET_DEPARTMENT_LIST',res.data)
+      })
+    }
+  },
+  created(){
+    this.getDepartmentList()
   }
 };
 </script>

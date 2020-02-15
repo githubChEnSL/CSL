@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-import departmentApi from '../../api/department.js'
+import departmentApi from '@/api/department'
 export default {
   data() {
     return {

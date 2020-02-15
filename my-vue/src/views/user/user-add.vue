@@ -34,28 +34,27 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="saveUser">保存</el-button>
-          <el-button>取消</el-button>
         </el-form-item>
       </el-form>
     </div>
   </div>
 </template>
 <script>
-import userApi from "../../api/user.js";
-import departmentApi from "../../api/department.js";
+import userApi from "@/api/user";
+// import departmentApi from "../../api/department.js";
 export default {
   data() {
     return {
-      departmentList: [],
+      departmentList: this.$store.getters.getDepartmentList,
       user: {}
     };
   },
   methods: {
-    getDepartmentList() {
-      departmentApi.departmentList().then(res => {
-        this.departmentList = res.data
-      });
-    },
+    // getDepartmentList() {
+    //   departmentApi.departmentList().then(res => {
+    //     this.departmentList = res.data
+    //   });
+    // },
     saveUser() {
       userApi.save(this.user).then(res=>{
         // this.$message.success(res.msg)
@@ -64,7 +63,7 @@ export default {
     }
   },
   created() {
-    this.getDepartmentList();
+    // this.getDepartmentList();
   }
 };
 </script>
