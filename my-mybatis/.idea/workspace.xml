@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="GROUP_BY_SEVERITY" value="true" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cde668ff-ced0-4f71-98f7-20781e507b04" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Tag Library Descriptor" />
+        <option value="Class" />
+        <option value="AnnotationType" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1Xwc4zvcOIU2AvghTOLDP5CAgV4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
+  </component>
+  <component name="RecentsManager">
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.mybatis.sqlsession.proxy" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\隔山海\Desktop\Mybatis\my-mybatis\src" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MybatisTest.TestMyMyBatis" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="my-mybatis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com" />
+      <option name="MAIN_CLASS_NAME" value="com.MybatisTest" />
+      <option name="METHOD_NAME" value="TestMyMyBatis" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.MybatisTest.TestMyMyBatis" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cde668ff-ced0-4f71-98f7-20781e507b04" name="Default Changelist" comment="" />
+      <created>1581960409413</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581960409413</updated>
+      <workItem from="1581960410861" duration="637000" />
+      <workItem from="1581995579555" duration="23294000" />
+      <workItem from="1582040731960" duration="4395000" />
+      <workItem from="1582095356205" duration="14226000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="574" y="134" key="#com.intellij.ide.util.MemberChooser" timestamp="1582205509659">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="574" y="134" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1582205509659" />
+    <state x="388" y="343" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1582035187306">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="388" y="343" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.834@0.0.1536.834" timestamp="1582035187306" />
+    <state x="548" y="276" width="439" height="291" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1581960649871">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="548" y="276" width="439" height="291" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1581960649871" />
+    <state x="499" y="164" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1581960688144">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="499" y="164" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.834@0.0.1536.834" timestamp="1581960688144" />
+    <state width="1537" height="264" key="GridCell.Tab.0.bottom" timestamp="1582210497078">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1537" height="264" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1582210497078" />
+    <state width="1537" height="264" key="GridCell.Tab.0.center" timestamp="1582210497078">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1537" height="264" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1582210497078" />
+    <state width="1537" height="264" key="GridCell.Tab.0.left" timestamp="1582210497077">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1537" height="264" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1582210497077" />
+    <state width="1537" height="264" key="GridCell.Tab.0.right" timestamp="1582210497078">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1537" height="264" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1582210497078" />
+    <state width="1537" height="264" key="GridCell.Tab.1.bottom" timestamp="1582210497078">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1537" height="264" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1582210497078" />
+    <state width="1537" height="264" key="GridCell.Tab.1.center" timestamp="1582210497078">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1537" height="264" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1582210497078" />
+    <state width="1537" height="264" key="GridCell.Tab.1.left" timestamp="1582210497078">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1537" height="264" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1582210497078" />
+    <state width="1537" height="264" key="GridCell.Tab.1.right" timestamp="1582210497078">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1537" height="264" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1582210497078" />
+    <state x="349" y="152" key="IDE.errors.dialog" timestamp="1582040567847">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="349" y="152" key="IDE.errors.dialog/0.0.1536.834@0.0.1536.834" timestamp="1582040567847" />
+    <state x="270" y="60" key="SettingsEditor" timestamp="1582040488607">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="270" y="60" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1582040488607" />
+    <state x="447" y="150" width="642" height="534" key="find.popup" timestamp="1582201575339">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="447" y="150" width="642" height="534" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1582201575339" />
+    <state x="425" y="189" key="run.anything.popup" timestamp="1582004581525">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="425" y="189" key="run.anything.popup/0.0.1536.834@0.0.1536.834" timestamp="1582004581525" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1582204150301">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1582204150301" />
+  </component>
+</project>

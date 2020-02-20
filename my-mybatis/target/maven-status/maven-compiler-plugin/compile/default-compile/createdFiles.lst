@@ -1,0 +1,15 @@
+com\mybatis\io\Resources.class
+com\dao\impl\UserDaoImpl.class
+com\mybatis\sqlsession\SqlSession.class
+com\mybatis\sqlsession\SqlSessionFactoryBuilder.class
+com\mybatis\utils\XmlConfigBuilder.class
+com\mybatis\sqlsession\defaults\DefaultSqlSessionFactory.class
+com\mybatis\sqlsession\proxy\MapperProxy.class
+com\mybatis\utils\DataSourceUtil.class
+com\mybatis\sqlsession\defaults\DefaultSqlSession.class
+com\mybatis\utils\Executor.class
+com\domain\User.class
+com\mybatis\cfg\Mapper.class
+com\mybatis\sqlsession\SqlSessionFactory.class
+com\dao\IUserDao.class
+com\mybatis\cfg\Configuration.class
