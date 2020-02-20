@@ -4,7 +4,21 @@
     <option name="GROUP_BY_SEVERITY" value="true" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cde668ff-ced0-4f71-98f7-20781e507b04" name="Default Changelist" comment="" />
+    <list default="true" id="cde668ff-ced0-4f71-98f7-20781e507b04" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../crud-mybatis/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../crud-mybatis/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../crud-mybatis/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../crud-mybatis/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../crud-mybatis/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../crud-mybatis/src/main/java/com/dao/IUserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../crud-mybatis/src/main/java/com/domain/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../crud-mybatis/src/main/resources/SqlMapConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../crud-mybatis/src/main/resources/com/dao/IUserDao.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../crud-mybatis/src/main/resources/log4j.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../crud-mybatis/src/test/java/com/test/MybatisTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +34,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
@@ -29,6 +46,7 @@
     </option>
   </component>
   <component name="ProjectId" id="1Xwc4zvcOIU2AvghTOLDP5CAgV4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -107,6 +125,8 @@
       <workItem from="1581995579555" duration="23294000" />
       <workItem from="1582040731960" duration="4395000" />
       <workItem from="1582095356205" duration="14226000" />
+      <workItem from="1582211992866" duration="296000" />
+      <workItem from="1582216110247" duration="215000" />
     </task>
     <servers />
   </component>
