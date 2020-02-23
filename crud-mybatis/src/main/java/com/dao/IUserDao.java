@@ -4,6 +4,7 @@ package com.dao;/**
  * date on 2020/2/20.
  */
 
+import com.domain.QueryVo;
 import com.domain.User;
 
 import java.util.List;
@@ -41,4 +42,31 @@ public interface IUserDao {
      * @return 返回1表示执行成功，0表示执行失败
      */
     int deleteUserById(Integer Id);
+
+    /**
+     * 通过用户Id获取用户信息
+     * @param Id 用户编号
+     * @return 用户信息
+     */
+    User findUserById(Integer Id);
+
+    /**
+     * 根据用户名称模糊查询用户信息
+     * @param username 用户名称
+     * @return 返回用户信息
+     */
+    List<User> findByName(String username);
+
+    /**
+     * 查询总用户数
+     * @return 返回总用户数
+     */
+    int findTotal();
+
+    /**
+     * 条件查询
+     * @param vo vo
+     * @return 用户信息
+     */
+    List<User> findUserByVo(QueryVo vo);
 }

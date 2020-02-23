@@ -5,6 +5,7 @@ package com.test;/**
  */
 
 import com.dao.IUserDao;
+import com.domain.QueryVo;
 import com.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -77,23 +78,29 @@ public class MybatisTest {
     @Test
     public void saveUser() throws Exception{
         User user = new User();
-        user.setUserName("陈少磊");
+        user.setUserName("陈？");
         try{
+            System.err.println("保存操作之前"+user);
             userDao.saveUser(user);
             //        提交事务
             session.commit();
             System.out.println("添加成功！");
+            System.err.println("保存操作之后"+user);
         }catch (Exception e){
             e.printStackTrace();
         }
         findAll();
     }
 
+    /**
+     * 测试更新用户
+     * @throws Exception
+     */
     @Test
     public void updateUser() throws Exception{
         User user = new User();
-        user.setUserId(1);
-        user.setUserName("陈少磊");
+        user.setUserId(106);
+        user.setUserName("杨杨");
         try {
             int result=userDao.updateUserById(user);
             session.commit();
@@ -126,6 +133,65 @@ public class MybatisTest {
         }catch (Exception e){
             System.out.println("删除异常！");
             findAll();
+        }
+    }
+
+    /**
+     * 测试根据编号获取用户
+     * @throws Exception 异常
+     */
+    @Test
+    public void findUserById() throws Exception{
+        try {
+         User user = userDao.findUserById(106);
+         System.out.println(user);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 测试用户名称模糊查询
+     * @throws Exception 异常
+     */
+    @Test
+    public void findByName() throws Exception{
+        try {
+            List<User> userList = userDao.findByName("%杨%");
+            for (User user : userList){
+                System.out.println(user);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 测试查询总用户数
+     * @throws Exception
+     */
+    @Test
+    public void findTotal() throws Exception{
+        System.out.println(userDao.findTotal());
+    }
+
+    /**
+     * 测试是哦用QueryVo作为查询条件
+     * @throws Exception 异常
+     */
+    @Test
+    public void findByVo() throws Exception{
+        User newuser=new User();
+        newuser.setUserName("%杨%");
+        QueryVo vo=new QueryVo();
+        vo.setUser(newuser);
+        try {
+            List<User> userList = userDao.findUserByVo(vo);
+            for (User user : userList){
+                System.out.println(user);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -3,6 +3,26 @@
         PUBLIC "-/ /mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+<!--    配置properties  可以在标签内部配置连接数据库的信息，也可以通过属性引用外部配置文件信息-->
+<!--    resource属性(常用)：用于指定配置文件的位置，是按照类路径的写法来写的，并且存在于类路径下-->
+<!--    url属性：是按照Url的写法来写地址-->
+<!--    1.标签内部配置-->
+<!--    2.引用外部配置文件信息-->
+    <properties resource="jdbcConfig.properties">
+        <!--        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
+        <!--        <property name="url" value="jdbc:mysql://localhost:3306/eesy?serverTimezone=UTC"/>-->
+        <!--        <property name="username" value="root"/>-->
+        <!--        <property name="password" value="123"/>-->
+    </properties>
+
+<!--    配置别名，只能配置类中的别名-->
+    <typeAliases>
+<!-- 使用typeAlias:用于配置别名。type属性指定的是实体类的全限定类名。alias属性指定的是别名。当指定了别名就不再区分大小写-->
+<!--   <typeAlias type="com.domain.User" alias="user"></typeAlias>-->
+<!--        用于指定要配置别名的包，当指定后该包下的实体类都会注册别名，并且类名就是别名，不再区分大小写-->
+        <package name="com.domain"/>
+    </typeAliases>
+
 <!--    配置环境-->
     <environments default="mysql">
 <!--        配置mysql的环境-->
@@ -11,15 +31,17 @@
             <transactionManager type="JDBC"></transactionManager>
 <!--            配置连接池-->
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/eesy?serverTimezone=UTC"/>
-                <property name="username" value="root"/>
-                <property name="password" value="123"/>
+                <property name="driver" value="${jdbc.driver}"></property>
+                <property name="url" value="${jdbc.url}"></property>
+                <property name="username" value="${jdbc.username}"></property>
+                <property name="password" value="${jdbc.password}"></property>
             </dataSource>
         </environment>
     </environments>
 <!--    配置映射文件的位置-->
     <mappers>
-        <mapper resource="com/dao/IUserDao.xml"/>
+<!--        <mapper resource="com/dao/IUserDao.xml"/>-->
+<!--        package:用于指定Dao接口所在的包,当指定完之后就不需要写mapper以及resource或class了-->
+        <package name="com.dao"/>
     </mappers>
 </configuration>

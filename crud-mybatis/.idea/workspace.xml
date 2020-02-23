@@ -2,19 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b01b70b3-4eac-4185-adf3-b76ecb8b83f7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dao/IUserDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/domain/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/SqlMapConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/dao/IUserDao.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/test/MybatisTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../my-mybatis/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../my-mybatis/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../my-mybatis/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/domain/QueryVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/jdbcConfig.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dao/IUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dao/IUserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/SqlMapConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/SqlMapConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/dao/IUserDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/dao/IUserDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/test/MybatisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/test/MybatisTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SqlMapConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SqlMapConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/dao/IUserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dao/IUserDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/dao/IUserDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dao/IUserDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/test/MybatisTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/test/MybatisTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,33 +67,7 @@
       <recent name="com" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MybatisTest.deleteUser">
-    <configuration name="My.jj" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="crud-mybatis" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="My" />
-      <option name="METHOD_NAME" value="jj" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MybatisTest.deleteUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="crud-mybatis" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.test" />
-      <option name="MAIN_CLASS_NAME" value="com.test.MybatisTest" />
-      <option name="METHOD_NAME" value="deleteUser" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.MybatisTest.findAll">
     <configuration name="MybatisTest.findAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="crud-mybatis" />
       <extension name="coverage">
@@ -107,6 +79,54 @@
       <option name="PACKAGE_NAME" value="com.test" />
       <option name="MAIN_CLASS_NAME" value="com.test.MybatisTest" />
       <option name="METHOD_NAME" value="findAll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MybatisTest.findByName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="crud-mybatis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.test" />
+      <option name="MAIN_CLASS_NAME" value="com.test.MybatisTest" />
+      <option name="METHOD_NAME" value="findByName" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MybatisTest.findByVo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="crud-mybatis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.test" />
+      <option name="MAIN_CLASS_NAME" value="com.test.MybatisTest" />
+      <option name="METHOD_NAME" value="findByVo" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MybatisTest.findTotal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="crud-mybatis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.test" />
+      <option name="MAIN_CLASS_NAME" value="com.test.MybatisTest" />
+      <option name="METHOD_NAME" value="findTotal" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -128,29 +148,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MybatisTest.updateUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="crud-mybatis" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.test" />
-      <option name="MAIN_CLASS_NAME" value="com.test.MybatisTest" />
-      <option name="METHOD_NAME" value="updateUser" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MybatisTest.deleteUser" />
-        <item itemvalue="JUnit.MybatisTest.saveUser" />
         <item itemvalue="JUnit.MybatisTest.findAll" />
-        <item itemvalue="JUnit.MybatisTest.updateUser" />
-        <item itemvalue="JUnit.My.jj" />
+        <item itemvalue="JUnit.MybatisTest.findByVo" />
+        <item itemvalue="JUnit.MybatisTest.findByName" />
+        <item itemvalue="JUnit.MybatisTest.saveUser" />
+        <item itemvalue="JUnit.MybatisTest.findTotal" />
       </list>
     </recent_temporary>
   </component>
@@ -177,6 +181,8 @@
       <option name="presentableId" value="Default" />
       <updated>1582212412315</updated>
       <workItem from="1582212415520" duration="8153000" />
+      <workItem from="1582274391258" duration="3165000" />
+      <workItem from="1582431733523" duration="7756000" />
     </task>
     <servers />
   </component>
@@ -188,10 +194,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="361" y="76" key="#Project_Structure/0.0.1536.834@0.0.1536.834" timestamp="1582212721073" />
-    <state x="574" y="102" key="#com.intellij.ide.util.MemberChooser" timestamp="1582216370671">
+    <state x="574" y="102" key="#com.intellij.ide.util.MemberChooser" timestamp="1582432115920">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="102" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1582216370671" />
+    <state x="574" y="102" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1582432115920" />
     <state x="378" y="343" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1582214555610">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -204,22 +210,26 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="358" y="13" key="CommitChangelistDialog2/0.0.1536.834@0.0.1536.834" timestamp="1582212450729" />
-    <state width="1537" height="226" key="GridCell.Tab.0.bottom" timestamp="1582220584095">
+    <state x="544" y="159" key="FileChooserDialogImpl" timestamp="1582444500365">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1537" height="226" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1582220584095" />
-    <state width="1537" height="226" key="GridCell.Tab.0.center" timestamp="1582220584095">
+    <state x="544" y="159" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1582444500365" />
+    <state width="1537" height="226" key="GridCell.Tab.0.bottom" timestamp="1582448262881">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1537" height="226" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1582220584095" />
-    <state width="1537" height="226" key="GridCell.Tab.0.left" timestamp="1582220584095">
+    <state width="1537" height="226" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1582448262881" />
+    <state width="1537" height="226" key="GridCell.Tab.0.center" timestamp="1582448262881">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1537" height="226" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1582220584095" />
-    <state width="1537" height="226" key="GridCell.Tab.0.right" timestamp="1582220584095">
+    <state width="1537" height="226" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1582448262881" />
+    <state width="1537" height="226" key="GridCell.Tab.0.left" timestamp="1582448262880">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1537" height="226" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1582220584095" />
+    <state width="1537" height="226" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1582448262880" />
+    <state width="1537" height="226" key="GridCell.Tab.0.right" timestamp="1582448262881">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1537" height="226" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1582448262881" />
     <state x="270" y="60" key="SettingsEditor" timestamp="1582213091105">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -228,9 +238,9 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1536.834@0.0.1536.834" timestamp="1582215518652" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1582219562996">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1582433518543">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1582219562996" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1582433518543" />
   </component>
 </project>
