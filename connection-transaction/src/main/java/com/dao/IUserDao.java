@@ -69,4 +69,20 @@ public interface IUserDao {
      * @return 用户信息
      */
     List<User> findUserByVo(QueryVo vo);
+
+//    动态Sql语句的练习
+
+    /**
+     * 如果有条件就通过传入的参数条件查询
+     * @param user 用户体条件
+     * @return 用户信息
+     */
+    List<User> findUserByCondition(User user);
+
+    /**
+     * 根据QueryVo中提供的ID集合，查询用户信息
+     * @param vo
+     * @return
+     */
+    List<User> findUserInIds(QueryVo vo);
 }

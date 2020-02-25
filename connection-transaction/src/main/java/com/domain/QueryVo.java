@@ -4,6 +4,8 @@ package com.domain;/**
  * date on 2020/2/21.
  */
 
+import java.util.List;
+
 /**
  * @ClassName QueryVo
  * @Description TODO
@@ -14,6 +16,16 @@ package com.domain;/**
 public class QueryVo {
 
     private User user;
+
+    private List<Integer> ids;
+
+    public List<Integer> getIds() {
+        return ids;
+    }
+
+    public void setIds(List<Integer> ids) {
+        this.ids = ids;
+    }
 
     public User getUser() {
         return user;

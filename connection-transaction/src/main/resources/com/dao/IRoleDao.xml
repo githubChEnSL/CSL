@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--练习多对多  连表操作-->
+<mapper namespace="com.dao.IRoleDao">
+    <resultMap id="roleMap" type="Role">
+        <id property="roleId" column="role_id"></id>
+        <result property="roleName" column="role_name"></result>
+        <result property="roleDesc" column="role_desc"></result>
+        <collection property="users" ofType="User">
+            <id property="userId" column="userid"></id>
+            <result property="userName" column="username"></result>
+        </collection>
+    </resultMap>
+<!--    查询所有角色信息-->
+   <select id="findAll" resultMap="roleMap">
+        select u.*,r.role_id,r.role_name,r.role_desc from role r
+        left outer join user_role ur on r.role_id = ur.rid
+        left outer join user u on u.userid = ur.uid
+   </select>
+</mapper>

@@ -15,8 +15,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.annotation.Resource;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -192,6 +192,40 @@ public class MybatisTest {
             }
         }catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 如果有条件就通过传入的参数条件查询
+     * @throws Exception 异常
+     */
+    @Test
+    public void findUserByConditionTest() throws Exception{
+        User user =new User();
+//        user.setUserName("%"+"杨"+"%");
+//          user.setUserName("杨");
+//        user.setUserId(106);
+        List<User> list=userDao.findUserByCondition(user);
+        for (User user1: list) {
+            System.out.println(user1);
+        }
+    }
+
+    /**
+     * 根据QueryVo中提供的ID集合，查询用户信息
+     * @throws Exception 异常
+     */
+    @Test
+    public void findUserInIds() throws Exception{
+        QueryVo vo=new QueryVo();
+        List<Integer> list=new ArrayList<Integer>();
+        list.add(106);
+        list.add(107);
+        vo.setIds(list);
+
+        List<User> users=userDao.findUserInIds(vo);
+        for (User u: users) {
+            System.out.println(u);
         }
     }
 }
