@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.IAccountDao">
+<!--    定义封装Account和User的resultMap-->
+    <resultMap id="accountUserMap" type="Account">
+        <id property="id" column="id"></id>
+        <result property="userid" column="userid"></result>
+        <result property="money" column="money"></result>
+<!--        一对一的关系映射，配置封装user的内容-->
+<!--        select:查询用户的唯一标识-->
+<!--        column:用户根据ID查询时，所需要参数的值-->
+        <association property="user" javaType="User" column="userId" select="com.dao.IUserDao.findUserById"></association>
+    </resultMap>
+
+<!--    获取所有账单-->
+    <sql id="findAllAcount">
+        select * from account
+    </sql>
+<!--    获取所有账单信息-->
+<!--    <select id="findAll" resultType="Account">-->
+<!--        <include refid="findAll"></include>-->
+<!--    </select>-->
+    <select id="findAll" resultType="Account">
+         select * from user u left outer join account a on u.userid = a.userid
+    </select>
+<!--    2.查询所有账单信息，同时带有用户名：方法2-->
+    <select id="findAllAccounts" resultMap="accountUserMap">
+        select a.*,u.username from account a,user u where u.userid=a.userid
+    </select>
+
+<!--    根据用户ID查询账单-->
+    <select id="findAccountByUserId" parameterType="java.lang.Integer" resultType="Account">
+        select * from account where userid=#{userid}
+    </select>
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.IUserDao">
+<!--    开启user支持二级缓存-->
+    <cache/>
+
+<!--    配置 查询结果的列名和实体类的属性名对应关系-->
+    <resultMap id="userMap" type="com.domain.User">
+<!--        主键字段的对应-->
+        <id property="userId" column="userid"></id>
+<!--        非主键-->
+        <result property="userName" column="username"></result>
+<!--        配置user对象中的account集合的映射-->
+        <collection property="accounts" javaType="Account" column="userid" select="com.dao.IAccountDao.findAccountByUserId"></collection>
+    </resultMap>
+<!--    抽取重复的Sql语句-->
+    <sql id="defaultUser">
+        select * from user
+    </sql>
+<!--    查询所有-->
+    <select id="findAll" resultType="User">
+        <include refid="defaultUser"></include>
+    </select>
+<!--    保存用户-->
+    <insert id="saveUser" parameterType="com.domain.User">
+-- 配置插入操作后，获取插入数据的id
+        <selectKey keyProperty="userId" keyColumn="userid" resultType="java.lang.Integer" order="AFTER">
+            select  last_insert_id();
+        </selectKey>
+        insert into user(username) value(#{userName});
+    </insert>
+<!--    修改用户-->
+    <update id="updateUserById" parameterType="com.domain.User">
+        update user
+        set username=#{userName}
+        where userid=#{userId}
+    </update>
+<!-- 删除用户-->
+    <delete id="deleteUserById" parameterType="java.lang.Integer">
+        delete
+        from user
+        where userid = #{userId}
+    </delete>
+<!--   根据编号获取用户信息 -->
+    <select id="findUserById" parameterType="java.lang.Integer" resultType="com.domain.User" useCache="true">
+        select * from user where userid=#{userId}
+    </select>
+<!--    根据名称模糊查询用户信息-->
+    <select id="findByName" parameterType="java.lang.String" resultType="com.domain.User">
+        select * from user where username like #{userName}
+    </select>
+<!--    查询总用户数-->
+    <select id="findTotal" resultType="java.lang.Integer">
+        select count(userid) from user
+    </select>
+
+<!--&lt;!&ndash;    根据QueryVo的条件查询&ndash;&gt;-->
+<!--    <select id="findUserByVo" parameterType="com.domain.QueryVo" resultType="com.domain.User">-->
+<!--        select * from user where username like #{user.userName}-->
+<!--    </select>-->
+
+<!--    如果有条件就通过条件查询-->
+    <select id="findUserByCondition" parameterType="com.domain.User" resultType="com.domain.User">
+        <include refid="defaultUser"></include>
+        <where>
+            <if test="userName != null and userName !='' ">
+                 and username like #{userName}
+             </if>
+            <if test="userId != null and userId !='' ">
+                and userId = #{userId}
+            </if>
+        </where>
+    </select>
+
+<!--   根据QueryVo中提供的ID集合，查询用户信息-->
+<!--    <select id="findUserInIds" parameterType="com.domain.QueryVo" resultMap="userMap">-->
+<!--        select * from user-->
+<!--        <where>-->
+<!--            <if test="ids != null and ids.size()>0">-->
+<!--                <foreach collection="ids" open="and userid in (" close=")" item="userId" separator=",">-->
+<!--                    #{userId}-->
+<!--                </foreach>-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+</mapper>
