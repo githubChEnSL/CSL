@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.IUserDao">
+<!--    配置 查询结果的列名和实体类的属性名对应关系-->
+    <resultMap id="userMap1" type="com.domain.User">
+<!--        主键字段的对应-->
+        <id property="userId" column="userid"></id>
+<!--        非主键-->
+        <result property="userName" column="username"></result>
+    </resultMap>
+<!--    抽取重复的Sql语句-->
+    <sql id="defaultUser">
+        select * from user
+    </sql>
+<!--    查询所有-->
+<!--    <select id="findAll" resultType="com.domain.User">-->
+<!--        <include refid="defaultUser"></include>-->
+<!--    </select>-->
+</mapper>
