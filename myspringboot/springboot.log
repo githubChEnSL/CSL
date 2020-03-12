@@ -1,0 +1,22 @@
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === c.myspringboot.mypringboot.MySpringbootApplication === Starting MySpringbootApplication on ChEn with PID 17908 (started by 隔山海 in C:\Users\隔山海\Desktop\SpringBoot\myspringboot)
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === c.myspringboot.mypringboot.MySpringbootApplication === Running with Spring Boot v2.2.5.RELEASE, Spring v5.2.4.RELEASE
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === c.myspringboot.mypringboot.MySpringbootApplication === No active profile set, falling back to default profiles: default
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === o.s.boot.web.embedded.tomcat.TomcatWebServer === Tomcat initialized with port(s): 8088 (http)
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === org.apache.catalina.core.StandardService === Starting service [Tomcat]
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === org.apache.catalina.core.StandardEngine === Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === o.a.c.c.C.[Tomcat].[localhost].[/boot02] === Initializing Spring embedded WebApplicationContext
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === org.springframework.web.context.ContextLoader === Root WebApplicationContext: initialization completed in 1051 ms
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === o.s.scheduling.concurrent.ThreadPoolTaskExecutor === Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === o.s.boot.web.embedded.tomcat.TomcatWebServer === Tomcat started on port(s): 8088 (http) with context path '/boot02'
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === c.myspringboot.mypringboot.MySpringbootApplication === Started MySpringbootApplication in 1.963 seconds (JVM running for 3.06)
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === c.m.mypringboot.MySpringbootApplicationTests === Starting MySpringbootApplicationTests on ChEn with PID 21824 (started by 隔山海 in C:\Users\隔山海\Desktop\SpringBoot\myspringboot)
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === c.m.mypringboot.MySpringbootApplicationTests === Running with Spring Boot v2.2.5.RELEASE, Spring v5.2.4.RELEASE
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === c.m.mypringboot.MySpringbootApplicationTests === No active profile set, falling back to default profiles: default
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === o.s.scheduling.concurrent.ThreadPoolTaskExecutor === Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === c.m.mypringboot.MySpringbootApplicationTests === Started MySpringbootApplicationTests in 3.001 seconds (JVM running for 4.619)
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === c.m.mypringboot.MySpringbootApplicationTests === 这是trace....
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === c.m.mypringboot.MySpringbootApplicationTests === 这是debug
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === c.m.mypringboot.MySpringbootApplicationTests === 这个是Info
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === c.m.mypringboot.MySpringbootApplicationTests === 这个是warn
+2020-03-13 === [ main] === %PARSER_ERROR[eve1] === c.m.mypringboot.MySpringbootApplicationTests === 这个是error
+2020-03-13 === [ SpringContextShutdownHook] === %PARSER_ERROR[eve1] === o.s.scheduling.concurrent.ThreadPoolTaskExecutor === Shutting down ExecutorService 'applicationTaskExecutor'
